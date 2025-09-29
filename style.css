@@ -1,0 +1,597 @@
+:root {
+    --light-bg: #ffffff;
+    --text-dark: #000000;
+    --text-light: #ffffff;
+    --text-muted: #555555;
+    --a4-width: 1200px;
+    --a4-ratio: calc(297 / 210);
+    --primary-blue: #007bff; /* Culoare de accent principală */
+    --selected-bg-blue: #f0f7ff; /* Fundal pentru elementele selectate */
+}
+
+/* --- ON-SCREEN STYLES --- */
+html {
+    scroll-snap-type: none;
+    scrollbar-width: none; /* Firefox */
+}
+html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+body {
+    margin: 0;
+    padding: 0 0; /* Vertical padding for on-screen viewing */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 5vh; /* Spacing between pages */
+    font-weight: 300;
+    box-sizing: border-box;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+#config-panel {
+    display: none;
+}
+
+.page {
+    width: 100vw;
+    aspect-ratio: var(--a4-ratio);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--light-bg);
+    box-shadow: none; /* Removed drop shadow */
+    border: 1px solid #eee; /* Added a light border to distinguish pages */
+}
+
+body > .page:last-of-type {
+    margin-bottom: 0;
+}
+.page-hidden {
+    display: none !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 500;
+    color: var(--text-dark);
+}
+p {
+    font-weight: 300;
+}
+
+/* --- INTERACTIVE ELEMENTS --- */
+.interactive-select-wrapper {
+    display: inline-block;
+    position: relative;
+}
+.interactive-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: 1.4;
+    text-transform: inherit;
+    color: inherit;
+    cursor: pointer;
+    border-bottom: 2px dashed var(--primary-blue);
+}
+.interactive-select:focus {
+    outline: none;
+}
+
+/* --- Section 1: Title Page --- */
+#section-1 .content-area {
+    flex-grow: 1;
+    background-size: cover;
+    background-position: center;
+}
+#section-1 .header-bar {
+    background-color: #111;
+    color: var(--text-light);
+    padding: 1.5% 3.5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    font-size: 1vw;
+    max-font-size: 12px;
+}
+#section-1 .header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+#section-1 .footer-bar {
+    display: flex;
+    width: 100%;
+    flex-shrink: 0;
+}
+#section-1 .footer-left {
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    flex-basis: 45%;
+    padding: 3.5%;
+    box-sizing: border-box;
+}
+#section-1 .footer-left #finish-text {
+    font-size: 1.8vw;
+    max-font-size: 22px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+#section-1 .footer-left #model-name-select {
+    font-size: 4.5vw;
+    max-font-size: 60px;
+    text-transform: uppercase;
+}
+#section-1 .footer-right {
+    background-color: #111;
+    color: var(--text-light);
+    flex-basis: 55%;
+    padding: 3.5%;
+    box-sizing: border-box;
+}
+#section-1 .footer-right h2 {
+    font-size: 2.5vw;
+    max-font-size: 32px;
+    margin: 0 0 1em 0;
+    border-bottom: 1px solid var(--text-muted);
+    padding-bottom: 1em;
+    color: var(--text-light) !important;
+}
+#section-1 .footer-right h2 span {
+    color: var(--text-light) !important;
+    font-weight: 500;
+}
+#section-1 .footer-right p {
+    font-size: 1.2vw;
+    max-font-size: 14px;
+    line-height: 1.6;
+}
+
+/* --- Section: Passive Info --- */
+#section-passive-info {
+    flex-direction: row;
+}
+#passive-info-image {
+    flex-basis: 45%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #fff;
+}
+#passive-info-text {
+    flex-basis: 55%;
+    padding: 4vw;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--text-muted);
+}
+#passive-info-text blockquote {
+    font-size: 1.1vw;
+    max-font-size: 16px;
+    line-height: 1.6;
+    border-left: 3px solid var(--primary-blue);
+    padding-left: 1.5em;
+    margin: 0 0 2em 0;
+    font-style: italic;
+}
+#passive-info-text blockquote cite {
+    display: block;
+    margin-top: 1em;
+    font-style: normal;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+#passive-stats {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9vw;
+    max-font-size: 14px;
+}
+#passive-stats li {
+    padding: 0.7em 0;
+    border-bottom: 1px solid #eee;
+}
+#passive-stats li:last-child {
+    border-bottom: none;
+}
+#passive-stats li span,
+#passive-stats li strong {
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+/* --- Section 2 & 3: Details Text --- */
+#section-2-text,
+#section-3-text {
+    box-sizing: border-box;
+    padding: 4vw;
+    display: flex;
+    flex-direction: column;
+}
+.flex-wrapper {
+    display: flex;
+    gap: 3vw;
+    width: 100%;
+    flex-grow: 1;
+}
+.column {
+    flex: 1;
+}
+#section-2-text h2,
+#section-3-text h2,
+#section-upgrades h2 {
+    font-size: 1.6vw;
+    max-font-size: 22px;
+    margin-bottom: 1.5em;
+}
+#section-2-text h3,
+#section-3-text h3,
+#section-upgrades h3 {
+    font-size: 0.8vw;
+    max-font-size: 13px;
+    color: var(--text-dark);
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+#section-2-text .column > h3:first-child,
+#section-3-text .column > h3:first-child,
+#section-upgrades .column > h3:first-child {
+    margin-top: 0;
+}
+#section-2-text h4,
+#section-3-text h4 {
+    font-size: 0.8vw;
+    max-font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 0.5em;
+    margin-top: 1.5em;
+}
+#section-2-text p,
+#section-3-text p,
+#section-upgrades p {
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 0.8em;
+    margin-top: 0;
+    font-size: 0.8vw;
+    max-font-size: 13px;
+}
+
+/* --- Section 2 & 3: Images --- */
+#section-2-image,
+#section-3-image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* --- Section: Floorplan --- */
+#section-floorplan {
+    flex-direction: row;
+}
+#floorplan-details {
+    flex-basis: 35%;
+    padding: 4vw;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+#floorplan-details::-webkit-scrollbar {
+    display: none;
+} /* Hide scrollbar for this specific element */
+#floorplan-image-container {
+    flex-basis: 65%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 2vw;
+    box-sizing: border-box;
+}
+#floorplan-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+#floorplan-details h2 {
+    font-size: 2.2vw;
+    max-font-size: 28px;
+    margin-top: 0;
+    margin-bottom: 1.5em;
+}
+#floorplan-details h3 {
+    font-size: 1.5vw;
+    max-font-size: 20px;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+}
+#floorplan-details .interactive-select {
+    font-size: 2.2vw;
+    max-font-size: 28px;
+}
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9vw;
+    max-font-size: 14px;
+    padding: 0.5vw 0;
+    border-bottom: 1px solid #eee;
+    font-weight: 300;
+}
+.detail-item span:first-child {
+    color: var(--text-muted);
+}
+
+/* --- Section: Upgrades --- */
+#section-upgrades {
+    padding: 4vw;
+    box-sizing: border-box;
+}
+.upgrade-item {
+    margin-bottom: 1.5em;
+    padding: 1.2em;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    transition: all 0.2s ease-in-out;
+}
+.upgrade-item.clickable {
+    cursor: pointer;
+}
+.upgrade-item.clickable:hover {
+    border-color: var(--primary-blue);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.upgrade-item.selected {
+    border-color: var(--primary-blue);
+    background: var(--selected-bg-blue);
+}
+.upgrade-item.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    border-color: #dee2e6;
+}
+.upgrade-item h4 {
+    font-size: 0.9vw;
+    max-font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin: 0 0 0.5em 0;
+}
+.upgrade-item p {
+    margin: 0;
+}
+#section-upgrades p strong {
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.option-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+.option-button {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.8vw;
+    max-font-size: 13px;
+}
+.option-button:hover {
+    border-color: var(--primary-blue);
+}
+.option-button.selected {
+    background-color: var(--primary-blue);
+    color: var(--text-light);
+    border-color: var(--primary-blue);
+    font-weight: 500;
+}
+
+/* --- Section: Summary --- */
+#section-summary {
+    padding: 4vw;
+    box-sizing: border-box;
+    height: auto;
+    aspect-ratio: auto;
+    min-height: calc(var(--a4-width) / var(--a4-ratio));
+}
+.summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.summary-title-block h2 {
+    font-size: 1.2vw;
+    max-font-size: 16px;
+    margin: 0;
+}
+.summary-title-block h1 {
+    font-size: 6vw;
+    max-font-size: 72px;
+    margin: 0.1em 0;
+    text-transform: uppercase;
+}
+.summary-title-block h3 {
+    font-size: 2vw;
+    max-font-size: 24px;
+    font-weight: 300;
+    margin: 0;
+    text-transform: capitalize;
+}
+.summary-logos {
+    text-align: right;
+}
+.summary-logos img {
+    width: 15vw;
+    max-width: 200px;
+    margin-bottom: 15px;
+}
+.summary-body {
+    text-align: left;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.summary-body p {
+    margin: 5px 0;
+    font-size: 1.2vw;
+    max-font-size: 16px;
+}
+.summary-total {
+    font-size: 3.5vw;
+    max-font-size: 42px;
+    margin: 0.5em 0;
+    font-weight: 500;
+}
+#summary-inclusions {
+    margin: 1.5em 0;
+}
+#inclusion-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 1.5em 0;
+}
+#inclusion-list li {
+    font-size: 1vw;
+    max-font-size: 15px;
+    font-weight: 300;
+    margin-bottom: 0.5em;
+}
+.mentiuni-section {
+    font-size: 0.7vw;
+    max-font-size: 10px;
+    color: var(--text-muted);
+}
+.mentiuni-section strong {
+    font-weight: 500;
+}
+.mentiuni-editable {
+    border: 1px dashed var(--text-muted);
+    min-height: 2em;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    font-weight: 300;
+}
+.summary-fine-print {
+    font-size: 0.7vw;
+    max-font-size: 10px;
+    color: var(--text-muted);
+    border-top: 1px solid #eee;
+    padding-top: 1.5em;
+    margin-top: 1.5em;
+}
+.summary-footer {
+    margin-top: auto;
+}
+.summary-footer .website-link {
+    text-align: center;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding: 2em 0;
+    font-size: 0.9vw;
+    max-font-size: 14px;
+}
+
+[contenteditable="true"] {
+    outline: none;
+    padding-bottom: 3px;
+    line-height: 1.4;
+    border-radius: 2px;
+    background: linear-gradient(
+        to right,
+        var(--primary-blue) 70%,
+        transparent 30%
+    );
+    background-position: 0 bottom;
+    background-repeat: repeat-x;
+    background-size: 8px 1.5px;
+}
+
+@media print {
+    @page {
+        size: A4 landscape;
+        margin: 0;
+    }
+
+    html,
+    body {
+        padding: 0;
+        margin: 0;
+        background: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        overflow: hidden !important;
+    }
+
+    body {
+        padding: 0;
+        gap: 0;
+    }
+
+    .page {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        overflow: hidden !important;
+        page-break-after: always;
+        transform: none;
+        aspect-ratio: unset;
+        border: none;
+    }
+
+    .page:not(.page-hidden):last-of-type {
+        page-break-after: avoid;
+    }
+
+    #floorplan-details {
+        overflow-y: hidden;
+    }
+
+    .page.page-hidden {
+        display: none !important;
+    }
+
+    .interactive-select {
+        border: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+    .upgrade-item {
+        border-color: #dee2e6 !important;
+        box-shadow: none !important;
+    }
+    .upgrade-item.selected {
+        background-color: #f8f9fa;
+    }
+}
