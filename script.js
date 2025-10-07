@@ -96,7 +96,76 @@ document.addEventListener("DOMContentLoaded", () => {
       "Baie 1": "Baie 1",
       "Baie 2": "Baie 2",
       Hol: "Hol",
+
+      // NEW KEYS FOR SECTION 2
+      s2_modular: "MODULAR",
+      s2_structure: "STRUCTURĂ",
+      s2_modularStructure_title: "Structura MODULAR",
+      s2_modularStructure_desc:
+        "Combină rezistența mecanică remarcabilă cu proprietăți de ultra-izolare ce elimină complet punțile termice. Certificată de Institutul de Case Pasive din Darmstadt, Germania și de EPD International. U ≈ 0,11 W/m²K, U-wert.",
+      s2_c24Frame_title: "Cadru din lemn C24",
+      s2_c24Frame_desc:
+        "Lemn C24 cu certificare FSC/PEFC; rezistență foarte mare la sarcina structurală.",
+      s2_woodInsulation_title: "Izolație din fibră de lemn ultra-eficientă",
+      s2_woodInsulation_desc:
+        "Izolație pentru pereți, acoperiș și podea; fibră de lemn ultra-eficientă STEICO λ ≈ 0,036 W/m·K; certificată CE.",
+      s2_osb_title: "OSB 3 ECO, Germania",
+      s2_osb_desc:
+        "Panou structural fără formaldehidă și VOC, aprobat de Institutul de Case Pasive din Darmstadt, Germania; certificat CE.",
+      s2_dwd_title: "Placă DWD, Austria",
+      s2_dwd_desc:
+        "Permeabilă la vapori (permite pereților să „respire” menținându-i etanși la aer din exterior; unidirecțional); certificată CE.",
+      s2_smartMembrane_title: "Membrană Smart (folie)",
+      s2_smartMembrane_desc:
+        "Creează un interior etanș la aer, permițând difuzia vaporilor spre exterior. Certificată de Institutul de Case Pasive din Darmstadt, Germania; certificată CE.",
+      s2_exteriorFinishes: "FINISAJE EXTERIOARE COMPLETE",
+      s2_facadeYakisugi_title: "Fațadă ventilată Yakisugi",
+      s2_facadeYakisugi_desc:
+        "Mentenanță estimată o dată la 10 ani; Cea mai bună rezistență la foc din clasa de lemn natural; impermeabilă.",
+      s2_facadeLunawood_title: "Fațadă Lunawood",
+      s2_facadeLunawood_desc:
+        "O fațadă din pin nordic, tratată termic fără chimicale, pentru o durabilitate excepțională, stabilitate și o nuanță caldă de caramel.",
+      s2_ventRoof_title: "Acoperiș ventilat",
+      s2_ventRoof_desc:
+        "Spațiul ventilat crește performanța termică și durata de viață a acoperișului.",
+      s2_epdmMembrane_title: "Membrană EPDM",
+      s2_epdmMembrane_desc:
+        "Impermeabilă; garanție de 30 de ani de la producător.",
+      s2_rainwater_title: "Sistem de colectare a apei pluviale",
+      s2_rainwater_desc:
+        "Jgheab ascuns integrat în fațadă; pregătit pentru colectare.",
+      s2_windowsDoors: "FERESTRE ȘI UȘI EXTERIOARE",
+      s2_genesisFrame_title: "Cadru din aluminiu Genesis 90",
+      s2_genesisFrame_desc:
+        "Profil rigid, ultra-eficient; Uwi ≤ 0,85 W/m²K; certificat de Institutul de Case Pasive din Darmstadt, Germania; certificat CE.",
+      s2_tripleGlazing_title: "Geam tripan laminat",
+      s2_tripleGlazing_desc:
+        "U = 0,50 W/m²K; sticlă securizată laminată; certificat de Institutul de Case Pasive din Darmstadt, Germania; certificat CE.",
+      s2_kitchen: "BUCĂTĂRIE",
+      s2_kitchenInstall_title: "Instalații pentru bucătărie",
+      s2_kitchenInstall_desc:
+        "Complet pregătite pe poziție pentru mobilierul tău.",
+      s2_installations: "INSTALAȚII",
+      s2_electrical_title: "Instalații electrice",
+      s2_electrical_desc:
+        "Cabluri și copex complet instalate, conforme cu toate reglementările locale aplicabile (ex. CE / Standardul I7/2011 / IEC 60364).",
+      s2_plumbing_title: "Instalații sanitare",
+      s2_plumbing_desc:
+        "Țevi și fitinguri conforme cu toate reglementările locale necesare. PPR / PEX.",
+      s2_certs: "CERTIFICĂRI & GARANȚII",
+      s2_passivhaus_title: "Certificare Passivhaus",
+      s2_passivhaus_desc:
+        "Emitent: Institutul de Case Pasive din Darmstadt, Germania.",
+      s2_epd_title: "Certificare EPD",
+      s2_epd_desc: "Emitent: EPD, Europa.",
+      s2_ce_title: "Marcaj CE",
+      s2_ce_desc:
+        "Toate componentele relevante respectă Regulamentul UE privind produsele pentru construcții.",
+      s2_warranty_title: "Garanție standard UE",
+      s2_warranty_desc:
+        "24 de luni pentru uz privat; 12 luni pentru uz comercial.",
     },
+
     en: {
       pageTitle: "Generated Offer - Biobuilds",
       validity: "VALIDITY: 30 DAYS",
@@ -191,19 +260,85 @@ document.addEventListener("DOMContentLoaded", () => {
       "Baie 1": "Bathroom 1",
       "Baie 2": "Bathroom 2",
       Hol: "Hallway",
+
+      // NEW KEYS FOR SECTION 2
+      s2_modular: "MODULAR",
+      s2_structure: "STRUCTURE",
+      s2_modularStructure_title: "MODULAR Structure",
+      s2_modularStructure_desc:
+        "Combines remarkable mechanical strength with ultra-insulating properties that completely eliminate thermal bridges. Certified by the Passive House Institute in Darmstadt, Germany, and by EPD International. U ≈ 0.11 W/m²K, U-wert.",
+      s2_c24Frame_title: "C24 Timber Frame",
+      s2_c24Frame_desc:
+        "C24 wood with FSC/PEFC certification; very high resistance to structural load.",
+      s2_woodInsulation_title: "Ultra-efficient Wood Fiber",
+      s2_woodInsulation_desc:
+        "Insulation for walls, roof, and floor; ultra-efficient STEICO wood fiber λ ≈ 0.036 W/m·K; CE certified.",
+      s2_osb_title: "OSB 3 ECO, Germany",
+      s2_osb_desc:
+        "Formaldehyde and VOC-free structural panel, approved by the Passive House Institute in Darmstadt, Germany; CE certified.",
+      s2_dwd_title: "DWD Board, Austria",
+      s2_dwd_desc:
+        'Vapor permeable (allows walls to "breathe" while keeping them airtight from the outside; unidirectional); CE certified.',
+      s2_smartMembrane_title: "Smart Membrane (foil)",
+      s2_smartMembrane_desc:
+        "Creates an airtight interior, allowing vapor diffusion to the outside. Certified by the Passive House Institute in Darmstadt, Germany; CE certified.",
+      s2_exteriorFinishes: "COMPLETE EXTERIOR FINISHES",
+      s2_facadeYakisugi_title: "Yakisugi Ventilated Facade",
+      s2_facadeYakisugi_desc:
+        "Maintenance estimated once every 10 years; Best fire resistance in its class of natural wood; waterproof.",
+      s2_facadeLunawood_title: "Lunawood Facade",
+      s2_facadeLunawood_desc:
+        "A Nordic pine facade, heat-treated without chemicals for exceptional durability, stability, and a warm caramel hue.",
+      s2_ventRoof_title: "Ventilated Roof",
+      s2_ventRoof_desc:
+        "The ventilated space increases thermal performance and the lifespan of the roof.",
+      s2_epdmMembrane_title: "EPDM Membrane",
+      s2_epdmMembrane_desc: "Waterproof; 30-year manufacturer warranty.",
+      s2_rainwater_title: "Rainwater Collection System",
+      s2_rainwater_desc:
+        "Hidden gutter integrated into the facade; ready for collection.",
+      s2_windowsDoors: "WINDOWS AND EXTERIOR DOORS",
+      s2_genesisFrame_title: "Genesis 90 Aluminum Frame",
+      s2_genesisFrame_desc:
+        "Rigid, ultra-efficient profile; Uwi ≤ 0.85 W/m²K; certified by the Passive House Institute in Darmstadt, Germany; CE certified.",
+      s2_tripleGlazing_title: "Laminated Triple Glazing",
+      s2_tripleGlazing_desc:
+        "U = 0.50 W/m²K; laminated safety glass; certified by the Passive House Institute in Darmstadt, Germany; CE certified.",
+      s2_kitchen: "KITCHEN",
+      s2_kitchenInstall_title: "Kitchen Installations",
+      s2_kitchenInstall_desc: "Fully prepared in position for your furniture.",
+      s2_installations: "INSTALLATIONS",
+      s2_electrical_title: "Electrical Installations",
+      s2_electrical_desc:
+        "Cables and conduits fully installed, compliant with all applicable local regulations (e.g., CE / I7/2011 Standard / IEC 60364).",
+      s2_plumbing_title: "Plumbing Installations",
+      s2_plumbing_desc:
+        "Pipes and fittings compliant with all necessary local regulations. PPR / PEX.",
+      s2_certs: "CERTIFICATIONS & WARRANTIES",
+      s2_passivhaus_title: "Passivhaus Certification",
+      s2_passivhaus_desc:
+        "Issuer: Passive House Institute, Darmstadt, Germany.",
+      s2_epd_title: "EPD Certification",
+      s2_epd_desc: "Issuer: EPD, Europe.",
+      s2_ce_title: "CE Marking",
+      s2_ce_desc:
+        "All relevant components comply with the EU Construction Products Regulation.",
+      s2_warranty_title: "Standard EU Warranty",
+      s2_warranty_desc:
+        "24 months for private use; 12 months for commercial use.",
     },
     de: {
-      pageTitle: "Angebot Erstellt - Biobuilds",
+      pageTitle: "Angebot Erstellt – Biobuilds",
       validity: "GÜLTIGKEIT: 30 TAGE",
       offerLabel: "ANGEBOT",
-      offerFor: "Angebot-",
+      offerFor: "Angebot–",
       clientNamePlaceholder: "Kunde Name",
       footerSlogan:
         "Modular ist modern, innovativ und nachhaltig. Wählen Sie den idealen Raum für sich, gebaut nach den höchsten Baustandards der Welt.",
       passiveHouseQuote:
         "„Die Module werden mit Stahlschrauben fixiert, anschließend mit einer wasserdichten Membran abgedeckt und mit langlebigem Holz verkleidet. Das System wird im BioBuilds-Werk vorgefertigt und ermöglicht schnelle Lieferung und kurze Montagezeiten. Das Bausystem ist vom Passivhaus Institut zertifiziert, weist außergewöhnliche U-Werte auf und eliminiert Wärmebrücken.“",
       energyConsumptionLabel: "Energieverbrauch:",
-      energyConsumptionValue: ">90 % reduziert",
+      energyConsumptionValue: "90 % reduziert",
       co2Saved: "Tonnen CO₂ eingespart",
       co2Lifespan: "über die Lebensdauer des Gebäudes",
       organicWood:
@@ -225,7 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
       bathroomFinishes: "BADEZIMMERAUSSTATTUNG",
       stoneCompositePanelsTitle: "Steinverbundplatten",
       stoneCompositePanelsDesc:
-        "Premium-Vollformatplatten von 2,5 × 1,2 m; 100 % wasserdicht; sehr hohe Langlebigkeit.",
+        "Premium-Vollformatplatten 2,5 × 1,2 m; 100 % wasserdicht; sehr hohe Langlebigkeit.",
       italianSinkTitle: "Italienisches Design-Waschbecken",
       italianSinkDesc:
         "Premium-Verbundstoff; ultra-dünn, modern und langlebig.",
@@ -244,7 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Philips HUE oder IKEA TRÅDFRI; einfache Smart-Konfiguration.",
       smartBlindsTitle: "Smart-Außenjalousien",
       smartBlindsDesc:
-        "Blockieren >95 % der Sonneneinstrahlung; App- oder manuell steuerbar; zertifiziert vom Passivhaus Institut, Darmstadt; CE.",
+        "Blockieren >95 % der Sonneneinstrahlung; App- oder manuell steuerbar; zertifiziert vom Passivhaus Institut Darmstadt; CE.",
       upgradesAndDelivery: "Upgrades & Lieferung",
       delivery: "Lieferung",
       deliveryCost: "Lieferkosten abhängig vom Standort.",
@@ -285,6 +420,71 @@ document.addEventListener("DOMContentLoaded", () => {
       "Baie 1": "Badezimmer 1",
       "Baie 2": "Badezimmer 2",
       Hol: "Flur",
+      s2_modular: "MODULAR",
+      s2_structure: "STRUKTUR",
+      s2_modularStructure_title: "MODULAR Struktur",
+      s2_modularStructure_desc:
+        "Kombiniert herausragende mechanische Festigkeit mit ultra-isolierenden Eigenschaften, die Wärmebrücken vollständig eliminieren. Zertifiziert durch das Passivhaus Institut Darmstadt und EPD International. U ≈ 0,11 W/m²K.",
+      s2_c24Frame_title: "C24 Holzrahmen",
+      s2_c24Frame_desc:
+        "FSC/PEFC-zertifiziertes C24-Holz; sehr hohe Tragfähigkeit.",
+      s2_woodInsulation_title: "Ultra-effiziente Holzfaserdämmung",
+      s2_woodInsulation_desc:
+        "Dämmung für Wände, Dach und Boden; hocheffiziente STEICO-Holzfaser λ ≈ 0,036 W/m·K; CE-zertifiziert.",
+      s2_osb_title: "OSB 3 ECO, Deutschland",
+      s2_osb_desc:
+        "Frei von Formaldehyd und VOC; vom Passivhaus Institut Darmstadt freigegeben; CE-zertifiziert.",
+      s2_dwd_title: "DWD-Platte, Österreich",
+      s2_dwd_desc:
+        "Dampfdurchlässig (ermöglicht „atmende“ Wände, bleibt aber außen luftdicht, unidirektional); CE-zertifiziert.",
+      s2_smartMembrane_title: "Intelligente Membran (Folie)",
+      s2_smartMembrane_desc:
+        "Sorgt für eine luftdichte Innenhülle und ermöglicht gleichzeitig Dampfdiffusion nach außen. Zertifiziert vom Passivhaus Institut Darmstadt; CE.",
+      s2_exteriorFinishes: "KOMPLETTE AUSSENFERTIGUNG",
+      s2_facadeYakisugi_title: "Yakisugi hinterlüftete Fassade",
+      s2_facadeYakisugi_desc:
+        "Wartung nur ca. alle 10 Jahre; beste Feuerbeständigkeit in ihrer Klasse; wasserdicht.",
+      s2_facadeLunawood_title: "Lunawood Fassade",
+      s2_facadeLunawood_desc:
+        "Fassade aus nordischer Kiefer, ohne Chemikalien wärmebehandelt, für außergewöhnliche Haltbarkeit, Stabilität und warmen Karamellton.",
+      s2_ventRoof_title: "Hinterlüftetes Dach",
+      s2_ventRoof_desc:
+        "Der belüftete Zwischenraum erhöht die thermische Leistung und die Lebensdauer des Daches.",
+      s2_epdmMembrane_title: "EPDM-Membran",
+      s2_epdmMembrane_desc: "Wasserdicht; 30 Jahre Herstellergarantie.",
+      s2_rainwater_title: "Regenwassersammelsystem",
+      s2_rainwater_desc:
+        "Verdeckte Dachrinne, in die Fassade integriert; sammelbereit.",
+      s2_windowsDoors: "FENSTER UND AUSSENTÜREN",
+      s2_genesisFrame_title: "Genesis 90 Aluminiumrahmen",
+      s2_genesisFrame_desc:
+        "Stabiles, hocheffizientes Profil; Uwi ≤ 0,85 W/m²K; zertifiziert vom Passivhaus Institut Darmstadt; CE.",
+      s2_tripleGlazing_title: "Verbund-Dreifachverglasung",
+      s2_tripleGlazing_desc:
+        "U = 0,50 W/m²K; Verbundsicherheitsglas; Passivhaus Institut Darmstadt zertifiziert; CE.",
+      s2_kitchen: "KÜCHE",
+      s2_kitchenInstall_title: "Kücheninstallationen",
+      s2_kitchenInstall_desc:
+        "Anschlüsse vollständig vorbereitet, Möbel frei wählbar.",
+      s2_installations: "INSTALLATIONEN",
+      s2_electrical_title: "Elektroinstallationen",
+      s2_electrical_desc:
+        "Vollständig verlegt, gemäß geltenden Normen (CE / I7/2011 / IEC 60364).",
+      s2_plumbing_title: "Sanitärinstallationen",
+      s2_plumbing_desc:
+        "Leitungen und Anschlüsse PPR/PEX, konform mit lokalen Vorschriften.",
+      s2_certs: "ZERTIFIKATE & GARANTIEN",
+      s2_passivhaus_title: "Passivhaus-Zertifizierung",
+      s2_passivhaus_desc:
+        "Aussteller: Passivhaus Institut, Darmstadt, Deutschland.",
+      s2_epd_title: "EPD-Zertifikat",
+      s2_epd_desc: "Aussteller: EPD Europe.",
+      s2_ce_title: "CE-Kennzeichnung",
+      s2_ce_desc:
+        "Alle relevanten Komponenten erfüllen die EU-Bauprodukteverordnung.",
+      s2_warranty_title: "Standard EU-Garantie",
+      s2_warranty_desc:
+        "24 Monate für private Nutzung; 12 Monate für gewerbliche Nutzung.",
     },
   };
 
@@ -912,15 +1112,52 @@ document.addEventListener("DOMContentLoaded", () => {
   // This function is not translated as it generates raw HTML structure.
   // The static content it creates should have data-key attributes for translation.
   function generateSection2Content(container, facadeType) {
-    let facadeTitle =
-      facadeType === "lunawood"
-        ? "Fațadă Lunawood"
-        : "Fațadă ventilată Yakisugi";
-    let facadeDescription =
-      facadeType === "lunawood"
-        ? "O fațadă din pin nordic, tratată la presiuni imense cu aburi (termotratat, fără chimicale), pentru a obține Thermowood: o fațadă durabilă, excepțional de stabilă, rezistentă la intemperii și ușor de întreținut, cu o nuanță caldă de caramel."
-        : "Mentenanță estimată o dată la 10 ani; Cea mai bună rezistență la foc din clasa de lemn natural; impermeabilă.";
-    container.innerHTML = `<h2>MODULAR</h2><div class="flex-wrapper"><div class="column"><h3>STRUCTURĂ</h3><h4>Structura MODULAR</h4><p>Combină rezistența mecanică remarcabilă cu proprietăți de ultra-izolare ce elimină complet punțile termice. Certificată de Institutul de Case Pasive din Darmstadt, Germania și de EPD International. U ≈ 0,11 W/m²K, U-wert.</p><h4>Cadru din lemn C24</h4><p>Lemn C24 cu certificare FSC/PEFC; rezistență foarte mare la sarcina structurală.</p><h4>Izolație din fibră de lemn ultra-eficientă</h4><p>Izolație pentru pereți, acoperiș și podea; fibră de lemn ultra-eficientă STEICO λ ≈ 0,036 W/m·K; certificată CE.</p><h4>OSB 3 ECO, Germania</h4><p>Panou structural fără formaldehidă și VOC, aprobat de Institutul de Case Pasive din Darmstadt, Germania; certificat CE.</p><h4>Placă DWD, Austria</h4><p>Permeabilă la vapori (permite pereților să „respire” menținându-i etanși la aer din exterior; unidirecțional); certificată CE.</p><h4>Membrană Smart (folie)</h4><p>Creează un interior etanș la aer, permițând difuzia vaporilor spre exterior. Certificată de Institutul de Case Pasive din Darmstadt, Germania; certificată CE.</p></div><div class="column"><h3>FINISAJE EXTERIOARE COMPLETE</h3><h4>${facadeTitle}</h4><p>${facadeDescription}</p><h4>Acoperiș ventilat</h4><p>Spațiul ventilat crește performanța termică și durata de viață a acoperișului.</p><h4>Membrană EPDM</h4><p>Impermeabilă; garanție de 30 de ani de la producător.</p><h4>Sistem de colectare a apei pluviale</h4><p>Jgheab ascuns integrat în fațadă; pregătit pentru colectare.</p><h3>FERESTRE ȘI UȘI EXTERIOARE</h3><h4>Cadru din aluminiu Genesis 90</h4><p>Profil rigid, ultra-eficient; Uwi ≤ 0,85 W/m²K; certificat de Institutul de Case Pasive din Darmstadt, Germania; certificat CE.</p><h4>Geam tripan laminat</h4><p>U = 0,50 W/m²K; sticlă securizată laminată; certificat de Institutul de Case Pasive din Darmstadt, Germania; certificat CE.</p></div><div class="column"><h3>BUCĂTĂRIE</h3><h4>Instalații pentru bucătărie</h4><p>Complet pregătite pe poziție pentru mobilierul tău.</p><h3>INSTALAȚII</h3><h4>Instalații electrice</h4><p>Cabluri și copex complet instalate, conforme cu toate reglementările locale aplicabile (ex. CE / Standardul I7/2011 / IEC 60364).</p><h4>Instalații sanitare</h4><p>Țevi și fitinguri conforme cu toate reglementările locale necesare. PPR / PEX.</p><h3>CERTIFICĂRI & GARANȚII</h3><h4>Certificare Passivhaus</h4><p>Emitent: Institutul de Case Pasive din Darmstadt, Germania.</p><h4>Certificare EPD</h4><p>Emitent: EPD, Europa.</p><h4>Marcaj CE</h4><p>Toate componentele relevante respectă Regulamentul UE privind produsele pentru construcții.</p><h4>Garanție standard UE</h4><p>24 de luni pentru uz privat; 12 luni pentru uz comercial.</p></div></div>`;
+    const t = translations[currentLang];
+    let facadeTitle, facadeDescription;
+
+    if (facadeType === "lunawood") {
+      facadeTitle = t.s2_facadeLunawood_title;
+      facadeDescription = t.s2_facadeLunawood_desc;
+    } else {
+      facadeTitle = t.s2_facadeYakisugi_title;
+      facadeDescription = t.s2_facadeYakisugi_desc;
+    }
+
+    container.innerHTML = `
+              <h2>${t.s2_modular}</h2>
+              <div class="flex-wrapper">
+                  <div class="column">
+                      <h3>${t.s2_structure}</h3>
+                      <h4>${t.s2_modularStructure_title}</h4><p>${t.s2_modularStructure_desc}</p>
+                      <h4>${t.s2_c24Frame_title}</h4><p>${t.s2_c24Frame_desc}</p>
+                      <h4>${t.s2_woodInsulation_title}</h4><p>${t.s2_woodInsulation_desc}</p>
+                      <h4>${t.s2_osb_title}</h4><p>${t.s2_osb_desc}</p>
+                      <h4>${t.s2_dwd_title}</h4><p>${t.s2_dwd_desc}</p>
+                      <h4>${t.s2_smartMembrane_title}</h4><p>${t.s2_smartMembrane_desc}</p>
+                  </div>
+                  <div class="column">
+                      <h3>${t.s2_exteriorFinishes}</h3>
+                      <h4>${facadeTitle}</h4><p>${facadeDescription}</p>
+                      <h4>${t.s2_ventRoof_title}</h4><p>${t.s2_ventRoof_desc}</p>
+                      <h4>${t.s2_epdmMembrane_title}</h4><p>${t.s2_epdmMembrane_desc}</p>
+                      <h4>${t.s2_rainwater_title}</h4><p>${t.s2_rainwater_desc}</p>
+                      <h3>${t.s2_windowsDoors}</h3>
+                      <h4>${t.s2_genesisFrame_title}</h4><p>${t.s2_genesisFrame_desc}</p>
+                      <h4>${t.s2_tripleGlazing_title}</h4><p>${t.s2_tripleGlazing_desc}</p>
+                  </div>
+                  <div class="column">
+                      <h3>${t.s2_kitchen}</h3>
+                      <h4>${t.s2_kitchenInstall_title}</h4><p>${t.s2_kitchenInstall_desc}</p>
+                      <h3>${t.s2_installations}</h3>
+                      <h4>${t.s2_electrical_title}</h4><p>${t.s2_electrical_desc}</p>
+                      <h4>${t.s2_plumbing_title}</h4><p>${t.s2_plumbing_desc}</p>
+                      <h3>${t.s2_certs}</h3>
+                      <h4>${t.s2_passivhaus_title}</h4><p>${t.s2_passivhaus_desc}</p>
+                      <h4>${t.s2_epd_title}</h4><p>${t.s2_epd_desc}</p>
+                      <h4>${t.s2_ce_title}</h4><p>${t.s2_ce_desc}</p>
+                      <h4>${t.s2_warranty_title}</h4><p>${t.s2_warranty_desc}</p>
+                  </div>
+              </div>`;
   }
 
   // MODIFIED to use translation object
