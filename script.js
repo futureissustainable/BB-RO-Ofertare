@@ -354,7 +354,7 @@ document.addEventListener("DOMContentLoaded", () => {
       s2_osb_title: "OSB 3 ECO, Deutschland",
       s2_osb_desc: "Frei von Formaldehyd und VOC; vom Passivhaus Institut Darmstadt freigegeben; CE-zertifiziert.",
       s2_dwd_title: "DWD-Platte, Österreich",
-      s2_dwd_desc: "Dampfdurchlässig (ermöglicht „atmende“ Wände, bleibt aber außen luftdicht, unidirecjonal); CE-zertifiziert.",
+      s2_dwd_desc: "Dampfdurchlässig (ermöglicht „atmende“ Wände, bleibt aber außen luftdicht, unidirektional); CE-zertifiziert.",
       s2_smartMembrane_title: "Intelligente Membran (Folie)",
       s2_smartMembrane_desc: "Sorgt für eine luftdichte Innenhülle und ermöglicht gleichzeitig Dampfdiffusion nach außen. Zertifiziert vom Passivhaus Institut Darmstadt; CE.",
       s2_exteriorFinishes: "KOMPLETTE AUSSENFERTIGUNG",
@@ -636,7 +636,7 @@ document.addEventListener("DOMContentLoaded", () => {
             cashmere:
               "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/68c440551ad361e009f1da6e_142m2%20Sanctuary%20OSB%20%2B%20Cashmere%204.0.avif",
             hazelnut:
-              "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/68c44055c519f4722b8ef029_142m2%2 sanctuaries%20OSB%20%2B%20Hazelnut%204.0.avif",
+              "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/68c44055c519f4722b8ef029_142m2%20sanctuaries%20OSB%20%2B%20Hazelnut%204.0.avif",
           },
           floorplan: {
             a: {
@@ -703,7 +703,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   };
 
-  // ... (Rest of the original JS)
   const pricingLogic = {
     "nomad-24": {
       base: { "semi-finished": 39800, turnkey: 59800 },
@@ -831,7 +830,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const turnkeyVentH4 = document.querySelector(
       "#section-3-text .column:last-child h4:last-of-type",
     );
-    const turnkeyVentP = turnkeyVentH4 ? turnkeyVentH4.nextElementSibling : null;
+    const turnkeyVentP = turnkeyVentH4
+      ? turnkeyVentH4.nextElementSibling
+      : null;
     const upgradeVentP = document.querySelector("#upgrade-ventilation p");
 
     if (turnkeyVentH4 && turnkeyVentP && upgradeVentP) {
