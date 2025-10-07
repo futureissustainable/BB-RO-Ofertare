@@ -1,20 +1,28 @@
 <!DOCTYPE html>
+<!-- The lang attribute will be updated dynamically by JavaScript -->
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oferta Generata - Biobuilds</title>
+    <!-- The title will be updated dynamically -->
+    <title data-translate-key="page_title">Oferta Generata - Biobuilds</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Language Selector -->
+    <div id="language-selector">
+        <button data-lang="de">DE</button>
+        <button data-lang="en">EN</button>
+        <button data-lang="ro" class="active">RO</button>
+    </div>
 
     <section id="section-1" class="page">
         <header class="header-bar">
             <span>BIOBUILDS</span>
             <span id="offer-date" contenteditable="true">27.06.2025</span>
             <div class="header-right">
-                <span contenteditable="true">VALABILITATE: 30 ZILE</span>
-                <span>OFERTA: <span id="offer-nr" contenteditable="true"></span></span>
+                <span contenteditable="true" data-translate-key="validity">VALABILITATE: 30 ZILE</span>
+                <span><span data-translate-key="offer">OFERTA</span>: <span id="offer-nr" contenteditable="true"></span></span>
             </div>
         </header>
         <main class="content-area"></main>
@@ -28,64 +36,63 @@
                 </div>
             </div>
             <div class="footer-right">
-                <h2>Ofertă-<span id="client-name" contenteditable="true">Nume Client</span></h2>
-                <p>Modular este modern, inovator și sustenabil. Alege spațiul ideal pentru tine, construit la cele mai înalte standarde de construcție din lume.</p>
+                <h2><span data-translate-key="offer_for">Ofertă-</span><span id="client-name" contenteditable="true" data-translate-key="client_name_placeholder">Nume Client</span></h2>
+                <p data-translate-key="slogan">Modular este modern, inovator și sustenabil. Alege spațiul ideal pentru tine, construit la cele mai înalte standarde de construcție din lume.</p>
             </div>
         </footer>
     </section>
-
     <section id="section-passive-info" class="page">
         <div id="passive-info-image"></div>
         <div id="passive-info-text">
             <blockquote>
-                “Modulele sunt fixate cu șuruburi de oțel, apoi acoperite cu o membrană impermeabilă și placate cu lemn durabil. Sistemul este prefabricat în fabrica BioBuilds, oferind livrare rapidă și timpi scurți de asamblare. Sistemul de construcție este certificat Passivhaus, având valori U excepționale și eliminând punțile termice.”
-                <cite>– Passivhaus Institute</cite>
+                <span data-translate-key="passive_quote">“Modulele sunt fixate cu șuruburi de oțel, apoi acoperite cu o membrană impermeabilă și placate cu lemn durabil. Sistemul este prefabricat în fabrica BioBuilds, oferind livrare rapidă și timpi scurți de asamblare. Sistemul de construcție este certificat Passivhaus, având valori U excepționale și eliminând punțile termice.”</span>
+                <cite data-translate-key="passive_cite">– Passivhaus Institute</cite>
             </blockquote>
             <ul id="passive-stats">
+                <!-- Static text translated here -->
                 <li><strong>Passivhaus U Value:</strong> 0.14 W/m2K</li>
-                <li><strong>Energy Consumption:</strong> >90% reduced</li>
-                <li><strong>Air Tightness:</strong> n50-value: 0.5h-1</li>
+                <li><strong><span data-translate-key="energy_consumption">Energy Consumption</span>:</strong> >90% reduced</li>
+                <li><strong><span data-translate-key="air_tightness">Air Tightness</span>:</strong> n50-value: 0.5h-1</li>
                 <li><strong>CO2 Sequestration:</strong> 36 kg/m2</li>
                 <li id="co2-savings-stat"></li>
-                <li>Structură și sistem pe bază de <strong>lemn organic</strong>, cu certificare EPD</li>
-                <li>Consum de energie cu <strong>95% mai mic</strong>, datorită sistemului Modular</li>
+                <li data-translate-key="organic_wood">Structură și sistem pe bază de <strong>lemn organic</strong>, cu certificare EPD</li>
+                <li data-translate-key="lower_consumption">Consum de energie cu <strong>95% mai mic</strong>, datorită sistemului Modular</li>
             </ul>
         </div>
     </section>
-
     <section id="section-2-text" class="page"></section>
     <section id="section-2-image" class="page"></section>
-
     <section id="section-3-text" class="page page-hidden">
-        <h2>LA CHEIE</h2>
+        <h2 data-translate-key="turnkey_title">LA CHEIE</h2>
         <div class="flex-wrapper">
             <div class="column">
-                <h3>FINISAJE INTERIOARE COMPLETE</h3>
-                <h4>Tavan cu lamele din lemn + fetru</h4><p>Lemn natural și fetru reciclat; absorbție acustică excelentă.</p>
-                <h4>Tapet din fibră de sticlă</h4><p>Rezistență foarte mare la tracțiune și uzură; lavabil; aspect modern.</p>
-                <h4>Parchet triplustratificat din lemn natural</h4><p>Grosime 9–14 mm; lemn certificat FSC/PEFC; finisaj foarte durabil.</p>
-                <h3>UȘI INTERIOARE</h3>
-                <h4>Uși interioare S10</h4><p>Certificate CE; Interior solid.</p>
+                <h3 data-translate-key="complete_interior_finishes">FINISAJE INTERIOARE COMPLETE</h3>
+                <h4 data-translate-key="wood_slat_ceiling_title">Tavan cu lamele din lemn + fetru</h4><p data-translate-key="wood_slat_ceiling_desc">Lemn natural și fetru reciclat; absorbție acustică excelentă.</p>
+                <h4 data-translate-key="fiberglass_wallpaper_title">Tapet din fibră de sticlă</h4><p data-translate-key="fiberglass_wallpaper_desc">Rezistență foarte mare la tracțiune și uzură; lavabil; aspect modern.</p>
+                <h4 data-translate-key="parquet_title">Parchet triplustratificat din lemn natural</h4><p data-translate-key="parquet_desc">Grosime 9–14 mm; lemn certificat FSC/PEFC; finisaj foarte durabil.</p>
+                <h3 data-translate-key="interior_doors_title">UȘI INTERIOARE</h3>
+                <h4 data-translate-key="s10_doors_title">Uși interioare S10</h4><p data-translate-key="s10_doors_desc">Certificate CE; Interior solid.</p>
             </div>
             <div class="column">
-                <h3>FINISAJE COMPLETE BAIE</h3>
-                <h4>Plăci din compozit de piatră</h4><p>Plăci întregi premium de 2.5 × 1.2 m; 100% impermeabile; rezistență foarte mare în timp.</p>
-                <h4>Lavoar cu design italian</h4><p>Material compozit premium; ultra-subțire, modern și durabil.</p>
-                <h4>WC suspendat Grohe</h4><p>Produs în Germania; design minimalist, modern.</p>
-                <h4>Boiler Ariston Velis</h4><p>Design ultra-subțire; eficiență energetică ridicată.</p>
-                <h4>Duș walk-in</h4><p>Proiectat în Franța; design minimalist, modern.</p>
+                <h3 data-translate-key="complete_bathroom_finishes">FINISAJE COMPLETE BAIE</h3>
+                <h4 data-translate-key="stone_panels_title">Plăci din compozit de piatră</h4><p data-translate-key="stone_panels_desc">Plăci întregi premium de 2.5 × 1.2 m; 100% impermeabile; rezistență foarte mare în timp.</p>
+                <h4 data-translate-key="italian_sink_title">Lavoar cu design italian</h4><p data-translate-key="italian_sink_desc">Material compozit premium; ultra-subțire, modern și durabil.</p>
+                <h4 data-translate-key="grohe_wc_title">WC suspendat Grohe</h4><p data-translate-key="grohe_wc_desc">Produs în Germania; design minimalist, modern.</p>
+                <h4 data-translate-key="ariston_boiler_title">Boiler Ariston Velis</h4><p data-translate-key="ariston_boiler_desc">Design ultra-subțire; eficiență energetică ridicată.</p>
+                <h4 data-translate-key="walk_in_shower_title">Duș walk-in</h4><p data-translate-key="walk_in_shower_desc">Proiectat în Franța; design minimalist, modern.</p>
             </div>
             <div class="column">
-                <h3>SISTEME SMART</h3>
-                <h4>Șină de iluminat</h4><p>Configurare flexibilă pentru LED și spoturi; estetică modernă.</p>
-                <h4>Iluminat Smart</h4><p>Philips HUE sau IKEA TRÅDFRI; configurare Smart ușoară.</p>
-                <h4>Jaluzele exterioare Smart</h4><p>Blochează > 95% din radiația solară; control prin aplicație/manual; certificate de Institutul de Case Pasive din Darmstadt, Germania; certificate CE.</p>
-                <h4>Genvex Premium Preheat 250</h4><p>Recuperare de căldură de până la 95%; pompă de căldură integrată pentru încălzire și răcire.</p>
+                <h3 data-translate-key="smart_systems">SISTEME SMART</h3>
+                <h4 data-translate-key="lighting_track_title">Șină de iluminat</h4><p data-translate-key="lighting_track_desc">Configurare flexibilă pentru LED și spoturi; estetică modernă.</p>
+                <h4 data-translate-key="smart_lighting_title">Iluminat Smart</h4><p data-translate-key="smart_lighting_desc">Philips HUE sau IKEA TRÅDFRI; configurare Smart ușoară.</p>
+                <h4 data-translate-key="smart_blinds_title">Jaluzele exterioare Smart</h4><p data-translate-key="smart_blinds_desc">Blochează > 95% din radiația solară; control prin aplicație/manual; certificate de Institutul de Case Pasive din Darmstadt, Germania; certificate CE.</p>
+                <!-- This H4 and P below are updated dynamically by JS based on model -->
+                <h4>Genvex Premium Preheat 250</h4>
+                <p>Recuperare de căldură de până la 95%; pompă de căldură integrată pentru încălzire și răcire.</p>
             </div>
         </div>
     </section>
     <section id="section-3-image" class="page page-hidden"></section>
-
     <section id="section-floorplan" class="page">
         <div id="floorplan-details">
             <div class="interactive-select-wrapper">
@@ -97,38 +104,37 @@
         </div>
         <div id="floorplan-image-container"><img id="floorplan-image" src="" alt="Floor Plan Image"/></div>
     </section>
-
     <section id="section-upgrades" class="page">
-        <h2>Upgrades & Livrare</h2>
+        <h2 data-translate-key="upgrades_delivery_title">Upgrades & Livrare</h2>
         <div class="flex-wrapper">
             <div class="column">
-                <h3>Livrare</h3>
-                <p><strong>Costul transportului depinde de locație.</strong></p>
-                <p>Fundație pe șuruburi (opțional)</p>
-                <p>Livrarea și instalarea durează între 1 și 5 zile. În cazuri speciale, când proiectul necesită echipamente suplimentare, orice cost suplimentar va fi comunicat transparent.</p>
+                <h3 data-translate-key="delivery_title">Livrare</h3>
+                <p><strong data-translate-key="delivery_cost">Costul transportului depinde de locație.</strong></p>
+                <p data-translate-key="foundation_optional">Fundație pe șuruburi (opțional)</p>
+                <p data-translate-key="delivery_duration">Livrarea și instalarea durează între 1 și 5 zile. În cazuri speciale, când proiectul necesită echipamente suplimentare, orice cost suplimentar va fi comunicat transparent.</p>
             </div>
             <div id="upgrades-column" class="column">
-                <h3>Aditionale</h3>
+                <h3 data-translate-key="add_ons_title">Aditionale</h3>
                 <div class="upgrade-item" data-upgrade-type="facade">
-                    <h4>Fațadă</h4>
+                    <h4 data-translate-key="facade_title">Fațadă</h4>
                     <div class="option-group"></div>
                 </div>
                 <div class="upgrade-item" data-upgrade-type="parquet">
-                    <h4>Parchet</h4>
+                    <h4 data-translate-key="parquet_upgrade_title">Parchet</h4>
                     <div class="option-group"></div>
                 </div>
                 <div id="upgrade-blinds" class="upgrade-item clickable" data-upgrade-id="blinds">
-                    <h4>Jaluzele exterioare Smart</h4>
-                    <p>Blochează peste 95% din radiația solară, controlate prin aplicație sau manual.</p>
+                    <h4 data-translate-key="smart_blinds_upgrade_title">Jaluzele exterioare Smart</h4>
+                    <p data-translate-key="smart_blinds_upgrade_desc">Blochează peste 95% din radiația solară, controlate prin aplicație sau manual.</p>
                 </div>
                 <div id="upgrade-ventilation" class="upgrade-item clickable" data-upgrade-id="ventilation">
-                    <h4>Sistem de ventilație</h4>
-                    <p>Sistem Genvex Premium cu recuperare de căldură de până la 95% și pompă de căldură integrată.</p>
+                    <h4 data-translate-key="ventilation_system_title">Sistem de ventilație</h4>
+                    <!-- This P is updated dynamically by JS -->
+                    <p></p>
                 </div>
             </div>
         </div>
     </section>
-
     <section id="section-summary" class="page">
         <header class="summary-header">
             <div class="summary-title-block">
@@ -146,20 +152,19 @@
                 <div id="summary-inclusions">
                     <ul id="inclusion-list"></ul>
                     <div class="mentiuni-section">
-                        <strong>Mențiuni:</strong>
+                        <strong data-translate-key="mentions_label">Mențiuni:</strong>
                         <div class="mentiuni-editable" contenteditable="true"></div>
                     </div>
                 </div>
                 <div id="summary-total" class="summary-total"></div>
                 <p class="summary-fine-print">BIOBUILDS HOME S.R.L., VAT:43154291, EUID: ROONRC.J20/2000/2193246</p>
-                <p class="summary-fine-print">Această ofertă este supusă termenilor și condițiilor aplicabile, care pot fi consultate la biobuilds.com/TC. Continuând, confirmați că le înțelegeți și le acceptați.</p>
+                <p class="summary-fine-print" data-translate-key="terms_conditions">Această ofertă este supusă termenilor și condițiilor aplicabile, care pot fi consultate la biobuilds.com/TC. Continuând, confirmați că le înțelegeți și le acceptați.</p>
             </div>
         </main>
         <footer class="summary-footer">
             <p class="website-link">biobuilds.com</p>
         </footer>
     </section>
-
 <script src="script.js"></script>
 </body>
 </html>
