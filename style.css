@@ -594,4 +594,46 @@ p {
     .upgrade-item.selected {
         background-color: #f8f9fa;
     }
+    
+    /* Hide language selector when printing */
+    #language-selector {
+        display: none;
+    }
+}
+
+/* --- NEW: Language Selector Styles --- */
+#language-selector {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 8px;
+    padding: 5px;
+    display: flex;
+    gap: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+#language-selector button {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+#language-selector button:hover {
+    background-color: #f0f0f0;
+}
+
+#language-selector button.active {
+    background-color: var(--primary-blue);
+    color: white;
+    border-color: var(--primary-blue);
 }
