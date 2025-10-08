@@ -56,11 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsTitle: "Jaluzele exterioare Smart",
       smartBlindsDesc:
         "Blochează > 95% din radiația solară; control prin aplicație/manual; certificate de Institutul de Case Pasive din Darmstadt, Germania; certificate CE.",
-      // *** FIX STARTS HERE: Added missing translation keys ***
       ventilationSystemTitle: "Genvex Premium Preheat 250",
       ventilationSystemDesc:
         "Recuperare de căldură de până la 95%; pompă de căldură integrată pentru încălzire și răcire.",
-      // *** FIX ENDS HERE ***
       upgradesAndDelivery: "Upgrades & Livrare",
       delivery: "Livrare",
       deliveryCost: "Costul transportului depinde de locație.",
@@ -168,7 +166,6 @@ document.addEventListener("DOMContentLoaded", () => {
       s2_warranty_desc:
         "24 de luni pentru uz privat; 12 luni pentru uz comercial.",
     },
-
     en: {
       pageTitle: "Generated Offer - Biobuilds",
       validity: "VALIDITY: 30 DAYS",
@@ -492,6 +489,168 @@ document.addEventListener("DOMContentLoaded", () => {
       s2_warranty_title: "Standard EU-Garantie",
       s2_warranty_desc:
         "24 Monate für private Nutzung; 12 Monate für gewerbliche Nutzung.",
+    },
+    fr: {
+      pageTitle: "Offre générée - Biobuilds",
+      validity: "VALIDITÉ : 30 JOURS",
+      offerLabel: "OFFRE",
+      offerFor: "Offre -",
+      clientNamePlaceholder: "Nom du client",
+      footerSlogan:
+        "Le modulaire est moderne, innovant et durable. Choisissez l’espace idéal pour vous, construit selon les standards de construction les plus élevés au monde.",
+      passiveHouseQuote:
+        "« Les modules sont fixés avec des vis en acier, puis recouverts d’une membrane étanche et bardés de bois durable. Le système est préfabriqué dans l’usine BioBuilds, offrant une livraison rapide et des temps de montage courts. Le système constructif est certifié Passivhaus, présente des valeurs U exceptionnelles et élimine les ponts thermiques. »",
+      energyConsumptionLabel: "Consommation d’énergie :",
+      energyConsumptionValue: "> 90 % de moins",
+      co2Saved: "Tonnes de CO₂ économisées",
+      co2Lifespan: "sur la durée de vie du bâtiment",
+      organicWood:
+        "Structure et système en <strong>bois naturel</strong>, avec certification EPD",
+      lowerEnergy:
+        "<strong>95 % de consommation en moins</strong> grâce au système modulaire",
+      turnkeyTitle: "CLÉ EN MAIN",
+      interiorFinishes: "FINITIONS INTÉRIEURES COMPLÈTES",
+      woodSlatCeilingTitle: "Plafond à lames de bois + feutre",
+      woodSlatCeilingDesc:
+        "Bois naturel et feutre recyclé ; excellente absorption acoustique.",
+      fiberglassWallpaperTitle: "Toile de verre",
+      fiberglassWallpaperDesc:
+        "Très haute résistance à la traction et à l’usure ; lavable ; rendu moderne.",
+      parquetTitle: "Parquet en bois naturel trois couches",
+      parquetDesc:
+        "Épaisseur 9 à 14 mm ; bois certifié FSC/PEFC ; finition très durable.",
+      s10DoorsTitle: "Portes intérieures S10",
+      s10DoorsDesc: "Certifiées CE ; âme pleine.",
+      bathroomFinishes: "FINITIONS DE SALLE DE BAINS COMPLÈTES",
+      stoneCompositePanelsTitle: "Panneaux en composite de pierre",
+      stoneCompositePanelsDesc:
+        "Panneaux grand format 2,5 × 1,2 m ; 100 % étanches ; très durables dans le temps.",
+      italianSinkTitle: "Vasque design italien",
+      italianSinkDesc:
+        "Matériau composite premium ; ultra-fine, moderne et durable.",
+      groheWCTitle: "WC suspendu Grohe",
+      groheWCDesc: "Fabriqué en Allemagne ; design minimaliste et moderne.",
+      aristonBoilerTitle: "Chauffe-eau Ariston Velis",
+      aristonBoilerDesc: "Design ultra-fin ; haute efficacité énergétique.",
+      walkInShowerTitle: "Douche à l’italienne",
+      walkInShowerDesc: "Conçue en France ; design minimaliste et moderne.",
+      smartSystems: "SYSTÈMES INTELLIGENTS",
+      lightingTrackTitle: "Rail d’éclairage",
+      lightingTrackDesc:
+        "Configuration flexible pour LED et spots ; esthétique moderne.",
+      smartLightingTitle: "Éclairage intelligent",
+      smartLightingDesc:
+        "Philips Hue ou IKEA TRÅDFRI ; configuration domotique simple.",
+      smartBlindsTitle: "Stores extérieurs intelligents",
+      smartBlindsDesc:
+        "Bloque > 95 % du rayonnement solaire ; commande par application ou manuelle ; certifié par le Passive House Institute de Darmstadt, Allemagne ; marquage CE.",
+      ventilationSystemTitle: "Genvex Premium Preheat 250",
+      ventilationSystemDesc:
+        "Récupération de chaleur jusqu’à 95 % ; pompe à chaleur intégrée pour chauffage et rafraîchissement.",
+      upgradesAndDelivery: "Options et Livraison",
+      delivery: "Livraison",
+      deliveryCost: "Les frais de livraison dépendent de votre localisation.",
+      screwFoundation: "Fondations sur pieux vissés (optionnel)",
+      deliveryTime:
+        "La livraison et l’installation prennent entre 1 et 5 jours. Dans les cas particuliers nécessitant des équipements supplémentaires, tout coût additionnel sera communiqué en toute transparence.",
+      addOns: "Options",
+      facade: "Façade",
+      parquetUpgradeLabel: "Parquet",
+      smartBlindsTitleUpgrade: "Stores extérieurs intelligents",
+      smartBlindsDescUpgrade:
+        "Bloque > 95 % du rayonnement solaire, commande via application ou manuelle.",
+      ventilationSystemTitleUpgrade: "Système de ventilation",
+      notesLabel: "Notes :",
+      termsAndConditions:
+        "Cette offre est soumise aux conditions générales applicables, consultables sur biobuilds.com/TC. En poursuivant, vous confirmez les avoir comprises et acceptées.",
+      totalLabel: "TOTAL",
+      vatLabel: "+ TVA",
+      turnkey: "Clé en main",
+      "semi-finished": "Prêt à finir",
+      plan: "Plan",
+      customPlan: "Plan personnalisé",
+      osbStandard: "OSB (Standard)",
+      included: "(Inclus)",
+      dimensions: "Dimensions",
+      totalArea: "Surface totale",
+      interiorDimensions: "Dimensions intérieures",
+      exteriorDimensions: "Dimensions extérieures",
+      rooms: "Pièces",
+      Dormitor: "Chambre",
+      Baie: "Salle de bains",
+      "Depozitare / Chichinetă": "Rangement / Kitchenette",
+      "Living + Bucătărie": "Salon + Cuisine",
+      "Dormitor 1": "Chambre 1",
+      "Dormitor 2": "Chambre 2",
+      "Dormitor 3": "Chambre 3",
+      "Dormitor 4": "Chambre 4",
+      "Baie 1": "Salle de bains 1",
+      "Baie 2": "Salle de bains 2",
+      Hol: "Couloir",
+      s2_modular: "MODULAIRE",
+      s2_structure: "STRUCTURE",
+      s2_modularStructure_title: "Structure MODULAIRE",
+      s2_modularStructure_desc:
+        "Allie une résistance mécanique remarquable à des propriétés ultra-isolantes éliminant totalement les ponts thermiques. Certifiée par le Passive House Institute de Darmstadt, Allemagne, et par EPD International. U ≈ 0,11 W/m²K, valeur U.",
+      s2_c24Frame_title: "Ossature bois C24",
+      s2_c24Frame_desc:
+        "Bois C24 certifié FSC/PEFC ; très haute résistance aux charges structurelles.",
+      s2_woodInsulation_title: "Fibre de bois ultra-performante",
+      s2_woodInsulation_desc:
+        "Isolation des murs, du toit et du plancher ; fibre de bois STEICO ultra-performante λ ≈ 0,036 W/m·K ; certifiée CE.",
+      s2_osb_title: "OSB 3 ECO, Allemagne",
+      s2_osb_desc:
+        "Panneau structurel sans formaldéhyde ni COV, approuvé par le Passive House Institute de Darmstadt, Allemagne ; certifié CE.",
+      s2_dwd_title: "Panneau DWD, Autriche",
+      s2_dwd_desc:
+        "Perméable à la vapeur (laisse « respirer » les parois tout en assurant l’étanchéité à l’air depuis l’extérieur ; unidirectionnel) ; certifié CE.",
+      s2_smartMembrane_title: "Membrane intelligente (film)",
+      s2_smartMembrane_desc:
+        "Crée une étanchéité à l’air intérieure tout en permettant la diffusion de vapeur vers l’extérieur. Certifiée par le Passive House Institute de Darmstadt, Allemagne ; certifiée CE.",
+      s2_exteriorFinishes: "FINITIONS EXTÉRIEURES COMPLÈTES",
+      s2_facadeYakisugi_title: "Façade ventilée Yakisugi",
+      s2_facadeYakisugi_desc:
+        "Entretien estimé tous les 10 ans ; meilleure résistance au feu de sa catégorie en bois naturel ; étanche.",
+      s2_facadeLunawood_title: "Façade Lunawood",
+      s2_facadeLunawood_desc:
+        "Façade en pin nordique, traitée thermiquement sans produits chimiques pour une durabilité et une stabilité exceptionnelles, teinte caramel chaleureuse.",
+      s2_ventRoof_title: "Toiture ventilée",
+      s2_ventRoof_desc:
+        "L’espace ventilé augmente la performance thermique et la durée de vie de la toiture.",
+      s2_epdmMembrane_title: "Membrane EPDM",
+      s2_epdmMembrane_desc: "Étanchéité ; garantie fabricant 30 ans.",
+      s2_rainwater_title: "Système de collecte des eaux pluviales",
+      s2_rainwater_desc:
+        "Gouttière dissimulée intégrée à la façade ; prête pour la récupération.",
+      s2_windowsDoors: "FENÊTRES ET PORTES EXTÉRIEURES",
+      s2_genesisFrame_title: "Châssis aluminium Genesis 90",
+      s2_genesisFrame_desc:
+        "Profil rigide et ultra-performant ; Uwi ≤ 0,85 W/m²K ; certifié par le Passive House Institute de Darmstadt, Allemagne ; marquage CE.",
+      s2_tripleGlazing_title: "Vitrage triple feuilleté",
+      s2_tripleGlazing_desc:
+        "U = 0,50 W/m²K ; verre feuilleté de sécurité ; certifié par le Passive House Institute de Darmstadt, Allemagne ; marquage CE.",
+      s2_kitchen: "CUISINE",
+      s2_kitchenInstall_title: "Raccordements cuisine",
+      s2_kitchenInstall_desc: "Entièrement préparés en position pour votre mobilier.",
+      s2_installations: "INSTALLATIONS",
+      s2_electrical_title: "Installations électriques",
+      s2_electrical_desc:
+        "Câbles et gaines entièrement posés, conformes aux réglementations locales applicables (p. ex. CE / Norme I7/2011 / IEC 60364).",
+      s2_plumbing_title: "Installations de plomberie",
+      s2_plumbing_desc:
+        "Tuyauteries et raccords conformes aux réglementations locales nécessaires. PPR / PEX.",
+      s2_certs: "CERTIFICATIONS ET GARANTIES",
+      s2_passivhaus_title: "Certification Passivhaus",
+      s2_passivhaus_desc:
+        "Émetteur : Passive House Institute, Darmstadt, Allemagne.",
+      s2_epd_title: "Certification EPD",
+      s2_epd_desc: "Émetteur : EPD, Europe.",
+      s2_ce_title: "Marquage CE",
+      s2_ce_desc:
+        "Tous les composants concernés sont conformes au règlement européen sur les produits de construction.",
+      s2_warranty_title: "Garantie standard UE",
+      s2_warranty_desc:
+        "24 mois pour usage privé ; 12 mois pour usage professionnel.",
     },
   };
 
@@ -924,12 +1083,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const modelData = offerData.models[modelId];
     const modelPricing = pricingLogic[modelId];
 
-    // *** FIX STARTS HERE: Removed the faulty, redundant code block that caused the "undefined" error. ***
     const co2StatEl = document.getElementById("co2-savings-stat");
     if (co2StatEl) {
       co2StatEl.innerHTML = `<strong>${modelData.co2Savings} ${translations[currentLang].co2Saved}</strong> ${translations[currentLang].co2Lifespan}`;
     }
-    // *** FIX ENDS HERE ***
 
     updateDynamicOptions();
 
