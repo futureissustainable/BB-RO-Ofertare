@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       parquetTitle: "Parchet triplustratificat din lemn natural",
       parquetDesc:
         "Grosime 9–14 mm; lemn certificat FSC/PEFC; finisaj foarte durabil.",
+      interiorDoors: "UȘI DE INTERIOR",
       s10DoorsTitle: "Uși interioare S10",
       s10DoorsDesc: "Certificate CE; Interior solid.",
       bathroomFinishes: "FINISAJE COMPLETE BAIE",
@@ -195,6 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
       parquetTitle: "Triple-layered natural wood parquet",
       parquetDesc:
         "9–14 mm thickness; FSC/PEFC certified wood; very durable finish.",
+      interiorDoors: "INTERIOR DOORS",
       s10DoorsTitle: "S10 interior doors",
       s10DoorsDesc: "CE certified; Solid core.",
       bathroomFinishes: "COMPLETE BATHROOM FINISHES",
@@ -356,6 +358,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Sehr hohe Reiß- und Abriebfestigkeit; abwaschbar; modernes Erscheinungsbild.",
       parquetTitle: "Dreischicht-Parkett",
       parquetDesc: "9–14 mm, FSC/PEFC-Holz; extrem langlebige Oberfläche.",
+      interiorDoors: "INNENTÜREN",
       s10DoorsTitle: "Innentüren S10",
       s10DoorsDesc: "CE-zertifiziert; Vollkern.",
       bathroomFinishes: "BADEZIMMERAUSSTATTUNG",
@@ -519,6 +522,7 @@ document.addEventListener("DOMContentLoaded", () => {
       parquetTitle: "Parquet en bois naturel trois couches",
       parquetDesc:
         "Épaisseur 9 à 14 mm ; bois certifié FSC/PEFC ; finition très durable.",
+      interiorDoors: "PORTES INTÉRIEURES",
       s10DoorsTitle: "Portes intérieures S10",
       s10DoorsDesc: "Certifiées CE ; âme pleine.",
       bathroomFinishes: "FINITIONS DE SALLE DE BAINS COMPLÈTES",
@@ -631,8 +635,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "U = 0,50 W/m²K ; verre feuilleté de sécurité ; certifié par le Passive House Institute de Darmstadt, Allemagne ; marquage CE.",
       s2_kitchen: "CUISINE",
       s2_kitchenInstall_title: "Raccordements cuisine",
-      s2_kitchenInstall_desc:
-        "Entièrement préparés en position pour votre mobilier.",
+      s2_kitchenInstall_desc: "Entièrement préparés en position pour votre mobilier.",
       s2_installations: "INSTALLATIONS",
       s2_electrical_title: "Installations électriques",
       s2_electrical_desc:
@@ -649,7 +652,7 @@ document.addEventListener("DOMContentLoaded", () => {
       s2_ce_title: "Marquage CE",
       s2_ce_desc:
         "Tous les composants concernés sont conformes au règlement européen sur les produits de construction.",
-      s2_warranty_title: "Garantie standard UE",
+      s2_warranty_title: "Garantie standard de l'UE",
       s2_warranty_desc:
         "24 mois pour usage privé ; 12 mois pour usage professionnel.",
     },
@@ -1133,7 +1136,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const floorplanData = modelData.images.floorplan[floorplan];
       if (floorplanData) {
         floorplanImage.src = floorplanData.url;
-        let detailsHtml = `<h3>${translations[currentLang].dimensions}</h3>`;
+        let detailsHtml = `<h3 data-key="dimensions">${translations[currentLang].dimensions}</h3>`;
         detailsHtml += createDetailItem(
           translations[currentLang].totalArea,
           floorplanData.details.totalArea,
@@ -1146,7 +1149,7 @@ document.addEventListener("DOMContentLoaded", () => {
           translations[currentLang].exteriorDimensions,
           floorplanData.details.exterior,
         );
-        detailsHtml += `<h3>${translations[currentLang].rooms}</h3>`;
+        detailsHtml += `<h3 data-key="rooms">${translations[currentLang].rooms}</h3>`;
         for (const roomName in floorplanData.details.rooms) {
           detailsHtml += createDetailItem(
             translations[currentLang][roomName] || roomName,
@@ -1274,38 +1277,38 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     container.innerHTML = `
-              <h2>${t.s2_modular}</h2>
+              <h2 data-key="s2_modular">${t.s2_modular}</h2>
               <div class="flex-wrapper">
                   <div class="column">
-                      <h3>${t.s2_structure}</h3>
-                      <h4>${t.s2_modularStructure_title}</h4><p>${t.s2_modularStructure_desc}</p>
-                      <h4>${t.s2_c24Frame_title}</h4><p>${t.s2_c24Frame_desc}</p>
-                      <h4>${t.s2_woodInsulation_title}</h4><p>${t.s2_woodInsulation_desc}</p>
-                      <h4>${t.s2_osb_title}</h4><p>${t.s2_osb_desc}</p>
-                      <h4>${t.s2_dwd_title}</h4><p>${t.s2_dwd_desc}</p>
-                      <h4>${t.s2_smartMembrane_title}</h4><p>${t.s2_smartMembrane_desc}</p>
+                      <h3 data-key="s2_structure">${t.s2_structure}</h3>
+                      <h4 data-key="s2_modularStructure_title">${t.s2_modularStructure_title}</h4><p data-key="s2_modularStructure_desc">${t.s2_modularStructure_desc}</p>
+                      <h4 data-key="s2_c24Frame_title">${t.s2_c24Frame_title}</h4><p data-key="s2_c24Frame_desc">${t.s2_c24Frame_desc}</p>
+                      <h4 data-key="s2_woodInsulation_title">${t.s2_woodInsulation_title}</h4><p data-key="s2_woodInsulation_desc">${t.s2_woodInsulation_desc}</p>
+                      <h4 data-key="s2_osb_title">${t.s2_osb_title}</h4><p data-key="s2_osb_desc">${t.s2_osb_desc}</p>
+                      <h4 data-key="s2_dwd_title">${t.s2_dwd_title}</h4><p data-key="s2_dwd_desc">${t.s2_dwd_desc}</p>
+                      <h4 data-key="s2_smartMembrane_title">${t.s2_smartMembrane_title}</h4><p data-key="s2_smartMembrane_desc">${t.s2_smartMembrane_desc}</p>
                   </div>
                   <div class="column">
-                      <h3>${t.s2_exteriorFinishes}</h3>
+                      <h3 data-key="s2_exteriorFinishes">${t.s2_exteriorFinishes}</h3>
                       <h4>${facadeTitle}</h4><p>${facadeDescription}</p>
-                      <h4>${t.s2_ventRoof_title}</h4><p>${t.s2_ventRoof_desc}</p>
-                      <h4>${t.s2_epdmMembrane_title}</h4><p>${t.s2_epdmMembrane_desc}</p>
-                      <h4>${t.s2_rainwater_title}</h4><p>${t.s2_rainwater_desc}</p>
-                      <h3>${t.s2_windowsDoors}</h3>
-                      <h4>${t.s2_genesisFrame_title}</h4><p>${t.s2_genesisFrame_desc}</p>
-                      <h4>${t.s2_tripleGlazing_title}</h4><p>${t.s2_tripleGlazing_desc}</p>
+                      <h4 data-key="s2_ventRoof_title">${t.s2_ventRoof_title}</h4><p data-key="s2_ventRoof_desc">${t.s2_ventRoof_desc}</p>
+                      <h4 data-key="s2_epdmMembrane_title">${t.s2_epdmMembrane_title}</h4><p data-key="s2_epdmMembrane_desc">${t.s2_epdmMembrane_desc}</p>
+                      <h4 data-key="s2_rainwater_title">${t.s2_rainwater_title}</h4><p data-key="s2_rainwater_desc">${t.s2_rainwater_desc}</p>
+                      <h3 data-key="s2_windowsDoors">${t.s2_windowsDoors}</h3>
+                      <h4 data-key="s2_genesisFrame_title">${t.s2_genesisFrame_title}</h4><p data-key="s2_genesisFrame_desc">${t.s2_genesisFrame_desc}</p>
+                      <h4 data-key="s2_tripleGlazing_title">${t.s2_tripleGlazing_title}</h4><p data-key="s2_tripleGlazing_desc">${t.s2_tripleGlazing_desc}</p>
                   </div>
                   <div class="column">
-                      <h3>${t.s2_kitchen}</h3>
-                      <h4>${t.s2_kitchenInstall_title}</h4><p>${t.s2_kitchenInstall_desc}</p>
-                      <h3>${t.s2_installations}</h3>
-                      <h4>${t.s2_electrical_title}</h4><p>${t.s2_electrical_desc}</p>
-                      <h4>${t.s2_plumbing_title}</h4><p>${t.s2_plumbing_desc}</p>
-                      <h3>${t.s2_certs}</h3>
-                      <h4>${t.s2_passivhaus_title}</h4><p>${t.s2_passivhaus_desc}</p>
-                      <h4>${t.s2_epd_title}</h4><p>${t.s2_epd_desc}</p>
-                      <h4>${t.s2_ce_title}</h4><p>${t.s2_ce_desc}</p>
-                      <h4>${t.s2_warranty_title}</h4><p>${t.s2_warranty_desc}</p>
+                      <h3 data-key="s2_kitchen">${t.s2_kitchen}</h3>
+                      <h4 data-key="s2_kitchenInstall_title">${t.s2_kitchenInstall_title}</h4><p data-key="s2_kitchenInstall_desc">${t.s2_kitchenInstall_desc}</p>
+                      <h3 data-key="s2_installations">${t.s2_installations}</h3>
+                      <h4 data-key="s2_electrical_title">${t.s2_electrical_title}</h4><p data-key="s2_electrical_desc">${t.s2_electrical_desc}</p>
+                      <h4 data-key="s2_plumbing_title">${t.s2_plumbing_title}</h4><p data-key="s2_plumbing_desc">${t.s2_plumbing_desc}</p>
+                      <h3 data-key="s2_certs">${t.s2_certs}</h3>
+                      <h4 data-key="s2_passivhaus_title">${t.s2_passivhaus_title}</h4><p data-key="s2_passivhaus_desc">${t.s2_passivhaus_desc}</p>
+                      <h4 data-key="s2_epd_title">${t.s2_epd_title}</h4><p data-key="s2_epd_desc">${t.s2_epd_desc}</p>
+                      <h4 data-key="s2_ce_title">${t.s2_ce_title}</h4><p data-key="s2_ce_desc">${t.s2_ce_desc}</p>
+                      <h4 data-key="s2_warranty_title">${t.s2_warranty_title}</h4><p data-key="s2_warranty_desc">${t.s2_warranty_desc}</p>
                   </div>
               </div>`;
   }
