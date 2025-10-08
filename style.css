@@ -13,12 +13,14 @@
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #f0f0f0; /* A neutral background for the pages */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* --- Typography (Your Website Styles) --- */
 
 /* Base Paragraph Styles */
-p, li, cite, span, .detail-item, .summary-fine-print, .mentiuni-editable {
+p, li, cite, span, .detail-item, .summary-fine-print, .mentiuni-editable, blockquote, select, input {
   font-weight: 300;
   font-size: 0.9rem;
   line-height: 1.6em;
@@ -29,6 +31,7 @@ p, li, cite, span, .detail-item, .summary-fine-print, .mentiuni-editable {
 h1, h2, h3, h4 {
   font-weight: 500;
   color: var(--title-color);
+  margin-bottom: 0.5em; /* Add some default spacing */
 }
 
 /* Desktop Heading Sizes */
@@ -37,39 +40,56 @@ h2 { font-size: 2rem; line-height: 1.2em; }
 h3 { font-size: 1.6rem; line-height: 1.25em; }
 h4 { font-size: 1.3rem; line-height: 1.4em; }
 
+strong, b {
+    font-weight: 500;
+    color: var(--title-color); /* Make bold text stand out with title color */
+}
+
 /* --- Mobile Typography (Media Query) --- */
 @media (max-width: 768px) {
   h1 { font-size: 3.2rem; line-height: 1.2em; }
   h2 { font-size: 1.7rem; line-height: 1.25em; }
   h3 { font-size: 1.4rem; line-height: 1.3em; }
   h4 { font-size: 1.2rem; line-height: 1.4em; }
-
-  p, li, cite, span, .detail-item, .summary-fine-print, .mentiuni-editable {
+  
+  /* Paragraph sizes remain the same, but defining them ensures consistency */
+  p, li, cite, span, .detail-item, .summary-fine-print, .mentiuni-editable, blockquote, select, input {
     font-size: 0.9rem;
     line-height: 1.6em;
   }
 }
 
 
-/* --- Basic Layout Styles (Inferred from HTML) --- */
+/* --- Basic Layout Styles --- */
 .page {
   width: 100%;
+  max-width: 1200px; /* Limit width for better readability on large screens */
+  margin: 0 auto 2rem; /* Center pages and add bottom margin */
   min-height: 100vh;
-  padding: 2rem;
+  padding: 3rem 4rem; /* More generous padding */
   background-color: white;
-  border-bottom: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Subtle shadow for paper effect */
   display: flex;
   flex-direction: column;
 }
 
-.page-hidden {
-    display: none;
+@media (max-width: 768px) {
+    .page {
+        padding: 2rem;
+        margin-bottom: 1rem;
+        min-height: auto; /* Allow pages to shrink on mobile */
+    }
 }
 
+.page-hidden {
+    display: none !important;
+}
+
+/* Flex Layout Helpers */
 .flex-wrapper {
     display: flex;
-    gap: 2rem;
-    margin-top: 1.5rem;
+    gap: 3rem;
+    margin-top: 2rem;
     flex-wrap: wrap;
 }
 
@@ -78,28 +98,79 @@ h4 { font-size: 1.3rem; line-height: 1.4em; }
     min-width: 280px;
 }
 
+.column h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
 .column h4 {
-    margin-top: 1em;
+    margin-top: 1.5em;
+    margin-bottom: 0.3em;
 }
 
 /* Header & Footer */
 .header-bar, .footer-bar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
+  align-items: flex-start; /* Align to top */
+  padding: 1rem 0;
   flex-wrap: wrap;
+  gap: 1rem;
 }
 
+.header-bar {
+    border-bottom: 2px solid var(--title-color);
+    margin-bottom: 2rem;
+    font-weight: 500;
+    color: var(--title-color);
+}
+.header-bar span[contenteditable] {
+    color: var(--paragraph-color);
+    font-weight: 300;
+}
+
+.footer-bar {
+    margin-top: auto; /* Push to bottom */
+    border-top: 1px solid #eee;
+    padding-top: 2rem;
+}
+
+/* Specific page adjustments */
 #section-1 {
-    justify-content: space-between;
-    padding: 0;
+    padding: 0; /* Remove padding from container */
+    position: relative;
 }
-
-.content-area {
-    flex-grow: 1;
+#section-1 .header-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,0.9); /* Semi-transparent header */
+    padding: 1rem 4rem;
+    z-index: 10;
+    border-bottom: none;
+}
+#section-1 .content-area {
+    height: 100vh; /* Full height */
     background-size: cover;
     background-position: center;
+}
+#section-1 .footer-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); /* Gradient overlay */
+    padding: 2rem 4rem;
+    border-top: none;
+    color: white;
+}
+#section-1 .footer-bar h2, 
+#section-1 .footer-bar p,
+#section-1 .footer-bar span {
+    color: white; /* Override colors for this specific footer */
 }
 
 .header-right, .footer-left {
@@ -107,41 +178,85 @@ h4 { font-size: 1.3rem; line-height: 1.4em; }
     align-items: center;
     gap: 1.5rem;
 }
-.footer-right h2 {
-    font-size: 1.8rem; /* Custom size for impact */
+
+.footer-right {
+    text-align: right;
+    max-width: 50%;
+}
+
+/* Interactive Elements */
+.interactive-select-wrapper select {
+    padding: 0.5rem;
+    border: 1px solid white;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.interactive-select-wrapper select option {
+    color: var(--title-color); /* Reset color for dropdown options */
 }
 
 /* Language Selector */
+#language-selector {
+    display: flex;
+    gap: 0.5rem;
+}
 #language-selector a {
     text-decoration: none;
-    padding: 0.3rem 0.6rem;
+    padding: 0.2rem 0.5rem;
     border-radius: 4px;
-    color: var(--paragraph-color);
+    font-weight: 500;
+    font-size: 0.8rem;
+    border: 1px solid #ddd;
+    transition: all 0.2s;
 }
-#language-selector a.active {
-    background-color: var(--title-color);
+#section-1 #language-selector a {
+    border-color: rgba(255,255,255,0.5);
     color: white;
 }
 
-/* Specific Sections */
+#language-selector a.active {
+    background-color: var(--title-color);
+    color: white;
+    border-color: var(--title-color);
+}
+#section-1 #language-selector a.active {
+    background-color: white;
+    color: var(--title-color);
+    border-color: white;
+}
+
+
+/* Image & Text Sections (Passive, S2, S3) */
 #section-passive-info, #section-floorplan {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
     align-items: center;
+}
+@media (max-width: 768px) {
+    #section-passive-info, #section-floorplan {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
 }
 
 #passive-info-image, #section-2-image, #section-3-image {
-    min-height: 400px;
+    width: 100%;
+    height: 100%;
+    min-height: 50vh; /* Ensure visibility */
     background-size: cover;
     background-position: center;
+    border-radius: 8px; /* Soften edges */
 }
 
 #passive-info-text blockquote {
+    font-size: 1.1rem; /* Slightly larger for quote */
     font-style: italic;
     margin-bottom: 2rem;
-    padding-left: 1rem;
-    border-left: 3px solid #eee;
+    padding-left: 1.5rem;
+    border-left: 4px solid var(--title-color);
 }
 
 #passive-stats {
@@ -149,84 +264,208 @@ h4 { font-size: 1.3rem; line-height: 1.4em; }
     padding: 0;
 }
 #passive-stats li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #f0f0f0;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Floorplan Section */
+#floorplan-details-content-wrapper {
+    margin-top: 2rem;
+}
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    border-bottom: 1px dotted #ddd;
+}
+.detail-item span:first-child {
+    font-weight: 500;
 }
 
 #floorplan-image-container img {
     max-width: 100%;
     height: auto;
+    display: block;
+    margin: auto;
 }
 
-/* Upgrades Section */
-.upgrade-item h4 {
-    margin-bottom: 0.5rem;
+/* Upgrades Section Styling */
+.upgrade-item {
+    margin-bottom: 2rem;
 }
 .option-group {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.8rem;
     flex-wrap: wrap;
+    margin-top: 0.5rem;
 }
 .option-button, .upgrade-item.clickable {
-    padding: 0.5rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 0.6rem 1.2rem;
+    border: 2px solid #eee;
+    background: white;
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    font-weight: 500;
 }
+.upgrade-item.clickable {
+    display: block; /* Make the whole block clickable */
+}
+.upgrade-item.clickable h4, .upgrade-item.clickable p {
+    margin: 0; /* Remove margins to fit inside the button area */
+    pointer-events: none; /* Pass clicks through */
+}
+.upgrade-item.clickable p {
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+}
+
+
 .option-button:hover, .upgrade-item.clickable:hover {
-    border-color: var(--title-color);
+    border-color: #999;
 }
 .option-button.selected, .upgrade-item.selected {
     background-color: var(--title-color);
     color: white;
     border-color: var(--title-color);
 }
+.option-button.selected *, .upgrade-item.selected * {
+    color: white; /* Ensure children text turns white */
+}
+
 .upgrade-item.disabled {
-    opacity: 0.5;
+    opacity: 0.6;
     cursor: not-allowed;
     background-color: #f9f9f9;
+    border-color: transparent;
+}
+.upgrade-item.disabled:hover {
+    border-color: transparent;
 }
 
 
 /* Summary Section */
 #section-summary {
-    background-color: #f8f8f8;
+    background-color: var(--title-color); /* Dark background */
+    color: white;
 }
+#section-summary h1, #section-summary h2, #section-summary h3, #section-summary h4, 
+#section-summary p, #section-summary li, #section-summary span, #section-summary strong, 
+#section-summary .mentiuni-editable, #section-summary .summary-total {
+    color: white; /* Override all text to white */
+}
+
 .summary-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 2rem;
-    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 3rem;
+    margin-bottom: 3rem;
+}
+.summary-title-block h2 { font-size: 1rem; letter-spacing: 2px; opacity: 0.7; margin-bottom: 0;}
+.summary-title-block h1 { margin: 0.2em 0; }
+.summary-title-block h3 { font-weight: 300; opacity: 0.9;}
+
+.summary-logos {
+    display: flex;
+    gap: 1rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
 }
 .summary-logos img {
-    height: 60px;
-    margin-left: 1rem;
+    height: 50px;
+    width: auto;
 }
-#summary-inclusions {
-    margin-bottom: 2rem;
+
+.summary-body {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
 }
+@media (max-width: 768px) {
+    .summary-body { grid-template-columns: 1fr; gap: 2rem;}
+    .summary-total { text-align: left; margin-top: 2rem;}
+}
+
 #inclusion-list {
     list-style: none;
 }
-.mentiuni-section {
-    margin-top: 1.5rem;
+#inclusion-list li {
+    padding: 0.5rem 0;
+    font-size: 1.1rem;
 }
-.summary-total {
-    font-size: 2.5rem;
+#inclusion-list li:first-child {
+    font-size: 1.4rem;
     font-weight: 500;
-    color: var(--title-color);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.mentiuni-section {
+    margin-top: 3rem;
+    background: rgba(255,255,255,0.1);
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+.mentiuni-editable {
+    min-height: 50px;
+    margin-top: 0.5rem;
+    font-family: monospace; /* Better for editing numbers/notes */
+}
+
+.summary-total {
+    font-size: 3rem;
+    line-height: 1;
     text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
-.summary-fine-print {
-    font-size: 0.75rem;
-    margin-top: 1rem;
-    color: #999;
+.summary-total small {
+    font-size: 1rem;
+    opacity: 0.7;
+    font-weight: 300;
 }
+
+
 .summary-footer {
     margin-top: auto;
     text-align: center;
-    padding-top: 2rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+.summary-fine-print {
+    font-size: 0.8rem;
+    opacity: 0.6;
+    margin-bottom: 0.5rem;
+}
+.website-link {
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-top: 1rem;
+}
+
+/* Editable fields styling */
+[contenteditable="true"] {
+    border-bottom: 1px dashed #ccc;
+    transition: border-color 0.2s;
+}
+[contenteditable="true"]:focus {
+    outline: none;
+    border-bottom: 1px solid var(--title-color);
+    background-color: rgba(255,255,255,0.1);
+}
+#section-summary [contenteditable="true"] {
+    border-bottom-color: rgba(255,255,255,0.3);
+}
+#section-summary [contenteditable="true"]:focus {
+    border-bottom-color: white;
 }
