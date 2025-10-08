@@ -631,7 +631,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "U = 0,50 W/m²K ; verre feuilleté de sécurité ; certifié par le Passive House Institute de Darmstadt, Allemagne ; marquage CE.",
       s2_kitchen: "CUISINE",
       s2_kitchenInstall_title: "Raccordements cuisine",
-      s2_kitchenInstall_desc: "Entièrement préparés en position pour votre mobilier.",
+      s2_kitchenInstall_desc:
+        "Entièrement préparés en position pour votre mobilier.",
       s2_installations: "INSTALLATIONS",
       s2_electrical_title: "Installations électriques",
       s2_electrical_desc:
