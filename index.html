@@ -50,7 +50,7 @@
                     <p data-key="footerSlogan">
                         Modular este modern, inovator și sustenabil. Alege
                         spațiul ideal pentru tine, construit la cele mai înalte
-                        standare de construcție din lume.
+                        standarde de construcție din lume.
                     </p>
                 </div>
             </footer>
@@ -116,7 +116,7 @@
                         Grosime 9–14 mm; lemn certificat FSC/PEFC; finisaj
                         foarte durabil.
                     </p>
-                    <h3 data-key="interiorDoors">INTERIOR DOORS</h3>
+                    <h3 data-key="interiorDoors">UȘI DE INTERIOR</h3>
                     <h4 data-key="s10DoorsTitle">Uși interioare S10</h4>
                     <p data-key="s10DoorsDesc">
                         Certificate CE; Interior solid.
@@ -173,7 +173,107 @@
             </div>
         </section>
 
-        <!-- (The rest of your HTML code remains here, exactly as before) -->
-        
+        <section id="section-3-image" class="page page-hidden"></section>
+
+        <!-- Section Floorplan -->
+        <section id="section-floorplan" class="page">
+            <div id="floorplan-details">
+                <div class="interactive-select-wrapper">
+                    <select id="floorplan-title-select" class="interactive-select"></select>
+                    <input type="file" id="custom-floorplan-upload" style="display: none" accept="image/*" />
+                </div>
+                <div id="floorplan-details-content-wrapper"></div>
+            </div>
+            <div id="floorplan-image-container">
+                <img id="floorplan-image" src="" alt="Floor Plan Image" />
+            </div>
+        </section>
+
+        <!-- Section Upgrades -->
+        <section id="section-upgrades" class="page">
+            <h2 data-key="upgradesAndDelivery">Upgrades & Livrare</h2>
+            <div class="flex-wrapper">
+                <div class="column">
+                    <h3 data-key="delivery">Livrare</h3>
+                    <p>
+                        <strong data-key="deliveryCost">Costul transportului depinde de locație.</strong>
+                    </p>
+                    <p data-key="screwFoundation">
+                        Fundație pe șuruburi (opțional)
+                    </p>
+                    <p data-key="deliveryTime">
+                        Livrarea și instalarea durează între 1 și 5 zile. În
+                        cazuri speciale, când proiectul necesită echipamente
+                        suplimentare, orice cost suplimentar va fi comunicat
+                        transparent.
+                    </p>
+                </div>
+                <div id="upgrades-column" class="column">
+                    <h3 data-key="addOns">Aditionale</h3>
+                    <div class="upgrade-item" data-upgrade-type="facade">
+                        <h4 data-key="facade">Fațadă</h4>
+                        <div class="option-group"></div>
+                    </div>
+                    <div class="upgrade-item" data-upgrade-type="parquet">
+                        <h4 data-key="parquetUpgradeLabel">Parchet</h4>
+                        <div class="option-group"></div>
+                    </div>
+                    <div id="upgrade-blinds" class="upgrade-item clickable" data-upgrade-id="blinds">
+                        <h4 data-key="smartBlindsTitleUpgrade">Jaluzele exterioare Smart</h4>
+                        <p data-key="smartBlindsDescUpgrade">
+                            Blochează peste 95% din radiația solară, controlate
+                            prin aplicație sau manual.
+                        </p>
+                    </div>
+                    <div id="upgrade-ventilation" class="upgrade-item clickable" data-upgrade-id="ventilation">
+                        <h4 data-key="ventilationSystemTitleUpgrade">Sistem de ventilație</h4>
+                        <p data-key="ventilationSystemDescUpgrade">
+                            Sistem Genvex Premium cu recuperare de căldură de
+                            până la 95% și pompă de căldură integrată.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Summary -->
+        <section id="section-summary" class="page">
+            <header class="summary-header">
+                <div class="summary-title-block">
+                    <h2>MODULAR</h2>
+                    <h1 id="summary-model-name"></h1>
+                    <h3 id="summary-finish"></h3>
+                </div>
+                <div class="summary-logos">
+                    <img id="logo-epd" src="" alt="EPD System Logo" />
+                    <img id="logo-passive-house" src="" alt="Passive House Certified Component" />
+                </div>
+            </header>
+            <main class="summary-body">
+                <div>
+                    <div id="summary-inclusions">
+                        <ul id="inclusion-list"></ul>
+                        <div class="mentiuni-section">
+                            <strong data-key="notesLabel">Mențiuni:</strong>
+                            <div class="mentiuni-editable" contenteditable="true"></div>
+                        </div>
+                    </div>
+                    <div id="summary-total" class="summary-total"></div>
+                    <p class="summary-fine-print">
+                        BIOBUILDS HOME S.R.L., VAT:43154291, EUID:
+                        ROONRC.J20/2000/2193246
+                    </p>
+                    <p class="summary-fine-print" data-key="termsAndConditions">
+                        Această ofertă este supusă termenilor și condițiilor
+                        aplicabile, care pot fi consultate la biobuilds.com/TC.
+                        Continuând, confirmați că le înțelegeți și le acceptați.
+                    </p>
+                </div>
+            </main>
+            <footer class="summary-footer">
+                <p class="website-link">biobuilds.com</p>
+            </footer>
+        </section>
+        <script src="script.js"></script>
     </body>
 </html>
