@@ -56,9 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsTitle: "Jaluzele exterioare Smart",
       smartBlindsDesc:
         "Blochează > 95% din radiația solară; control prin aplicație/manual; certificate de Institutul de Case Pasive din Darmstadt, Germania; certificate CE.",
-      ventilationSystemTitle: "Genvex Premium Preheat 250",
+      ventilationSystemTitle: "Sistem de ventilație Zehnder",
       ventilationSystemDesc:
-        "Recuperare de căldură de până la 95%; pompă de căldură integrată pentru încălzire și răcire.",
+        "Recuperare de căldură de până la 95% și pompă de căldură pentru încălzire și răcire.",
       upgradesAndDelivery: "Upgrades & Livrare",
       delivery: "Livrare",
       deliveryCost: "Costul transportului depinde de locație.",
@@ -232,9 +232,9 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsTitle: "Smart exterior blinds",
       smartBlindsDesc:
         "Block > 95% of solar radiation; app/manual control; certified by the Passive House Institute in Darmstadt, Germany; CE certified.",
-      ventilationSystemTitle: "Genvex Premium Preheat 250",
+      ventilationSystemTitle: "Zhender",
       ventilationSystemDesc:
-        "Heat recovery up to 95%; integrated heat pump for heating and cooling.",
+        "Heat recovery up to 95% + heat pump for heating and cooling.",
       upgradesAndDelivery: "Upgrades & Delivery",
       delivery: "Delivery",
       deliveryCost: "Shipping cost depends on location.",
@@ -405,9 +405,9 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsTitle: "Smart-Außenjalousien",
       smartBlindsDesc:
         "Blockieren >95 % der Sonneneinstrahlung; App- oder manuell steuerbar; zertifiziert vom Passivhaus Institut Darmstadt; CE.",
-      ventilationSystemTitle: "Genvex Premium Preheat 250",
+      ventilationSystemTitle: "Zehnder Lüftungssystem",
       ventilationSystemDesc:
-        "Wärmerückgewinnung bis zu 95 %; integrierte Wärmepumpe zum Heizen und Kühlen.",
+        "Wärmerückgewinnung bis zu 95 % plus Wärmepumpe zum Heizen und Kühlen.",
       upgradesAndDelivery: "Upgrades & Lieferung",
       delivery: "Lieferung",
       deliveryCost: "Lieferkosten abhängig vom Standort.",
@@ -580,9 +580,9 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsTitle: "Stores extérieurs intelligents",
       smartBlindsDesc:
         "Bloque > 95 % du rayonnement solaire ; commande par application ou manuelle ; certifié par le Passive House Institute de Darmstadt, Allemagne ; marquage CE.",
-      ventilationSystemTitle: "Genvex Premium Preheat 250",
+      ventilationSystemTitle: "Système de ventilation Zehnder",
       ventilationSystemDesc:
-        "Récupération de chaleur jusqu'à 95 % ; pompe à chaleur intégrée pour chauffage et rafraîchissement.",
+        "Récupération de chaleur jusqu’à 95 % avec pompe à chaleur pour le chauffage et le refroidissement.",
       upgradesAndDelivery: "Options et Livraison",
       delivery: "Livraison",
       deliveryCost: "Les frais de livraison dépendent de votre localisation.",
