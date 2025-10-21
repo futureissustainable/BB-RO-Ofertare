@@ -572,6 +572,7 @@ p {
     align-items: center;
     height: 10vw;
     min-height: 100px;
+        width: 95%;
 }
 
 .timeline-line {
