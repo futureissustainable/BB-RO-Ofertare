@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsDescUpgrade:
         "Blochează peste 95% din radiația solară, controlate prin aplicație sau manual.",
       ventilationSystemTitleUpgrade: "Sistem de ventilație",
+      ventilationSystemDescUpgrade: "Recuperare de căldură de până la 95% + pompă de căldură pentru încălzire și răcire.",
       solarPanelsTitleUpgrade: "Panouri solare",
       solarPanelsDescUpgrade: "Produc cu 60% mai multă energie decât consumă casa anual.",
       notesLabel: "Mențiuni:",
@@ -247,6 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsDescUpgrade:
         "Block over 95% of solar radiation, controlled by app or manually.",
       ventilationSystemTitleUpgrade: "Ventilation system",
+      ventilationSystemDescUpgrade: "Heat recovery up to 95% plus heat pump for heating and cooling.",
       solarPanelsTitleUpgrade: "Solar panels",
       solarPanelsDescUpgrade: "Produces 60% more energy than your home consumes annually.",
       notesLabel: "Notes:",
@@ -420,6 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsDescUpgrade:
         "Blockieren über 95 % der Sonneneinstrahlung, per App oder manuell steuerbar.",
       ventilationSystemTitleUpgrade: "Lüftungssystem",
+      ventilationSystemDescUpgrade: "Wärmerückgewinnung bis zu 95 % plus Wärmepumpe zum Heizen und Kühlen.",
       solarPanelsTitleUpgrade: "Solarpaneele",
       solarPanelsDescUpgrade: "Erzeugt 60 % mehr Energie als Ihr Haus jährlich verbraucht.",
       notesLabel: "Anmerkungen:",
@@ -595,6 +598,7 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsDescUpgrade:
         "Bloque > 95 % du rayonnement solaire, commande via application ou manuelle.",
       ventilationSystemTitleUpgrade: "Système de ventilation",
+      ventilationSystemDescUpgrade: "Recuperare de căldură de până la 95% și pompă de căldură pentru încălzire și răcire.",
       solarPanelsTitleUpgrade: "Panneaux solaires",
       solarPanelsDescUpgrade: "Produit 60 % d'énergie en plus que votre maison n'en consomme annuellement.",
       notesLabel: "Notes :",
