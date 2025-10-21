@@ -1321,7 +1321,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .classList.toggle("disabled", selectionState.finish === "turnkey");
     document
       .getElementById("upgrade-solar")
-      .classList.toggle("disabled", selectionState.finish === "turnkey");
+        .classList.toggle("disabled", false); // Solar always enabled
   }
 
   function updateUrlParams() {
@@ -1569,14 +1569,15 @@ document.addEventListener("DOMContentLoaded", () => {
               priceChanged = true;
             needsUpdate = true;
           }
-        } else if (clickableItem) {
-          const id = clickableItem.dataset.upgradeId;
-          if (selectionState.finish === "semi-finished") {
-            selectionState[id] = !selectionState[id];
-            priceChanged = true;
-            needsUpdate = true;
-          }
-        }
+     } else if (clickableItem) {
+  const id = clickableItem.dataset.upgradeId;
+  // Allow solar toggling in any mode; others only in semi-finished
+  if (id === "solar" || selectionState.finish === "semi-finished") {
+    selectionState[id] = !selectionState[id];
+    priceChanged = true;
+    needsUpdate = true;
+  }
+}
 
         if (priceChanged) selectionState.basePriceOverride = null;
         if (needsUpdate) updateOffer();
