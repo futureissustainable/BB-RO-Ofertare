@@ -562,7 +562,7 @@ p {
 /* --- Timeline Styles --- */
 .timeline-container {
     position: relative;
-    width: 100%;
+    width: 70%;
     margin: 2em 0;
 }
 
@@ -572,7 +572,6 @@ p {
     align-items: center;
     height: 10vw;
     min-height: 100px;
-        width: 95%;
 }
 
 .timeline-line {
