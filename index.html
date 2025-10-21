@@ -70,13 +70,13 @@
             <div id="passive-info-text">
                 <blockquote>
                     <span data-key="passiveHouseQuote"
-                        >“Modulele sunt fixate cu șuruburi de oțel, apoi
+                        >"Modulele sunt fixate cu șuruburi de oțel, apoi
                         acoperite cu o membrană impermeabilă și placate cu lemn
                         durabil. Sistemul este prefabricat în fabrica BioBuilds,
                         oferind livrare rapidă și timpi scurți de asamblare.
                         Sistemul de construcție este certificat Passivhaus,
                         având valori U excepționale și eliminând punțile
-                        termice.”</span
+                        termice."</span
                     >
                     <cite>– Passivhaus Institute</cite>
                 </blockquote>
@@ -227,21 +227,77 @@
             <div class="flex-wrapper">
                 <div class="column">
                     <h3 data-key="delivery">Livrare</h3>
-                    <p>
-                        <strong data-key="deliveryCost"
-                            >Costul transportului depinde de locație.</strong
-                        >
+                    
+                    <!-- Timeline Container -->
+                    <div class="timeline-container">
+                        <div class="timeline">
+                            <!-- Horizontal line segments -->
+                            <div class="timeline-line">
+                                <div class="line-segment segment-1 dotted"></div>
+                                <div class="line-segment segment-2 dotted"></div>
+                                <div class="line-segment segment-3"></div>
+                                <div class="line-segment segment-4"></div>
+                            </div>
+                            
+                            <!-- Vertical lines -->
+                            <div class="vertical-line line-1"></div>
+                            <div class="vertical-line line-2"></div>
+                            <div class="vertical-line line-3"></div>
+                            <div class="vertical-line line-4"></div>
+                            <div class="vertical-line line-5"></div>
+                            
+                            <!-- Arrows -->
+                            <div class="arrow arrow-1">
+                                <svg viewBox="0 0 16 16" fill="none" stroke="#000" stroke-width="1">
+                                    <polyline points="6,4 10,8 6,12" />
+                                </svg>
+                            </div>
+                            <div class="arrow arrow-2">
+                                <svg viewBox="0 0 16 16" fill="none" stroke="#000" stroke-width="1">
+                                    <polyline points="6,4 10,8 6,12" />
+                                </svg>
+                            </div>
+                            
+                            <!-- Labels -->
+                            <div class="label label-1">
+                                <div data-key="timeline_online">Online</div>
+                                <div data-key="timeline_offer">Ofertă</div>
+                            </div>
+                            <div class="label label-2">
+                                <div data-key="timeline_reservation">Rezervare</div>
+                                <div data-key="timeline_payment10">10% Plată</div>
+                            </div>
+                            <div class="label label-3">
+                                <div data-key="timeline_preproduction">Pre-producție</div>
+                                <div data-key="timeline_payment40">40% Plată</div>
+                            </div>
+                            <div class="label label-4">
+                                <div data-key="timeline_production">Producție</div>
+                                <div data-key="timeline_payment40_2">40% Plată</div>
+                            </div>
+                            <div class="label label-5">
+                                <div data-key="timeline_delivery">Livrare</div>
+                                <div data-key="timeline_payment10_final">10% Plată</div>
+                            </div>
+                            
+                            <!-- House image -->
+                            <div class="house-image">
+                                <img src="https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/68f7765093b67ab02d42bced_142m2%20Ofertare%20Timeline%202D.png" alt="House">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 2em;">
+                        <strong data-key="deliveryCost">Costul transportului depinde de locație.</strong>
                     </p>
-                    <p data-key="screwFoundation">
-                        Fundație pe șuruburi (opțional)
-                    </p>
+                    <p data-key="screwFoundation">Fundație pe șuruburi (opțional)</p>
                     <p data-key="deliveryTime">
-                        Livrarea și instalarea durează între 1 și 5 zile. În
-                        cazuri speciale, când proiectul necesită echipamente
-                        suplimentare, orice cost suplimentar va fi comunicat
-                        transparent.
+                        Livrarea și instalarea durează între 1 și 5 zile. În cazuri speciale, 
+                        când proiectul necesită echipamente suplimentare, orice cost suplimentar 
+                        va fi comunicat transparent.
                     </p>
                 </div>
+                
                 <div id="upgrades-column" class="column">
                     <h3 data-key="addOns">Aditionale</h3>
                     <div class="upgrade-item" data-upgrade-type="facade">
@@ -278,6 +334,18 @@
                             până la 95% și pompă de căldură integrată.
                         </p>
                     </div>
+                    <div
+    id="upgrade-solar"
+    class="upgrade-item clickable"
+    data-upgrade-id="solar"
+>
+    <h4 data-key="solarPanelsTitleUpgrade">
+        Panouri solare
+    </h4>
+    <p data-key="solarPanelsDescUpgrade">
+        Produc cu 60% mai multă energie decât consumă casa anual.
+    </p>
+</div>
                 </div>
             </div>
         </section>
