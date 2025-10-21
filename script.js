@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // --- LANGUAGE AND TRANSLATION ---
   let currentLang = "ro";
   const translations = {
     ro: {
