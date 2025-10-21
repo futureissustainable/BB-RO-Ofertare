@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsTitle: "Smart exterior blinds",
       smartBlindsDesc:
         "Block > 95% of solar radiation; app/manual control; certified by the Passive House Institute in Darmstadt, Germany; CE certified.",
-      ventilationSystemTitle: "Zhender",
+      ventilationSystemTitle: "Zehnder Ventilation System",
       ventilationSystemDesc:
         "Heat recovery up to 95% + heat pump for heating and cooling.",
       upgradesAndDelivery: "Upgrades & Delivery",
