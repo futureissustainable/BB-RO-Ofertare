@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Panou structural fără formaldehidă și VOC, aprobat de Institutul de Case Pasive din Darmstadt, Germania; certificat CE.",
       s2_dwd_title: "Placă DWD, Austria",
       s2_dwd_desc:
-        "Permeabilă la vapori (permite pereților să „respire" menținându-i etanși la aer din exterior; unidirecțional); certificată CE.",
+        "Permeabilă la vapori (permite pereților să respire menținându-i etanși la aer din exterior; unidirecțional); certificată CE.",
       s2_smartMembrane_title: "Membrană Smart (folie)",
       s2_smartMembrane_desc:
         "Creează un interior etanș la aer, permițând difuzia vaporilor spre exterior. Certificată de Institutul de Case Pasive din Darmstadt, Germania; certificată CE.",
@@ -293,7 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Formaldehyde and VOC-free structural panel, approved by the Passive House Institute in Darmstadt, Germany; CE certified.",
       s2_dwd_title: "DWD Board, Austria",
       s2_dwd_desc:
-        'Vapor permeable (allows walls to "breathe" while keeping them airtight from the outside; unidirectional); CE certified.',
+        'Vapor permeable (allows walls to breathe while keeping them airtight from the outside; unidirectional); CE certified.',
       s2_smartMembrane_title: "Smart Membrane (foil)",
       s2_smartMembrane_desc:
         "Creates an airtight interior, allowing vapor diffusion to the outside. Certified by the Passive House Institute in Darmstadt, Germany; CE certified.",
@@ -466,7 +466,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Frei von Formaldehyd und VOC; vom Passivhaus Institut Darmstadt freigegeben; CE-zertifiziert.",
       s2_dwd_title: "DWD-Platte, Österreich",
       s2_dwd_desc:
-        "Dampfdurchlässig (ermöglicht „atmende" Wände, bleibt aber außen luftdicht, unidirektional); CE-zertifiziert.",
+        "Dampfdurchlässig (ermöglicht atmende Wände, bleibt aber außen luftdicht, unidirektional); CE-zertifiziert.",
       s2_smartMembrane_title: "Intelligente Membran (Folie)",
       s2_smartMembrane_desc:
         "Sorgt für eine luftdichte Innenhülle und ermöglicht gleichzeitig Dampfdiffusion nach außen. Zertifiziert vom Passivhaus Institut Darmstadt; CE.",
@@ -641,7 +641,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Panneau structurel sans formaldéhyde ni COV, approuvé par le Passive House Institute de Darmstadt, Allemagne ; certifié CE.",
       s2_dwd_title: "Panneau DWD, Autriche",
       s2_dwd_desc:
-        "Perméable à la vapeur (laisse « respirer » les parois tout en assurant l'étanchéité à l'air depuis l'extérieur ; unidirectionnel) ; certifié CE.",
+        "Perméable à la vapeur (laisse respirer les parois tout en assurant l'étanchéité à l'air depuis l'extérieur ; unidirectionnel) ; certifié CE.",
       s2_smartMembrane_title: "Membrane intelligente (film)",
       s2_smartMembrane_desc:
         "Crée une étanchéité à l'air intérieure tout en permettant la diffusion de vapeur vers l'extérieur. Certifiée par le Passive House Institute de Darmstadt, Allemagne ; certifiée CE.",
