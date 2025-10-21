@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
       footerSlogan:
         "Modular este modern, inovator și sustenabil. Alege spațiul ideal pentru tine, construit la cele mai înalte standarde de construcție din lume.",
       passiveHouseQuote:
-        "Modulele sunt fixate cu șuruburi de oțel, apoi acoperite cu o membrană impermeabilă și placate cu lemn durabil. Sistemul este prefabricat în fabrica BioBuilds, oferind livrare rapidă și timpi scurți de asamblare. Sistemul de construcție este certificat Passivhaus, având valori U excepționale și eliminând punțile termice.",
+        '"Modulele sunt fixate cu șuruburi de oțel, apoi acoperite cu o membrană impermeabilă și placate cu lemn durabil. Sistemul este prefabricat în fabrica BioBuilds, oferind livrare rapidă și timpi scurți de asamblare. Sistemul de construcție este certificat Passivhaus, având valori U excepționale și eliminând punțile termice."',
       energyConsumptionLabel: "Consum de energie:",
       energyConsumptionValue: ">90% redus",
       co2Saved: "Tone de CO₂ salvate",
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
       footerSlogan:
         "Modular is modern, innovative, and sustainable. Choose the ideal space for you, built to the highest construction standards in the world.",
       passiveHouseQuote:
-        ""The modules are fixed with steel screws, then covered with a waterproof membrane and clad in durable wood. The system is prefabricated in the BioBuilds factory, offering fast delivery and short assembly times. The construction system is Passivhaus certified, having exceptional U-values and eliminating thermal bridges."",
+  '"The modules are fixed with steel screws, then covered with a waterproof membrane and clad in durable wood. The system is prefabricated in the BioBuilds factory, offering fast delivery and short assembly times. The construction system is Passivhaus certified, having exceptional U-values and eliminating thermal bridges."',
       energyConsumptionLabel: "Energy Consumption:",
       energyConsumptionValue: ">90% reduced",
       co2Saved: "Tons of CO₂ saved",
@@ -361,7 +361,7 @@ document.addEventListener("DOMContentLoaded", () => {
       footerSlogan:
         "Modular ist modern, innovativ und nachhaltig. Wählen Sie den idealen Raum für sich, gebaut nach den höchsten Baustandards der Welt.",
       passiveHouseQuote:
-        "„Die Module werden mit Stahlschrauben fixiert, anschließend mit einer wasserdichten Membran abgedeckt und mit langlebigem Holz verkleidet. Das System wird im BioBuilds-Werk vorgefertigt und ermöglicht schnelle Lieferung und kurze Montagezeiten. Das Bausystem ist vom Passivhaus Institut zertifiziert, weist außergewöhnliche U-Werte auf und eliminiert Wärmebrücken."",
+  '"Die Module werden mit Stahlschrauben fixiert, anschließend mit einer wasserdichten Membran abgedeckt und mit langlebigem Holz verkleidet. Das System wird im BioBuilds-Werk vorgefertigt und ermöglicht schnelle Lieferung und kurze Montagezeiten. Das Bausystem ist vom Passivhaus Institut zertifiziert, weist außergewöhnliche U-Werte auf und eliminiert Wärmebrücken."',
       energyConsumptionLabel: "Energieverbrauch:",
       energyConsumptionValue: "90 % reduziert",
       co2Saved: "Tonnen CO₂ eingespart",
@@ -535,7 +535,7 @@ document.addEventListener("DOMContentLoaded", () => {
       footerSlogan:
         "Le modulaire est moderne, innovant et durable. Choisissez l'espace idéal pour vous, construit selon les standards de construction les plus élevés au monde.",
       passiveHouseQuote:
-        "« Les modules sont fixés avec des vis en acier, puis recouverts d'une membrane étanche et bardés de bois durable. Le système est préfabriqué dans l'usine BioBuilds, offrant une livraison rapide et des temps de montage courts. Le système constructif est certifié Passivhaus, présente des valeurs U exceptionnelles et élimine les ponts thermiques. »",
+  '"Les modules sont fixés avec des vis en acier, puis recouverts d\'une membrane étanche et bardés de bois durable. Le système est préfabriqué dans l\'usine BioBuilds, offrant une livraison rapide et des temps de montage courts. Le système constructif est certifié Passivhaus, présente des valeurs U exceptionnelles et élimine les ponts thermiques."',
       energyConsumptionLabel: "Consommation d'énergie :",
       energyConsumptionValue: "> 90 % de moins",
       co2Saved: "Tonnes de CO₂ économisées",
