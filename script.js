@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
       footerSlogan:
         "Modular este modern, inovator și sustenabil. Alege spațiul ideal pentru tine, construit la cele mai înalte standarde de construcție din lume.",
       passiveHouseQuote:
-        "“Modulele sunt fixate cu șuruburi de oțel, apoi acoperite cu o membrană impermeabilă și placate cu lemn durabil. Sistemul este prefabricat în fabrica BioBuilds, oferind livrare rapidă și timpi scurți de asamblare. Sistemul de construcție este certificat Passivhaus, având valori U excepționale și eliminând punțile termice.”",
+        ""Modulele sunt fixate cu șuruburi de oțel, apoi acoperite cu o membrană impermeabilă și placate cu lemn durabil. Sistemul este prefabricat în fabrica BioBuilds, oferind livrare rapidă și timpi scurți de asamblare. Sistemul de construcție este certificat Passivhaus, având valori U excepționale și eliminând punțile termice."",
       energyConsumptionLabel: "Consum de energie:",
       energyConsumptionValue: ">90% redus",
       co2Saved: "Tone de CO₂ salvate",
@@ -72,6 +72,8 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsDescUpgrade:
         "Blochează peste 95% din radiația solară, controlate prin aplicație sau manual.",
       ventilationSystemTitleUpgrade: "Sistem de ventilație",
+      solarPanelsTitleUpgrade: "Panouri solare",
+      solarPanelsDescUpgrade: "Produc cu 60% mai multă energie decât consumă casa anual.",
       notesLabel: "Mențiuni:",
       termsAndConditions:
         "Această ofertă este supusă termenilor și condițiilor aplicabile, care pot fi consultate la biobuilds.com/TC. Continuând, confirmați că le înțelegeți și le acceptați.",
@@ -115,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Panou structural fără formaldehidă și VOC, aprobat de Institutul de Case Pasive din Darmstadt, Germania; certificat CE.",
       s2_dwd_title: "Placă DWD, Austria",
       s2_dwd_desc:
-        "Permeabilă la vapori (permite pereților să „respire” menținându-i etanși la aer din exterior; unidirecțional); certificată CE.",
+        "Permeabilă la vapori (permite pereților să „respire" menținându-i etanși la aer din exterior; unidirecțional); certificată CE.",
       s2_smartMembrane_title: "Membrană Smart (folie)",
       s2_smartMembrane_desc:
         "Creează un interior etanș la aer, permițând difuzia vaporilor spre exterior. Certificată de Institutul de Case Pasive din Darmstadt, Germania; certificată CE.",
@@ -165,6 +167,16 @@ document.addEventListener("DOMContentLoaded", () => {
       s2_warranty_title: "Garanție standard UE",
       s2_warranty_desc:
         "24 de luni pentru uz privat; 12 luni pentru uz comercial.",
+      timeline_online: "Online",
+      timeline_offer: "Ofertă",
+      timeline_reservation: "Rezervare",
+      timeline_payment10: "10% Plată",
+      timeline_preproduction: "Pre-producție",
+      timeline_payment40: "40% Plată",
+      timeline_production: "Producție",
+      timeline_payment40_2: "40% Plată",
+      timeline_delivery: "Livrare",
+      timeline_payment10_final: "10% Plată",
     },
     en: {
       pageTitle: "Generated Offer - Biobuilds",
@@ -175,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
       footerSlogan:
         "Modular is modern, innovative, and sustainable. Choose the ideal space for you, built to the highest construction standards in the world.",
       passiveHouseQuote:
-        "“The modules are fixed with steel screws, then covered with a waterproof membrane and clad in durable wood. The system is prefabricated in the BioBuilds factory, offering fast delivery and short assembly times. The construction system is Passivhaus certified, having exceptional U-values and eliminating thermal bridges.”",
+        ""The modules are fixed with steel screws, then covered with a waterproof membrane and clad in durable wood. The system is prefabricated in the BioBuilds factory, offering fast delivery and short assembly times. The construction system is Passivhaus certified, having exceptional U-values and eliminating thermal bridges."",
       energyConsumptionLabel: "Energy Consumption:",
       energyConsumptionValue: ">90% reduced",
       co2Saved: "Tons of CO₂ saved",
@@ -236,6 +248,8 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsDescUpgrade:
         "Block over 95% of solar radiation, controlled by app or manually.",
       ventilationSystemTitleUpgrade: "Ventilation system",
+      solarPanelsTitleUpgrade: "Solar panels",
+      solarPanelsDescUpgrade: "Produces 60% more energy than your home consumes annually.",
       notesLabel: "Notes:",
       termsAndConditions:
         "This offer is subject to the applicable terms and conditions, which can be viewed at biobuilds.com/TC. By proceeding, you confirm that you understand and accept them.",
@@ -327,6 +341,16 @@ document.addEventListener("DOMContentLoaded", () => {
       s2_warranty_title: "Standard EU Warranty",
       s2_warranty_desc:
         "24 months for private use; 12 months for commercial use.",
+      timeline_online: "Online",
+      timeline_offer: "Offer",
+      timeline_reservation: "Reservation",
+      timeline_payment10: "10% Payment",
+      timeline_preproduction: "Pre-production",
+      timeline_payment40: "40% Payment",
+      timeline_production: "Production",
+      timeline_payment40_2: "40% Payment",
+      timeline_delivery: "Delivery",
+      timeline_payment10_final: "10% Payment",
     },
     de: {
       pageTitle: "Angebot Erstellt – Biobuilds",
@@ -337,7 +361,7 @@ document.addEventListener("DOMContentLoaded", () => {
       footerSlogan:
         "Modular ist modern, innovativ und nachhaltig. Wählen Sie den idealen Raum für sich, gebaut nach den höchsten Baustandards der Welt.",
       passiveHouseQuote:
-        "„Die Module werden mit Stahlschrauben fixiert, anschließend mit einer wasserdichten Membran abgedeckt und mit langlebigem Holz verkleidet. Das System wird im BioBuilds-Werk vorgefertigt und ermöglicht schnelle Lieferung und kurze Montagezeiten. Das Bausystem ist vom Passivhaus Institut zertifiziert, weist außergewöhnliche U-Werte auf und eliminiert Wärmebrücken.“",
+        "„Die Module werden mit Stahlschrauben fixiert, anschließend mit einer wasserdichten Membran abgedeckt und mit langlebigem Holz verkleidet. Das System wird im BioBuilds-Werk vorgefertigt und ermöglicht schnelle Lieferung und kurze Montagezeiten. Das Bausystem ist vom Passivhaus Institut zertifiziert, weist außergewöhnliche U-Werte auf und eliminiert Wärmebrücken."",
       energyConsumptionLabel: "Energieverbrauch:",
       energyConsumptionValue: "90 % reduziert",
       co2Saved: "Tonnen CO₂ eingespart",
@@ -397,6 +421,8 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsDescUpgrade:
         "Blockieren über 95 % der Sonneneinstrahlung, per App oder manuell steuerbar.",
       ventilationSystemTitleUpgrade: "Lüftungssystem",
+      solarPanelsTitleUpgrade: "Solarpaneele",
+      solarPanelsDescUpgrade: "Erzeugt 60 % mehr Energie als Ihr Haus jährlich verbraucht.",
       notesLabel: "Anmerkungen:",
       termsAndConditions:
         "Dieses Angebot unterliegt den geltenden AGB, einsehbar unter biobuilds.com/TC. Mit der Annahme bestätigen Sie, dass Sie diese verstanden und akzeptiert haben.",
@@ -440,7 +466,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Frei von Formaldehyd und VOC; vom Passivhaus Institut Darmstadt freigegeben; CE-zertifiziert.",
       s2_dwd_title: "DWD-Platte, Österreich",
       s2_dwd_desc:
-        "Dampfdurchlässig (ermöglicht „atmende“ Wände, bleibt aber außen luftdicht, unidirektional); CE-zertifiziert.",
+        "Dampfdurchlässig (ermöglicht „atmende" Wände, bleibt aber außen luftdicht, unidirektional); CE-zertifiziert.",
       s2_smartMembrane_title: "Intelligente Membran (Folie)",
       s2_smartMembrane_desc:
         "Sorgt für eine luftdichte Innenhülle und ermöglicht gleichzeitig Dampfdiffusion nach außen. Zertifiziert vom Passivhaus Institut Darmstadt; CE.",
@@ -489,6 +515,16 @@ document.addEventListener("DOMContentLoaded", () => {
       s2_warranty_title: "Standard EU-Garantie",
       s2_warranty_desc:
         "24 Monate für private Nutzung; 12 Monate für gewerbliche Nutzung.",
+      timeline_online: "Online",
+      timeline_offer: "Angebot",
+      timeline_reservation: "Reservierung",
+      timeline_payment10: "10% Zahlung",
+      timeline_preproduction: "Vorproduktion",
+      timeline_payment40: "40% Zahlung",
+      timeline_production: "Produktion",
+      timeline_payment40_2: "40% Zahlung",
+      timeline_delivery: "Lieferung",
+      timeline_payment10_final: "10% Zahlung",
     },
     fr: {
       pageTitle: "Offre générée - Biobuilds",
@@ -497,10 +533,10 @@ document.addEventListener("DOMContentLoaded", () => {
       offerFor: "Offre -",
       clientNamePlaceholder: "Nom du client",
       footerSlogan:
-        "Le modulaire est moderne, innovant et durable. Choisissez l’espace idéal pour vous, construit selon les standards de construction les plus élevés au monde.",
+        "Le modulaire est moderne, innovant et durable. Choisissez l'espace idéal pour vous, construit selon les standards de construction les plus élevés au monde.",
       passiveHouseQuote:
-        "« Les modules sont fixés avec des vis en acier, puis recouverts d’une membrane étanche et bardés de bois durable. Le système est préfabriqué dans l’usine BioBuilds, offrant une livraison rapide et des temps de montage courts. Le système constructif est certifié Passivhaus, présente des valeurs U exceptionnelles et élimine les ponts thermiques. »",
-      energyConsumptionLabel: "Consommation d’énergie :",
+        "« Les modules sont fixés avec des vis en acier, puis recouverts d'une membrane étanche et bardés de bois durable. Le système est préfabriqué dans l'usine BioBuilds, offrant une livraison rapide et des temps de montage courts. Le système constructif est certifié Passivhaus, présente des valeurs U exceptionnelles et élimine les ponts thermiques. »",
+      energyConsumptionLabel: "Consommation d'énergie :",
       energyConsumptionValue: "> 90 % de moins",
       co2Saved: "Tonnes de CO₂ économisées",
       co2Lifespan: "sur la durée de vie du bâtiment",
@@ -515,7 +551,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Bois naturel et feutre recyclé ; excellente absorption acoustique.",
       fiberglassWallpaperTitle: "Toile de verre",
       fiberglassWallpaperDesc:
-        "Très haute résistance à la traction et à l’usure ; lavable ; rendu moderne.",
+        "Très haute résistance à la traction et à l'usure ; lavable ; rendu moderne.",
       parquetTitle: "Parquet en bois naturel trois couches",
       parquetDesc:
         "Épaisseur 9 à 14 mm ; bois certifié FSC/PEFC ; finition très durable.",
@@ -532,10 +568,10 @@ document.addEventListener("DOMContentLoaded", () => {
       groheWCDesc: "Fabriqué en Allemagne ; design minimaliste et moderne.",
       aristonBoilerTitle: "Chauffe-eau Ariston Velis",
       aristonBoilerDesc: "Design ultra-fin ; haute efficacité énergétique.",
-      walkInShowerTitle: "Douche à l’italienne",
+      walkInShowerTitle: "Douche à l'italienne",
       walkInShowerDesc: "Conçue en France ; design minimaliste et moderne.",
       smartSystems: "SYSTÈMES INTELLIGENTS",
-      lightingTrackTitle: "Rail d’éclairage",
+      lightingTrackTitle: "Rail d'éclairage",
       lightingTrackDesc:
         "Configuration flexible pour LED et spots ; esthétique moderne.",
       smartLightingTitle: "Éclairage intelligent",
@@ -546,13 +582,13 @@ document.addEventListener("DOMContentLoaded", () => {
         "Bloque > 95 % du rayonnement solaire ; commande par application ou manuelle ; certifié par le Passive House Institute de Darmstadt, Allemagne ; marquage CE.",
       ventilationSystemTitle: "Genvex Premium Preheat 250",
       ventilationSystemDesc:
-        "Récupération de chaleur jusqu’à 95 % ; pompe à chaleur intégrée pour chauffage et rafraîchissement.",
+        "Récupération de chaleur jusqu'à 95 % ; pompe à chaleur intégrée pour chauffage et rafraîchissement.",
       upgradesAndDelivery: "Options et Livraison",
       delivery: "Livraison",
       deliveryCost: "Les frais de livraison dépendent de votre localisation.",
       screwFoundation: "Fondations sur pieux vissés (optionnel)",
       deliveryTime:
-        "La livraison et l’installation prennent entre 1 et 5 jours. Dans les cas particuliers nécessitant des équipements supplémentaires, tout coût additionnel sera communiqué en toute transparence.",
+        "La livraison et l'installation prennent entre 1 et 5 jours. Dans les cas particuliers nécessitant des équipements supplémentaires, tout coût additionnel sera communiqué en toute transparence.",
       addOns: "Options",
       facade: "Façade",
       parquetUpgradeLabel: "Parquet",
@@ -560,6 +596,8 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsDescUpgrade:
         "Bloque > 95 % du rayonnement solaire, commande via application ou manuelle.",
       ventilationSystemTitleUpgrade: "Système de ventilation",
+      solarPanelsTitleUpgrade: "Panneaux solaires",
+      solarPanelsDescUpgrade: "Produit 60 % d'énergie en plus que votre maison n'en consomme annuellement.",
       notesLabel: "Notes :",
       termsAndConditions:
         "Cette offre est soumise aux conditions générales applicables, consultables sur biobuilds.com/TC. En poursuivant, vous confirmez les avoir comprises et acceptées.",
@@ -603,10 +641,10 @@ document.addEventListener("DOMContentLoaded", () => {
         "Panneau structurel sans formaldéhyde ni COV, approuvé par le Passive House Institute de Darmstadt, Allemagne ; certifié CE.",
       s2_dwd_title: "Panneau DWD, Autriche",
       s2_dwd_desc:
-        "Perméable à la vapeur (laisse « respirer » les parois tout en assurant l’étanchéité à l’air depuis l’extérieur ; unidirectionnel) ; certifié CE.",
+        "Perméable à la vapeur (laisse « respirer » les parois tout en assurant l'étanchéité à l'air depuis l'extérieur ; unidirectionnel) ; certifié CE.",
       s2_smartMembrane_title: "Membrane intelligente (film)",
       s2_smartMembrane_desc:
-        "Crée une étanchéité à l’air intérieure tout en permettant la diffusion de vapeur vers l’extérieur. Certifiée par le Passive House Institute de Darmstadt, Allemagne ; certifiée CE.",
+        "Crée une étanchéité à l'air intérieure tout en permettant la diffusion de vapeur vers l'extérieur. Certifiée par le Passive House Institute de Darmstadt, Allemagne ; certifiée CE.",
       s2_exteriorFinishes: "FINITIONS EXTÉRIEURES COMPLÈTES",
       s2_facadeYakisugi_title: "Façade ventilée Yakisugi",
       s2_facadeYakisugi_desc:
@@ -616,7 +654,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Façade en pin nordique, traitée thermiquement sans produits chimiques pour une durabilité et une stabilité exceptionnelles, teinte caramel chaleureuse.",
       s2_ventRoof_title: "Toiture ventilée",
       s2_ventRoof_desc:
-        "L’espace ventilé augmente la performance thermique et la durée de vie de la toiture.",
+        "L'espace ventilé augmente la performance thermique et la durée de vie de la toiture.",
       s2_epdmMembrane_title: "Membrane EPDM",
       s2_epdmMembrane_desc: "Étanchéité ; garantie fabricant 30 ans.",
       s2_rainwater_title: "Système de collecte des eaux pluviales",
@@ -652,6 +690,16 @@ document.addEventListener("DOMContentLoaded", () => {
       s2_warranty_title: "Garantie standard UE",
       s2_warranty_desc:
         "24 mois pour usage privé ; 12 mois pour usage professionnel.",
+      timeline_online: "En ligne",
+      timeline_offer: "Offre",
+      timeline_reservation: "Réservation",
+      timeline_payment10: "10% Paiement",
+      timeline_preproduction: "Pré-production",
+      timeline_payment40: "40% Paiement",
+      timeline_production: "Production",
+      timeline_payment40_2: "40% Paiement",
+      timeline_delivery: "Livraison",
+      timeline_payment10_final: "10% Paiement",
     },
   };
 
@@ -665,12 +713,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Update active class on selector
     document.querySelectorAll("#language-selector a").forEach((a) => {
       a.classList.toggle("active", a.getAttribute("data-lang") === lang);
     });
 
-    // Re-render components that depend on language
     updateOffer();
   }
 
@@ -967,6 +1013,7 @@ document.addEventListener("DOMContentLoaded", () => {
         parquet: { cashmere: 1800, hazelnut: 1800 },
         ventilation: 4800,
         blinds: 2000,
+        solar: 7800,
       },
     },
     "wanderlust-48": {
@@ -975,6 +1022,7 @@ document.addEventListener("DOMContentLoaded", () => {
         parquet: { cashmere: 3800, hazelnut: 3800 },
         ventilation: 7800,
         blinds: 4000,
+        solar: 11800,
       },
     },
     "serenity-95": {
@@ -983,6 +1031,7 @@ document.addEventListener("DOMContentLoaded", () => {
         parquet: { cashmere: 7800, hazelnut: 7800 },
         ventilation: 9800,
         blinds: 7000,
+        solar: 14800,
       },
     },
     "sanctuary-142": {
@@ -991,9 +1040,11 @@ document.addEventListener("DOMContentLoaded", () => {
         parquet: { cashmere: 11800, hazelnut: 11800 },
         ventilation: 9800,
         blinds: 9000,
+        solar: 16800,
       },
     },
   };
+
   const selectionState = {
     model: "sanctuary-142",
     finish: "turnkey",
@@ -1002,12 +1053,14 @@ document.addEventListener("DOMContentLoaded", () => {
     floorplan: "a",
     blinds: true,
     ventilation: true,
+    solar: false,
     clientName: "Nume Client",
     offerNr: null,
     offerDate: "xx.06.2025",
     mentions: "",
     basePriceOverride: null,
   };
+
   function formatCurrency(value) {
     return value.toLocaleString("ro-RO", {
       style: "currency",
@@ -1015,6 +1068,7 @@ document.addEventListener("DOMContentLoaded", () => {
       minimumFractionDigits: 0,
     });
   }
+
   function parseCurrency(text) {
     if (!text) return 0;
     const number = parseFloat(
@@ -1025,6 +1079,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     return isNaN(number) ? 0 : number;
   }
+
   function createDetailItem(label, value) {
     return `<div class="detail-item"><span>${label}</span><span>${value}</span></div>`;
   }
@@ -1042,6 +1097,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     return result;
   }
+
   function generateAndSetOfferId() {
     const modelData = offerData.models[selectionState.model];
     if (!modelData) return;
@@ -1106,7 +1162,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (selectionState.blinds) price += modelPricing.upgrades.blinds;
       if (selectionState.ventilation)
         price += modelPricing.upgrades.ventilation;
+      if (selectionState.solar) price += modelPricing.upgrades.solar;
     }
+
     document.querySelector("#section-1 .content-area").style.backgroundImage =
       `url('${modelData.images.facade[facade]}')`;
     document.getElementById("passive-info-image").style.backgroundImage =
@@ -1124,6 +1182,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("section-3-image").style.backgroundImage =
         `url('${modelData.images.parquet[parquet]}')`;
     }
+
     const detailsWrapper = document.getElementById(
       "floorplan-details-content-wrapper",
     );
@@ -1160,6 +1219,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       detailsWrapper.style.display = "none";
     }
+
     updateOptionHighlights();
     document.getElementById("summary-model-name").textContent = modelData.name;
     document.getElementById("summary-finish").textContent =
@@ -1167,6 +1227,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("logo-passive-house").src =
       offerData.common.logos.passiveHouse;
     document.getElementById("logo-epd").src = offerData.common.logos.epd;
+
     const inclusionList = document.getElementById("inclusion-list");
     inclusionList.innerHTML = "";
     const firstLi = document.createElement("li");
@@ -1189,11 +1250,13 @@ document.addEventListener("DOMContentLoaded", () => {
       priceSpan,
     );
     inclusionList.appendChild(firstLi);
+
     const addInclusion = (text) => {
       const li = document.createElement("li");
       li.textContent = text;
       inclusionList.appendChild(li);
     };
+
     const facadeText =
       selectionState.facade === "yakisugi" ? "Yakisugi" : "Lunawood";
     const parquetGroup = document.querySelector(
@@ -1215,9 +1278,15 @@ document.addEventListener("DOMContentLoaded", () => {
       addInclusion(
         `- ${translations[currentLang].ventilationSystemTitleUpgrade} ${finish === "turnkey" ? `(${translations[currentLang].included})` : ""}`,
       );
+    if (selectionState.solar)
+      addInclusion(
+        `- ${translations[currentLang].solarPanelsTitleUpgrade} ${finish === "turnkey" ? `(${translations[currentLang].included})` : ""}`,
+      );
+
     recalculateTotals();
     updateUrlParams();
   }
+
   function updateOptionHighlights() {
     document
       .querySelectorAll('[data-upgrade-type="facade"] .option-button')
@@ -1242,12 +1311,19 @@ document.addEventListener("DOMContentLoaded", () => {
       .getElementById("upgrade-ventilation")
       .classList.toggle("selected", selectionState.ventilation);
     document
+      .getElementById("upgrade-solar")
+      .classList.toggle("selected", selectionState.solar);
+    document
       .getElementById("upgrade-blinds")
       .classList.toggle("disabled", selectionState.finish === "turnkey");
     document
       .getElementById("upgrade-ventilation")
       .classList.toggle("disabled", selectionState.finish === "turnkey");
+    document
+      .getElementById("upgrade-solar")
+      .classList.toggle("disabled", selectionState.finish === "turnkey");
   }
+
   function updateUrlParams() {
     const stateForUrl = { ...selectionState };
     if (stateForUrl.basePriceOverride === null) {
@@ -1274,40 +1350,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     container.innerHTML = `
-              <h2>${t.s2_modular}</h2>
-              <div class="flex-wrapper">
-                  <div class="column">
-                      <h3>${t.s2_structure}</h3>
-                      <h4>${t.s2_modularStructure_title}</h4><p>${t.s2_modularStructure_desc}</p>
-                      <h4>${t.s2_c24Frame_title}</h4><p>${t.s2_c24Frame_desc}</p>
-                      <h4>${t.s2_woodInsulation_title}</h4><p>${t.s2_woodInsulation_desc}</p>
-                      <h4>${t.s2_osb_title}</h4><p>${t.s2_osb_desc}</p>
-                      <h4>${t.s2_dwd_title}</h4><p>${t.s2_dwd_desc}</p>
-                      <h4>${t.s2_smartMembrane_title}</h4><p>${t.s2_smartMembrane_desc}</p>
-                  </div>
-                  <div class="column">
-                      <h3>${t.s2_exteriorFinishes}</h3>
-                      <h4>${facadeTitle}</h4><p>${facadeDescription}</p>
-                      <h4>${t.s2_ventRoof_title}</h4><p>${t.s2_ventRoof_desc}</p>
-                      <h4>${t.s2_epdmMembrane_title}</h4><p>${t.s2_epdmMembrane_desc}</p>
-                      <h4>${t.s2_rainwater_title}</h4><p>${t.s2_rainwater_desc}</p>
-                      <h3>${t.s2_windowsDoors}</h3>
-                      <h4>${t.s2_genesisFrame_title}</h4><p>${t.s2_genesisFrame_desc}</p>
-                      <h4>${t.s2_tripleGlazing_title}</h4><p>${t.s2_tripleGlazing_desc}</p>
-                  </div>
-                  <div class="column">
-                      <h3>${t.s2_kitchen}</h3>
-                      <h4>${t.s2_kitchenInstall_title}</h4><p>${t.s2_kitchenInstall_desc}</p>
-                      <h3>${t.s2_installations}</h3>
-                      <h4>${t.s2_electrical_title}</h4><p>${t.s2_electrical_desc}</p>
-                      <h4>${t.s2_plumbing_title}</h4><p>${t.s2_plumbing_desc}</p>
-                      <h3>${t.s2_certs}</h3>
-                      <h4>${t.s2_passivhaus_title}</h4><p>${t.s2_passivhaus_desc}</p>
-                      <h4>${t.s2_epd_title}</h4><p>${t.s2_epd_desc}</p>
-                      <h4>${t.s2_ce_title}</h4><p>${t.s2_ce_desc}</p>
-                      <h4>${t.s2_warranty_title}</h4><p>${t.s2_warranty_desc}</p>
-                  </div>
-              </div>`;
+      <h2>${t.s2_modular}</h2>
+      <div class="flex-wrapper">
+          <div class="column">
+              <h3>${t.s2_structure}</h3>
+              <h4>${t.s2_modularStructure_title}</h4><p>${t.s2_modularStructure_desc}</p>
+              <h4>${t.s2_c24Frame_title}</h4><p>${t.s2_c24Frame_desc}</p>
+              <h4>${t.s2_woodInsulation_title}</h4><p>${t.s2_woodInsulation_desc}</p>
+              <h4>${t.s2_osb_title}</h4><p>${t.s2_osb_desc}</p>
+              <h4>${t.s2_dwd_title}</h4><p>${t.s2_dwd_desc}</p>
+              <h4>${t.s2_smartMembrane_title}</h4><p>${t.s2_smartMembrane_desc}</p>
+          </div>
+          <div class="column">
+              <h3>${t.s2_exteriorFinishes}</h3>
+              <h4>${facadeTitle}</h4><p>${facadeDescription}</p>
+              <h4>${t.s2_ventRoof_title}</h4><p>${t.s2_ventRoof_desc}</p>
+              <h4>${t.s2_epdmMembrane_title}</h4><p>${t.s2_epdmMembrane_desc}</p>
+              <h4>${t.s2_rainwater_title}</h4><p>${t.s2_rainwater_desc}</p>
+              <h3>${t.s2_windowsDoors}</h3>
+              <h4>${t.s2_genesisFrame_title}</h4><p>${t.s2_genesisFrame_desc}</p>
+              <h4>${t.s2_tripleGlazing_title}</h4><p>${t.s2_tripleGlazing_desc}</p>
+          </div>
+          <div class="column">
+              <h3>${t.s2_kitchen}</h3>
+              <h4>${t.s2_kitchenInstall_title}</h4><p>${t.s2_kitchenInstall_desc}</p>
+              <h3>${t.s2_installations}</h3>
+              <h4>${t.s2_electrical_title}</h4><p>${t.s2_electrical_desc}</p>
+              <h4>${t.s2_plumbing_title}</h4><p>${t.s2_plumbing_desc}</p>
+              <h3>${t.s2_certs}</h3>
+              <h4>${t.s2_passivhaus_title}</h4><p>${t.s2_passivhaus_desc}</p>
+              <h4>${t.s2_epd_title}</h4><p>${t.s2_epd_desc}</p>
+              <h4>${t.s2_ce_title}</h4><p>${t.s2_ce_desc}</p>
+              <h4>${t.s2_warranty_title}</h4><p>${t.s2_warranty_desc}</p>
+          </div>
+      </div>`;
   }
 
   function updateDynamicOptions() {
@@ -1323,13 +1399,14 @@ document.addEventListener("DOMContentLoaded", () => {
       parquetHtml = `<div class="option-button" data-value="osb">${translations[currentLang].osbStandard}</div><div class="option-button" data-value="cashmere">Cashmere (+${formatCurrency(parquetUpgrades.cashmere)})</div><div class="option-button" data-value="hazelnut">Hazelnut (+${formatCurrency(parquetUpgrades.hazelnut)})</div>`;
     }
     parquetContainer.innerHTML = parquetHtml;
+
     const floorplanSelect = document.getElementById("floorplan-title-select");
     const floorplans = offerData.models[selectionState.model].images.floorplan;
-    floorplanSelect.innerHTML = ""; // Clear previous options
+    floorplanSelect.innerHTML = "";
     Object.keys(floorplans).forEach((planId) => {
       const option = document.createElement("option");
       option.value = planId;
-      option.textContent = `${translations[currentLang].plan} ${planId.toUpperCase()}`; // Using planId for name
+      option.textContent = `${translations[currentLang].plan} ${planId.toUpperCase()}`;
       floorplanSelect.appendChild(option);
     });
     const customOption = document.createElement("option");
@@ -1357,6 +1434,7 @@ document.addEventListener("DOMContentLoaded", () => {
     selectionState.blinds = params.get("blinds") === "false" ? false : true;
     selectionState.ventilation =
       params.get("ventilation") === "false" ? false : true;
+    selectionState.solar = params.get("solar") === "true" ? true : false;
     selectionState.parquet =
       params.get("parquet") ||
       (selectionState.finish === "turnkey" ? "cashmere" : "osb");
@@ -1370,6 +1448,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (urlBasePrice && urlBasePrice !== "null") {
       selectionState.basePriceOverride = parseFloat(urlBasePrice);
     }
+
     document.getElementById("model-name-select").innerHTML = Object.keys(
       offerData.models,
     )
@@ -1385,6 +1464,7 @@ document.addEventListener("DOMContentLoaded", () => {
       '[data-upgrade-type="facade"] .option-group',
     ).innerHTML =
       `<div class="option-button" data-value="yakisugi">Yakisugi</div><div class="option-button" data-value="lunawood">Lunawood</div>`;
+
     document.getElementById("model-name-select").value = selectionState.model;
     finishSelect.value = selectionState.finish;
     document.getElementById("client-name").textContent =
@@ -1419,18 +1499,21 @@ document.addEventListener("DOMContentLoaded", () => {
       generateAndSetOfferId();
       updateOffer();
     });
+
     finishSelect.addEventListener("change", (e) => {
       selectionState.finish = e.target.value;
       selectionState.basePriceOverride = null;
       if (selectionState.finish === "turnkey") {
         selectionState.blinds = true;
         selectionState.ventilation = true;
+        selectionState.solar = false;
         if (selectionState.parquet === "osb")
           selectionState.parquet = "cashmere";
       }
       generateAndSetOfferId();
       updateOffer();
     });
+
     const floorplanSelect = document.getElementById("floorplan-title-select");
     const customUploadInput = document.getElementById(
       "custom-floorplan-upload",
@@ -1448,6 +1531,7 @@ document.addEventListener("DOMContentLoaded", () => {
         updateOffer();
       }
     });
+
     customUploadInput.addEventListener("change", (e) => {
       const file = e.target.files[0];
       if (file && file.type.startsWith("image/")) {
@@ -1466,6 +1550,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       e.target.value = null;
     });
+
     document
       .getElementById("upgrades-column")
       .addEventListener("click", (e) => {
@@ -1473,6 +1558,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const clickableItem = e.target.closest(".upgrade-item.clickable");
         let needsUpdate = false;
         let priceChanged = false;
+
         if (button) {
           const parent = button.closest(".upgrade-item");
           const type = parent.dataset.upgradeType;
@@ -1491,9 +1577,11 @@ document.addEventListener("DOMContentLoaded", () => {
             needsUpdate = true;
           }
         }
+
         if (priceChanged) selectionState.basePriceOverride = null;
         if (needsUpdate) updateOffer();
       });
+
     const addStateUpdateListener = (element, stateKey) => {
       if (element) {
         element.addEventListener("input", () => {
@@ -1502,12 +1590,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     };
+
     addStateUpdateListener(
       document.getElementById("client-name"),
       "clientName",
     );
     addStateUpdateListener(document.getElementById("offer-nr"), "offerNr");
     addStateUpdateListener(document.getElementById("offer-date"), "offerDate");
+
     const mentionsEl = document.querySelector(".mentiuni-editable");
     mentionsEl.addEventListener("input", () => {
       selectionState.mentions = mentionsEl.textContent;
@@ -1515,7 +1605,6 @@ document.addEventListener("DOMContentLoaded", () => {
       updateUrlParams();
     });
 
-    // Initial page load with default language
     setLanguage(currentLang);
   }
 
