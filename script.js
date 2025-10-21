@@ -1155,15 +1155,19 @@ document.addEventListener("DOMContentLoaded", () => {
       .getElementById("section-3-image")
       .classList.toggle("page-hidden", !showTurnkeyDetails);
 
-    let price = modelPricing.base[finish];
-    if (finish === "semi-finished") {
-      if (parquet !== "osb")
-        price += modelPricing.upgrades.parquet[parquet] || 0;
-      if (selectionState.blinds) price += modelPricing.upgrades.blinds;
-      if (selectionState.ventilation)
-        price += modelPricing.upgrades.ventilation;
-      if (selectionState.solar) price += modelPricing.upgrades.solar;
-    }
+   let price = modelPricing.base[finish];
+if (finish === "semi-finished") {
+  if (parquet !== "osb")
+    price += modelPricing.upgrades.parquet[parquet] || 0;
+  if (selectionState.blinds) price += modelPricing.upgrades.blinds;
+  if (selectionState.ventilation)
+    price += modelPricing.upgrades.ventilation;
+}
+
+// Solar can be added in both semi-finished AND turnkey modes
+if (selectionState.solar) {
+  price += modelPricing.upgrades.solar;
+}
 
     document.querySelector("#section-1 .content-area").style.backgroundImage =
       `url('${modelData.images.facade[facade]}')`;
