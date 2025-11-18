@@ -727,7 +727,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const offerData = {
     models: {
       "nomad-24": {
-        name: "Nomad",
+        name: "Nest",
         co2Savings: "56.3",
         passiveImg:
           "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/689c6bdf250202676001401d_24m2.png",
