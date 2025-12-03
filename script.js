@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsTitleUpgrade: "Jaluzele exterioare Smart",
       smartBlindsDescUpgrade:
         "Blochează peste 95% din radiația solară, controlate prin aplicație sau manual.",
-      ventilationSystemTitleUpgrade: "Sistem de ventilație",
+      ventilationSystemTitleUpgrade: "Sistem de ventilație Zehnder",
       ventilationSystemDescUpgrade: "Recuperare de căldură de până la 95% + pompă de căldură pentru încălzire și răcire.",
       solarPanelsTitleUpgrade: "Panouri solare",
       solarPanelsDescUpgrade: "Produc cu 60% mai multă energie decât consumă casa anual.",
@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsTitleUpgrade: "Smart exterior blinds",
       smartBlindsDescUpgrade:
         "Block over 95% of solar radiation, controlled by app or manually.",
-      ventilationSystemTitleUpgrade: "Ventilation system",
+      ventilationSystemTitleUpgrade: "Zehnder Ventilation System",
       ventilationSystemDescUpgrade: "Heat recovery up to 95% plus heat pump for heating and cooling.",
       solarPanelsTitleUpgrade: "Solar panels",
       solarPanelsDescUpgrade: "Produces 60% more energy than your home consumes annually.",
@@ -421,7 +421,7 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsTitleUpgrade: "Smart-Außenjalousien",
       smartBlindsDescUpgrade:
         "Blockieren über 95 % der Sonneneinstrahlung, per App oder manuell steuerbar.",
-      ventilationSystemTitleUpgrade: "Lüftungssystem",
+      ventilationSystemTitleUpgrade: "Zehnder Lüftungssystem",
       ventilationSystemDescUpgrade: "Wärmerückgewinnung bis zu 95 % plus Wärmepumpe zum Heizen und Kühlen.",
       solarPanelsTitleUpgrade: "Solarpaneele",
       solarPanelsDescUpgrade: "Erzeugt 60 % mehr Energie als Ihr Haus jährlich verbraucht.",
@@ -597,7 +597,7 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsTitleUpgrade: "Stores extérieurs intelligents",
       smartBlindsDescUpgrade:
         "Bloque > 95 % du rayonnement solaire, commande via application ou manuelle.",
-      ventilationSystemTitleUpgrade: "Système de ventilation",
+      ventilationSystemTitleUpgrade: "Système de ventilation Zehnder",
       ventilationSystemDescUpgrade: "Recuperare de căldură de până la 95% și pompă de căldură pentru încălzire și răcire.",
       solarPanelsTitleUpgrade: "Panneaux solaires",
       solarPanelsDescUpgrade: "Produit 60 % d'énergie en plus que votre maison n'en consomme annuellement.",
@@ -1177,14 +1177,8 @@ if (selectionState.solar) {
     document.getElementById("passive-info-image").style.backgroundImage =
       `url('${modelData.passiveImg}')`;
     generateSection2Content(document.getElementById("section-2-text"), facade);
-    let section2ImageUrl;
-    if (finish === "semi-finished") {
-      section2ImageUrl = modelData.images.semi_parquet[parquet];
-    } else {
-      section2ImageUrl = modelData.images.facade[facade];
-    }
     document.getElementById("section-2-image").style.backgroundImage =
-      `url('${section2ImageUrl}')`;
+      `url('https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/69303cdf299025f5b7e0e219_95%20Wall%20Section.avif')`;
     if (showTurnkeyDetails) {
       document.getElementById("section-3-image").style.backgroundImage =
         `url('${modelData.images.parquet[parquet]}')`;
