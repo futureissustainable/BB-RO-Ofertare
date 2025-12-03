@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsTitleUpgrade: "Jaluzele exterioare Smart",
       smartBlindsDescUpgrade:
         "Blochează peste 95% din radiația solară, controlate prin aplicație sau manual.",
-      ventilationSystemTitleUpgrade: "Sistem de ventilație",
+      ventilationSystemTitleUpgrade: "Sistem de ventilație Zehnder",
       ventilationSystemDescUpgrade: "Recuperare de căldură de până la 95% + pompă de căldură pentru încălzire și răcire.",
       solarPanelsTitleUpgrade: "Panouri solare",
       solarPanelsDescUpgrade: "Produc cu 60% mai multă energie decât consumă casa anual.",
@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsTitleUpgrade: "Smart exterior blinds",
       smartBlindsDescUpgrade:
         "Block over 95% of solar radiation, controlled by app or manually.",
-      ventilationSystemTitleUpgrade: "Ventilation system",
+      ventilationSystemTitleUpgrade: "Zehnder Ventilation System",
       ventilationSystemDescUpgrade: "Heat recovery up to 95% plus heat pump for heating and cooling.",
       solarPanelsTitleUpgrade: "Solar panels",
       solarPanelsDescUpgrade: "Produces 60% more energy than your home consumes annually.",
@@ -421,7 +421,7 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsTitleUpgrade: "Smart-Außenjalousien",
       smartBlindsDescUpgrade:
         "Blockieren über 95 % der Sonneneinstrahlung, per App oder manuell steuerbar.",
-      ventilationSystemTitleUpgrade: "Lüftungssystem",
+      ventilationSystemTitleUpgrade: "Zehnder Lüftungssystem",
       ventilationSystemDescUpgrade: "Wärmerückgewinnung bis zu 95 % plus Wärmepumpe zum Heizen und Kühlen.",
       solarPanelsTitleUpgrade: "Solarpaneele",
       solarPanelsDescUpgrade: "Erzeugt 60 % mehr Energie als Ihr Haus jährlich verbraucht.",
@@ -597,7 +597,7 @@ document.addEventListener("DOMContentLoaded", () => {
       smartBlindsTitleUpgrade: "Stores extérieurs intelligents",
       smartBlindsDescUpgrade:
         "Bloque > 95 % du rayonnement solaire, commande via application ou manuelle.",
-      ventilationSystemTitleUpgrade: "Système de ventilation",
+      ventilationSystemTitleUpgrade: "Système de ventilation Zehnder",
       ventilationSystemDescUpgrade: "Recuperare de căldură de până la 95% și pompă de căldură pentru încălzire și răcire.",
       solarPanelsTitleUpgrade: "Panneaux solaires",
       solarPanelsDescUpgrade: "Produit 60 % d'énergie en plus que votre maison n'en consomme annuellement.",
@@ -730,7 +730,7 @@ document.addEventListener("DOMContentLoaded", () => {
         name: "Nest",
         co2Savings: "56.3",
         passiveImg:
-          "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/689c6bdf250202676001401d_24m2.png",
+          "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/69303cdf299025f5b7e0e219_95%20Wall%20Section.avif",
         images: {
           facade: {
             yakisugi:
@@ -787,7 +787,7 @@ document.addEventListener("DOMContentLoaded", () => {
         name: "Wanderlust",
         co2Savings: "112.7",
         passiveImg:
-          "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/689c6be9a17781eb55e6b63f_48m2.png",
+          "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/69303cdf299025f5b7e0e219_95%20Wall%20Section.avif",
         images: {
           facade: {
             yakisugi:
@@ -846,7 +846,7 @@ document.addEventListener("DOMContentLoaded", () => {
         name: "Serenity",
         co2Savings: "225.2",
         passiveImg:
-          "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/689c6bf2d847e2b6f5051525_95m2.png",
+          "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/69303cdf299025f5b7e0e219_95%20Wall%20Section.avif",
         images: {
           facade: {
             yakisugi:
@@ -923,7 +923,7 @@ document.addEventListener("DOMContentLoaded", () => {
         name: "Sanctuary",
         co2Savings: "337.8",
         passiveImg:
-          "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/689c6bf82cbff70a35076e34_142m2.png",
+          "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/69303cdf299025f5b7e0e219_95%20Wall%20Section.avif",
         images: {
           facade: {
             yakisugi:
