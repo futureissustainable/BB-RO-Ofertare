@@ -1792,36 +1792,52 @@ if (selectionState.solar) {
         `;
         document.body.appendChild(renderContainer);
 
-        // Helper function to convert background-image to img element with explicit dimensions
+        // Helper function to convert background-image to img element
+        // html2canvas doesn't support object-fit well, so we manually calculate dimensions
         function addBgAsImg(originalEl, cloneEl, objectFit = 'cover') {
           const bgImage = window.getComputedStyle(originalEl).backgroundImage;
           if (bgImage && bgImage !== 'none') {
             const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
             if (urlMatch) {
-              // Get actual computed dimensions after layout
-              const width = cloneEl.offsetWidth;
-              const height = cloneEl.offsetHeight;
+              // Get container dimensions
+              const containerWidth = cloneEl.offsetWidth;
+              const containerHeight = cloneEl.offsetHeight;
 
-              // Set explicit dimensions on container
-              cloneEl.style.width = width + 'px';
-              cloneEl.style.height = height + 'px';
-              cloneEl.style.position = 'relative';
+              // Clear background and set up container
               cloneEl.style.backgroundImage = 'none';
-              cloneEl.style.flexGrow = '0';
-              cloneEl.style.flexShrink = '0';
+              cloneEl.style.position = 'relative';
+              cloneEl.style.overflow = 'hidden';
 
               const img = document.createElement('img');
               img.src = urlMatch[1];
               img.crossOrigin = 'anonymous';
-              img.style.cssText = `
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: ${width}px;
-                height: ${height}px;
-                object-fit: ${objectFit};
-                object-position: center;
-              `;
+
+              // For 'cover': fill container completely (crop if needed)
+              // For 'contain': fit within container (may have empty space)
+              if (objectFit === 'cover') {
+                img.style.cssText = `
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  min-width: 100%;
+                  min-height: 100%;
+                  width: auto;
+                  height: auto;
+                `;
+              } else {
+                // contain - fit within container, centered
+                img.style.cssText = `
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  max-width: 100%;
+                  max-height: 100%;
+                  width: auto;
+                  height: auto;
+                `;
+              }
               cloneEl.insertBefore(img, cloneEl.firstChild);
             }
           }
