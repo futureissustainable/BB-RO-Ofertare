@@ -1893,24 +1893,49 @@ if (selectionState.solar) {
 
           // Replace select elements with spans showing selected text
           // html2canvas doesn't render select elements properly
-          const originalSelects = page.querySelectorAll('.interactive-select');
-          const cloneSelects = clone.querySelectorAll('.interactive-select');
-          cloneSelects.forEach((selectEl, index) => {
-            const originalSelect = originalSelects[index];
-            const selectedText = originalSelect?.options[originalSelect.selectedIndex]?.text || selectEl.value;
+          // Get values from live DOM elements by ID before processing clones
+          const selectValues = {};
+          page.querySelectorAll('.interactive-select').forEach(sel => {
+            if (sel.id) {
+              const val = sel.value;
+              let text = val;
+              for (let opt of sel.options) {
+                if (opt.value === val) {
+                  text = opt.text;
+                  break;
+                }
+              }
+              selectValues[sel.id] = { text, computedStyle: window.getComputedStyle(sel) };
+            }
+          });
+
+          clone.querySelectorAll('.interactive-select').forEach(selectEl => {
+            const selId = selectEl.id;
+            const info = selectValues[selId];
+            const selectedText = info?.text || selectEl.value || '';
+            const computedStyle = info?.computedStyle;
+
             const span = document.createElement('span');
             span.textContent = selectedText;
-            // Copy computed styles from original select
-            const computedStyle = originalSelect ? window.getComputedStyle(originalSelect) : null;
+            span.id = selId; // Keep the ID for CSS targeting
             span.style.cssText = `
               display: block;
               font-size: ${computedStyle?.fontSize || '16px'};
               font-weight: ${computedStyle?.fontWeight || '500'};
               text-transform: ${computedStyle?.textTransform || 'none'};
               color: ${computedStyle?.color || 'inherit'};
-              line-height: 1.2;
+              line-height: 1.1;
+              margin: 0;
+              padding: 0;
             `;
-            selectEl.parentNode.replaceChild(span, selectEl);
+            // Also fix the wrapper to not add extra space
+            const wrapper = selectEl.parentNode;
+            if (wrapper.classList.contains('interactive-select-wrapper')) {
+              wrapper.style.display = 'block';
+              wrapper.style.margin = '0';
+              wrapper.style.padding = '0';
+            }
+            wrapper.replaceChild(span, selectEl);
           });
           clone.querySelectorAll('[contenteditable]').forEach(el => {
             el.removeAttribute('contenteditable');
