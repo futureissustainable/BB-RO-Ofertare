@@ -1667,6 +1667,32 @@ if (selectionState.solar) {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const needsPdfGeneration = isIOS || isMobile;
 
+    // Helper to convert background-image to actual img element
+    function convertBgToImg(element, clone) {
+      const style = window.getComputedStyle(element);
+      const bgImage = style.backgroundImage;
+      if (bgImage && bgImage !== 'none') {
+        const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
+        if (urlMatch) {
+          const img = document.createElement('img');
+          img.src = urlMatch[1];
+          img.crossOrigin = 'anonymous';
+          img.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: ${style.backgroundSize === 'contain' ? 'contain' : 'cover'};
+            object-position: ${style.backgroundPosition || 'center'};
+          `;
+          clone.style.position = 'relative';
+          clone.style.backgroundImage = 'none';
+          clone.insertBefore(img, clone.firstChild);
+        }
+      }
+    }
+
     document.getElementById('download-offer-btn').addEventListener('click', async function() {
       const btn = this;
       const originalText = btn.querySelector('span').textContent;
@@ -1683,7 +1709,6 @@ if (selectionState.solar) {
 
       try {
         // A4 landscape: 297mm x 210mm
-        // At 96 DPI: 1122.52px x 793.70px
         const PDF_WIDTH_MM = 297;
         const PDF_HEIGHT_MM = 210;
         const RENDER_WIDTH = 1122;
@@ -1722,23 +1747,57 @@ if (selectionState.solar) {
         // Process each page
         for (let i = 0; i < pages.length; i++) {
           const page = pages[i];
+          const pageId = page.id;
 
           // Clone the page
           const clone = page.cloneNode(true);
+
+          // Get original computed styles to preserve padding
+          const originalStyles = window.getComputedStyle(page);
+
           clone.style.cssText = `
             width: ${RENDER_WIDTH}px !important;
             height: ${RENDER_HEIGHT}px !important;
             min-height: ${RENDER_HEIGHT}px !important;
             max-height: ${RENDER_HEIGHT}px !important;
             margin: 0 !important;
-            padding: 0 !important;
             border: none !important;
             box-shadow: none !important;
             overflow: hidden !important;
             position: relative !important;
-            display: flex !important;
-            flex-direction: column !important;
+            box-sizing: border-box !important;
           `;
+
+          // Handle full-page background images (section-2-image, section-3-image)
+          if (pageId === 'section-2-image' || pageId === 'section-3-image') {
+            convertBgToImg(page, clone);
+          }
+
+          // Handle content-area background (section-1 main image)
+          const contentArea = page.querySelector('.content-area');
+          const cloneContentArea = clone.querySelector('.content-area');
+          if (contentArea && cloneContentArea) {
+            convertBgToImg(contentArea, cloneContentArea);
+          }
+
+          // Handle passive-info-image background
+          const passiveImg = page.querySelector('#passive-info-image');
+          const clonePassiveImg = clone.querySelector('#passive-info-image');
+          if (passiveImg && clonePassiveImg) {
+            convertBgToImg(passiveImg, clonePassiveImg);
+          }
+
+          // Fix floorplan image sizing
+          const floorplanImg = clone.querySelector('#floorplan-image');
+          if (floorplanImg) {
+            floorplanImg.style.cssText = `
+              max-width: 100% !important;
+              max-height: 100% !important;
+              width: auto !important;
+              height: auto !important;
+              object-fit: contain !important;
+            `;
+          }
 
           // Clean up interactive elements
           clone.querySelectorAll('.interactive-select').forEach(el => {
@@ -1758,8 +1817,18 @@ if (selectionState.solar) {
           renderContainer.innerHTML = '';
           renderContainer.appendChild(clone);
 
+          // Wait for images to load
+          const images = clone.querySelectorAll('img');
+          await Promise.all(Array.from(images).map(img => {
+            if (img.complete) return Promise.resolve();
+            return new Promise(resolve => {
+              img.onload = resolve;
+              img.onerror = resolve;
+            });
+          }));
+
           // Wait a bit for styles to apply
-          await new Promise(resolve => setTimeout(resolve, 100));
+          await new Promise(resolve => setTimeout(resolve, 150));
 
           // Add new page for all except first
           if (i > 0) {
