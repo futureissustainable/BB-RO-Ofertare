@@ -716,16 +716,26 @@ p {
         box-shadow: none !important;
         page-break-after: always !important;
         break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
     }
 
     .page.page-hidden {
         display: none !important;
+        page-break-after: avoid !important;
+        break-after: avoid !important;
     }
 
-    /* Prevent extra blank page at the end */
+    /* Prevent extra blank page - target last visible page */
+    .page:last-of-type,
     #section-summary {
-        page-break-after: auto !important;
-        break-after: auto !important;
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+    }
+
+    /* Hide any trailing content */
+    body > *:not(.page) {
+        display: none !important;
     }
 
     #download-offer-btn,
