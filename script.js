@@ -1659,6 +1659,138 @@ if (selectionState.solar) {
     });
 
     setLanguage(currentLang);
+
+    // --- PDF Download Function ---
+    document.getElementById('download-offer-btn').addEventListener('click', async function() {
+      const btn = this;
+      const originalText = btn.querySelector('span').textContent;
+      btn.querySelector('span').textContent = '...';
+      btn.disabled = true;
+      btn.style.display = 'none';
+
+      try {
+        // A4 landscape: 297mm x 210mm
+        // At 96 DPI: 1122.52px x 793.70px
+        // Using 2x scale for quality: 2245 x 1587
+        const PDF_WIDTH_MM = 297;
+        const PDF_HEIGHT_MM = 210;
+        const RENDER_WIDTH = 1122;
+        const RENDER_HEIGHT = 793;
+
+        // Get all visible pages
+        const pages = Array.from(document.querySelectorAll('.page:not(.page-hidden)'));
+
+        if (pages.length === 0) {
+          throw new Error('No pages to export');
+        }
+
+        // Create jsPDF instance
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({
+          orientation: 'landscape',
+          unit: 'mm',
+          format: 'a4',
+          compress: true
+        });
+
+        // Create a hidden container for rendering
+        const renderContainer = document.createElement('div');
+        renderContainer.style.cssText = `
+          position: fixed;
+          left: -10000px;
+          top: 0;
+          width: ${RENDER_WIDTH}px;
+          height: ${RENDER_HEIGHT}px;
+          overflow: hidden;
+          background: white;
+          z-index: -9999;
+        `;
+        document.body.appendChild(renderContainer);
+
+        // Process each page
+        for (let i = 0; i < pages.length; i++) {
+          const page = pages[i];
+
+          // Clone the page
+          const clone = page.cloneNode(true);
+          clone.style.cssText = `
+            width: ${RENDER_WIDTH}px !important;
+            height: ${RENDER_HEIGHT}px !important;
+            min-height: ${RENDER_HEIGHT}px !important;
+            max-height: ${RENDER_HEIGHT}px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+            box-shadow: none !important;
+            overflow: hidden !important;
+            position: relative !important;
+            display: flex !important;
+            flex-direction: column !important;
+          `;
+
+          // Clean up interactive elements
+          clone.querySelectorAll('.interactive-select').forEach(el => {
+            el.style.border = 'none';
+            el.style.borderBottom = 'none';
+            el.style.background = 'transparent';
+          });
+          clone.querySelectorAll('[contenteditable]').forEach(el => {
+            el.removeAttribute('contenteditable');
+            el.style.background = 'none';
+          });
+          clone.querySelectorAll('.interactive-select-wrapper').forEach(el => {
+            el.style.setProperty('--arrow-display', 'none');
+          });
+
+          // Clear and add clone to render container
+          renderContainer.innerHTML = '';
+          renderContainer.appendChild(clone);
+
+          // Wait a bit for styles to apply
+          await new Promise(resolve => setTimeout(resolve, 100));
+
+          // Add new page for all except first
+          if (i > 0) {
+            pdf.addPage('a4', 'landscape');
+          }
+
+          // Capture with html2canvas
+          const canvas = await html2canvas(clone, {
+            scale: 2,
+            useCORS: true,
+            allowTaint: true,
+            logging: false,
+            backgroundColor: '#ffffff',
+            width: RENDER_WIDTH,
+            height: RENDER_HEIGHT,
+            windowWidth: RENDER_WIDTH,
+            windowHeight: RENDER_HEIGHT
+          });
+
+          // Add to PDF - exact fit to A4 landscape
+          const imgData = canvas.toDataURL('image/jpeg', 0.92);
+          pdf.addImage(imgData, 'JPEG', 0, 0, PDF_WIDTH_MM, PDF_HEIGHT_MM);
+        }
+
+        // Clean up
+        document.body.removeChild(renderContainer);
+
+        // Save the PDF
+        const clientName = document.getElementById('client-name')?.textContent || 'Client';
+        const safeName = clientName.replace(/[^a-zA-Z0-9\s-]/g, '').trim() || 'Client';
+        const filename = `Oferta-Biobuilds-${safeName}.pdf`;
+        pdf.save(filename);
+
+      } catch (error) {
+        console.error('PDF generation failed:', error);
+        // Fallback to window.print()
+        window.print();
+      }
+
+      btn.querySelector('span').textContent = originalText;
+      btn.disabled = false;
+      btn.style.display = 'flex';
+    });
   }
 
   initialize();

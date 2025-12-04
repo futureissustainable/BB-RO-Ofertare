@@ -687,32 +687,22 @@ p {
 
 @media print {
     @page {
-        size: 297mm 210mm landscape;
-        margin: 0 !important;
-        padding: 0 !important;
+        size: A4 landscape;
+        margin: 0;
     }
 
     * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
-        color-adjust: exact !important;
     }
 
-    html {
-        width: 297mm !important;
-        height: 210mm !important;
+    html, body {
         margin: 0 !important;
         padding: 0 !important;
-        overflow: hidden !important;
+        background: white !important;
     }
 
     body {
-        width: 297mm !important;
-        min-height: 210mm !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        background: #fff !important;
-        overflow: visible !important;
         display: block !important;
         gap: 0 !important;
     }
@@ -720,117 +710,33 @@ p {
     .page {
         width: 297mm !important;
         height: 210mm !important;
-        min-height: 210mm !important;
-        max-height: 210mm !important;
         margin: 0 !important;
-        padding: 0 !important;
-        box-shadow: none !important;
         overflow: hidden !important;
         border: none !important;
-        aspect-ratio: unset !important;
-        transform: none !important;
-
-        /* Modern page break properties */
+        box-shadow: none !important;
         page-break-after: always !important;
         break-after: page !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-
-        /* Positioning */
-        position: relative !important;
-        display: flex !important;
-        flex-direction: column !important;
-        box-sizing: border-box !important;
-    }
-
-    .page:last-of-type:not(.page-hidden) {
-        page-break-after: auto !important;
-        break-after: auto !important;
     }
 
     .page.page-hidden {
         display: none !important;
-        height: 0 !important;
-        min-height: 0 !important;
-        max-height: 0 !important;
-        overflow: hidden !important;
-        page-break-after: avoid !important;
-        break-after: avoid !important;
     }
 
-    #floorplan-details {
-        overflow-y: hidden !important;
+    #download-offer-btn,
+    #language-selector {
+        display: none !important;
     }
 
     .interactive-select {
         border: none !important;
-        -webkit-appearance: none !important;
-        -moz-appearance: none !important;
-        appearance: none !important;
+    }
+
+    [contenteditable] {
+        background: none !important;
     }
 
     .interactive-select-wrapper::after {
         display: none !important;
-    }
-
-    .upgrade-item {
-        border-color: #dee2e6 !important;
-        box-shadow: none !important;
-    }
-
-    .upgrade-item.selected {
-        background-color: #f8f9fa !important;
-    }
-
-    /* Timeline print overrides */
-    .timeline {
-        height: 120px !important;
-    }
-
-    .vertical-line {
-        height: 80px !important;
-        top: 10px !important;
-    }
-
-    .label {
-        top: 5px !important;
-        font-size: 9px !important;
-        padding-left: 8px !important;
-    }
-
-    .label-5 {
-        width: 60px !important;
-    }
-
-    .arrow svg {
-        width: 12px !important;
-        height: 12px !important;
-    }
-
-    .house-image {
-        right: -140px !important;
-        width: 130px !important;
-    }
-
-    #download-offer-btn {
-        display: none !important;
-    }
-
-    /* Hide any scrollbars */
-    *::-webkit-scrollbar {
-        display: none !important;
-        width: 0 !important;
-        height: 0 !important;
-    }
-
-    /* Ensure backgrounds print */
-    .content-area,
-    #section-2-image,
-    #section-3-image,
-    #passive-info-image,
-    #floorplan-image {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
     }
 }
 
