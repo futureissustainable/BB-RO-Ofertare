@@ -765,6 +765,15 @@ document.addEventListener("DOMContentLoaded", () => {
       a.classList.toggle("active", a.getAttribute("data-lang") === lang);
     });
 
+    // Update finish select dropdown with correct language
+    const finishSelect = document.getElementById("finish-text");
+    if (finishSelect) {
+      const turnkeyOption = finishSelect.querySelector('[value="turnkey"]');
+      const semiOption = finishSelect.querySelector('[value="semi-finished"]');
+      if (turnkeyOption) turnkeyOption.textContent = translations[lang].turnkey;
+      if (semiOption) semiOption.textContent = translations[lang]["semi-finished"];
+    }
+
     updateOffer();
   }
 
@@ -1510,7 +1519,7 @@ if (selectionState.solar) {
       .join("");
 
     const finishSelect = document.getElementById("finish-text");
-    finishSelect.innerHTML = `<option value="turnkey">${translations.ro.turnkey}</option><option value="semi-finished">${translations.ro["semi-finished"]}</option>`;
+    finishSelect.innerHTML = `<option value="turnkey">${translations[currentLang].turnkey}</option><option value="semi-finished">${translations[currentLang]["semi-finished"]}</option>`;
 
     document.querySelector(
       '[data-upgrade-type="facade"] .option-group',
@@ -1536,11 +1545,6 @@ if (selectionState.solar) {
       a.addEventListener("click", (e) => {
         e.preventDefault();
         setLanguage(a.getAttribute("data-lang"));
-
-        finishSelect.querySelector('[value="turnkey"]').textContent =
-          translations[currentLang].turnkey;
-        finishSelect.querySelector('[value="semi-finished"]').textContent =
-          translations[currentLang]["semi-finished"];
       });
     });
 
