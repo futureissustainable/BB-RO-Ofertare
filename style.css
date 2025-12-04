@@ -306,6 +306,16 @@ p {
     max-font-size: 13px;
 }
 
+.turnkey-disclaimer {
+    color: #888888;
+    font-size: 0.65vw;
+    line-height: 1.5;
+    margin-top: 1.5em;
+    padding: 0 2vw;
+    text-align: center;
+    font-style: italic;
+}
+
 /* --- Section 2 & 3: Images --- */
 #section-2-image,
 #section-3-image {

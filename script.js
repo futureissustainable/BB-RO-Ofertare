@@ -58,6 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ventilationSystemTitle: "Sistem de ventilație Zehnder",
       ventilationSystemDesc:
         "Recuperare de căldură de până la 95% și pompă de căldură pentru încălzire și răcire.",
+      turnkeyDisclaimer:
+        "Inclus: finisaje complete la cheie + mobilier de baie conform specificațiilor. Toate celelalte piese de mobilier, decorațiuni și elemente interioare afișate în imaginile din configurator care nu sunt menționate în ofertă sunt doar cu titlu ilustrativ. Unii producători de materiale pot diferi de cei prezentați, ca parte a procesului nostru continuu de inovare. Veți fi informat din timp cu privire la orice actualizare.",
       upgradesAndDelivery: "Upgrades & Livrare",
       delivery: "Livrare",
       deliveryCost: "Costul transportului depinde de locație.",
@@ -235,6 +237,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ventilationSystemTitle: "Zehnder Ventilation System",
       ventilationSystemDesc:
         "Heat recovery up to 95% + heat pump for heating and cooling.",
+      turnkeyDisclaimer:
+        "Included: full turnkey finishes + bathroom furniture as specified. All other furniture, décor, and interior elements displayed in configurator images not mentioned in the offer are for illustrative purposes only. Some material producers may differ from those shown as part of our continuous innovation process. You should know any updates ahead of time.",
       upgradesAndDelivery: "Upgrades & Delivery",
       delivery: "Delivery",
       deliveryCost: "Shipping cost depends on location.",
@@ -409,6 +413,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ventilationSystemTitle: "Zehnder Lüftungssystem",
       ventilationSystemDesc:
         "Wärmerückgewinnung bis zu 95 % plus Wärmepumpe zum Heizen und Kühlen.",
+      turnkeyDisclaimer:
+        "Inklusive: Komplette schlüsselfertige Ausstattung + Badezimmermöbel wie angegeben. Alle anderen Möbel, Dekorationen und Innenelemente, die in den Konfigurator-Bildern angezeigt werden und nicht im Angebot erwähnt sind, dienen nur zur Veranschaulichung. Einige Materialhersteller können im Rahmen unseres kontinuierlichen Innovationsprozesses von den gezeigten abweichen. Sie werden rechtzeitig über Änderungen informiert.",
       upgradesAndDelivery: "Upgrades & Lieferung",
       delivery: "Lieferung",
       deliveryCost: "Lieferkosten abhängig vom Standort.",
@@ -584,7 +590,9 @@ document.addEventListener("DOMContentLoaded", () => {
         "Bloque > 95 % du rayonnement solaire ; commande par application ou manuelle ; certifié par le Passive House Institute de Darmstadt, Allemagne ; marquage CE.",
       ventilationSystemTitle: "Système de ventilation Zehnder",
       ventilationSystemDesc:
-        "Récupération de chaleur jusqu’à 95 % avec pompe à chaleur pour le chauffage et le refroidissement.",
+        "Récupération de chaleur jusqu'à 95 % avec pompe à chaleur pour le chauffage et le refroidissement.",
+      turnkeyDisclaimer:
+        "Inclus : finitions clé en main complètes + mobilier de salle de bain tel que spécifié. Tous les autres meubles, éléments de décoration et éléments intérieurs affichés dans les images du configurateur non mentionnés dans l'offre sont fournis à titre indicatif uniquement. Certains fabricants de matériaux peuvent différer de ceux présentés dans le cadre de notre processus d'innovation continue. Vous serez informé à l'avance de toute mise à jour.",
       upgradesAndDelivery: "Options et Livraison",
       delivery: "Livraison",
       deliveryCost: "Les frais de livraison dépendent de votre localisation.",
