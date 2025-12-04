@@ -1905,25 +1905,30 @@ if (selectionState.solar) {
                   break;
                 }
               }
-              selectValues[sel.id] = { text, computedStyle: window.getComputedStyle(sel) };
+              selectValues[sel.id] = { text };
             }
           });
+
+          // Font sizes in vw from CSS - calculate for RENDER_WIDTH since vw units won't work in off-screen container
+          const fontSizeMap = {
+            'model-name-select': Math.min(RENDER_WIDTH * 0.045, 60) + 'px', // 4.5vw, max 60px
+            'finish-text': Math.min(RENDER_WIDTH * 0.018, 22) + 'px', // 1.8vw, max 22px
+            'floorplan-title-select': Math.min(RENDER_WIDTH * 0.022, 28) + 'px' // 2.2vw, max 28px
+          };
 
           clone.querySelectorAll('.interactive-select').forEach(selectEl => {
             const selId = selectEl.id;
             const info = selectValues[selId];
             const selectedText = info?.text || selectEl.value || '';
-            const computedStyle = info?.computedStyle;
 
             const span = document.createElement('span');
             span.textContent = selectedText;
-            span.id = selId; // Keep the ID for CSS targeting
+            span.id = selId;
             span.style.cssText = `
               display: block;
-              font-size: ${computedStyle?.fontSize || '16px'};
-              font-weight: ${computedStyle?.fontWeight || '500'};
-              text-transform: ${computedStyle?.textTransform || 'none'};
-              color: ${computedStyle?.color || 'inherit'};
+              font-size: ${fontSizeMap[selId] || '16px'};
+              font-weight: 500;
+              text-transform: ${selId === 'model-name-select' ? 'uppercase' : (selId === 'finish-text' ? 'capitalize' : 'none')};
               line-height: 1.1;
               margin: 0;
               padding: 0;
