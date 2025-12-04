@@ -722,6 +722,12 @@ p {
         display: none !important;
     }
 
+    /* Prevent extra blank page at the end */
+    #section-summary {
+        page-break-after: auto !important;
+        break-after: auto !important;
+    }
+
     #download-offer-btn,
     #language-selector {
         display: none !important;
