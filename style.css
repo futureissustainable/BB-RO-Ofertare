@@ -686,37 +686,34 @@ p {
 }
 
 @media print {
+    /* === CRITICAL: A4 Landscape Print Setup === */
     @page {
-        size: 297mm 210mm landscape;
-        margin: 0 !important;
-        padding: 0 !important;
+        size: A4 landscape;
+        margin: 0;
     }
 
     * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
         color-adjust: exact !important;
+        box-sizing: border-box !important;
     }
 
-    html {
+    html, body {
         width: 297mm !important;
         height: 210mm !important;
         margin: 0 !important;
         padding: 0 !important;
         overflow: hidden !important;
+        background: white !important;
     }
 
     body {
-        width: 297mm !important;
-        min-height: 210mm !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        background: #fff !important;
-        overflow: visible !important;
         display: block !important;
         gap: 0 !important;
     }
 
+    /* === Each page exactly fills one A4 landscape === */
     .page {
         width: 297mm !important;
         height: 210mm !important;
@@ -724,23 +721,15 @@ p {
         max-height: 210mm !important;
         margin: 0 !important;
         padding: 0 !important;
-        box-shadow: none !important;
         overflow: hidden !important;
         border: none !important;
+        box-shadow: none !important;
         aspect-ratio: unset !important;
-        transform: none !important;
-
-        /* Modern page break properties */
         page-break-after: always !important;
         break-after: page !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
-
-        /* Positioning */
         position: relative !important;
-        display: flex !important;
-        flex-direction: column !important;
-        box-sizing: border-box !important;
     }
 
     .page:last-of-type:not(.page-hidden) {
@@ -750,18 +739,272 @@ p {
 
     .page.page-hidden {
         display: none !important;
+        width: 0 !important;
         height: 0 !important;
         min-height: 0 !important;
         max-height: 0 !important;
-        overflow: hidden !important;
         page-break-after: avoid !important;
         break-after: avoid !important;
     }
 
-    #floorplan-details {
-        overflow-y: hidden !important;
+    /* === Section 1: Title Page === */
+    #section-1 {
+        display: flex !important;
+        flex-direction: column !important;
     }
 
+    #section-1 .header-bar {
+        padding: 4mm 10mm !important;
+        font-size: 10pt !important;
+    }
+
+    #section-1 .content-area {
+        flex-grow: 1 !important;
+    }
+
+    #section-1 .footer-bar {
+        display: flex !important;
+        flex-shrink: 0 !important;
+    }
+
+    #section-1 .footer-left {
+        padding: 10mm !important;
+    }
+
+    #section-1 .footer-left #finish-text {
+        font-size: 16pt !important;
+    }
+
+    #section-1 .footer-left #model-name-select {
+        font-size: 42pt !important;
+    }
+
+    #section-1 .footer-right {
+        padding: 10mm !important;
+    }
+
+    #section-1 .footer-right h2 {
+        font-size: 22pt !important;
+    }
+
+    #section-1 .footer-right p {
+        font-size: 11pt !important;
+    }
+
+    /* === Section: Passive Info === */
+    #section-passive-info {
+        display: flex !important;
+        flex-direction: row !important;
+    }
+
+    #passive-info-image {
+        flex-basis: 45% !important;
+    }
+
+    #passive-info-text {
+        flex-basis: 55% !important;
+        padding: 12mm !important;
+    }
+
+    #passive-info-text blockquote {
+        font-size: 11pt !important;
+    }
+
+    #passive-stats {
+        font-size: 10pt !important;
+    }
+
+    /* === Section 2 & 3: Text Pages === */
+    #section-2-text,
+    #section-3-text {
+        padding: 12mm !important;
+    }
+
+    #section-2-text h2,
+    #section-3-text h2 {
+        font-size: 16pt !important;
+        margin-bottom: 8mm !important;
+    }
+
+    #section-2-text h3,
+    #section-3-text h3 {
+        font-size: 9pt !important;
+        margin-top: 5mm !important;
+        margin-bottom: 3mm !important;
+    }
+
+    #section-2-text h4,
+    #section-3-text h4 {
+        font-size: 9pt !important;
+        margin-top: 4mm !important;
+        margin-bottom: 2mm !important;
+    }
+
+    #section-2-text p,
+    #section-3-text p {
+        font-size: 9pt !important;
+        line-height: 1.4 !important;
+        margin-bottom: 2mm !important;
+    }
+
+    .flex-wrapper {
+        gap: 8mm !important;
+    }
+
+    .turnkey-disclaimer {
+        font-size: 7pt !important;
+        padding: 0 6mm !important;
+        margin-top: 4mm !important;
+    }
+
+    /* === Section 2 & 3: Image Pages === */
+    #section-2-image,
+    #section-3-image {
+        background-size: cover !important;
+        background-position: center !important;
+    }
+
+    /* === Section: Floorplan === */
+    #section-floorplan {
+        display: flex !important;
+        flex-direction: row !important;
+    }
+
+    #floorplan-details {
+        flex-basis: 35% !important;
+        padding: 12mm !important;
+        overflow: hidden !important;
+    }
+
+    #floorplan-details h2 {
+        font-size: 20pt !important;
+    }
+
+    #floorplan-details h3 {
+        font-size: 14pt !important;
+    }
+
+    #floorplan-details .interactive-select {
+        font-size: 20pt !important;
+    }
+
+    .detail-item {
+        font-size: 10pt !important;
+        padding: 2mm 0 !important;
+    }
+
+    #floorplan-image-container {
+        flex-basis: 65% !important;
+        padding: 6mm !important;
+    }
+
+    /* === Section: Upgrades === */
+    #section-upgrades {
+        padding: 12mm !important;
+    }
+
+    #section-upgrades h2 {
+        font-size: 16pt !important;
+    }
+
+    #section-upgrades h3 {
+        font-size: 9pt !important;
+    }
+
+    .upgrade-item {
+        padding: 3mm !important;
+        margin-bottom: 4mm !important;
+        border-color: #dee2e6 !important;
+        box-shadow: none !important;
+    }
+
+    .upgrade-item h4 {
+        font-size: 10pt !important;
+    }
+
+    #section-upgrades p {
+        font-size: 9pt !important;
+    }
+
+    .option-button {
+        font-size: 9pt !important;
+        padding: 2mm !important;
+    }
+
+    /* === Section: Summary === */
+    #section-summary {
+        padding: 12mm !important;
+        display: flex !important;
+        flex-direction: column !important;
+        height: 210mm !important;
+        min-height: 210mm !important;
+        aspect-ratio: unset !important;
+    }
+
+    .summary-title-block h2 {
+        font-size: 11pt !important;
+    }
+
+    .summary-title-block h1 {
+        font-size: 48pt !important;
+    }
+
+    .summary-title-block h3 {
+        font-size: 18pt !important;
+    }
+
+    .summary-logos img {
+        width: 50mm !important;
+        max-width: 50mm !important;
+    }
+
+    .summary-body p {
+        font-size: 11pt !important;
+    }
+
+    .summary-total {
+        font-size: 32pt !important;
+    }
+
+    #inclusion-list li {
+        font-size: 10pt !important;
+    }
+
+    .mentiuni-section {
+        font-size: 8pt !important;
+    }
+
+    .mentiuni-editable {
+        border: none !important;
+    }
+
+    .summary-fine-print {
+        font-size: 8pt !important;
+    }
+
+    .summary-footer .website-link {
+        font-size: 10pt !important;
+    }
+
+    /* === Timeline === */
+    .timeline {
+        height: 30mm !important;
+        min-height: 30mm !important;
+    }
+
+    .vertical-line {
+        height: 20mm !important;
+    }
+
+    .label {
+        font-size: 8pt !important;
+    }
+
+    .house-image {
+        width: 35mm !important;
+    }
+
+    /* === Interactive Elements === */
     .interactive-select {
         border: none !important;
         -webkit-appearance: none !important;
@@ -773,64 +1016,27 @@ p {
         display: none !important;
     }
 
-    .upgrade-item {
-        border-color: #dee2e6 !important;
-        box-shadow: none !important;
+    [contenteditable="true"] {
+        background: none !important;
     }
 
-    .upgrade-item.selected {
-        background-color: #f8f9fa !important;
-    }
-
-    /* Timeline print overrides */
-    .timeline {
-        height: 120px !important;
-    }
-
-    .vertical-line {
-        height: 80px !important;
-        top: 10px !important;
-    }
-
-    .label {
-        top: 5px !important;
-        font-size: 9px !important;
-        padding-left: 8px !important;
-    }
-
-    .label-5 {
-        width: 60px !important;
-    }
-
-    .arrow svg {
-        width: 12px !important;
-        height: 12px !important;
-    }
-
-    .house-image {
-        right: -140px !important;
-        width: 130px !important;
+    #language-selector {
+        display: none !important;
     }
 
     #download-offer-btn {
         display: none !important;
     }
 
-    /* Hide any scrollbars */
+    /* === Hide scrollbars === */
     *::-webkit-scrollbar {
         display: none !important;
         width: 0 !important;
         height: 0 !important;
     }
 
-    /* Ensure backgrounds print */
-    .content-area,
-    #section-2-image,
-    #section-3-image,
-    #passive-info-image,
-    #floorplan-image {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
+    * {
+        scrollbar-width: none !important;
     }
 }
 
