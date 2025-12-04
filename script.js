@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  let currentLang = "ro";
+  let currentLang = "en";
   const translations = {
     ro: {
       pageTitle: "Oferta Generata - Biobuilds",
@@ -1693,9 +1693,119 @@ if (selectionState.solar) {
       }
     }
 
+    // Create language selection modal
+    const langModal = document.createElement('div');
+    langModal.id = 'lang-select-modal';
+    langModal.innerHTML = `
+      <div class="lang-modal-content">
+        <h3>Select Language / Selectează Limba</h3>
+        <div class="lang-options">
+          <button data-lang="en" class="lang-btn">English</button>
+          <button data-lang="ro" class="lang-btn">Română</button>
+          <button data-lang="de" class="lang-btn">Deutsch</button>
+          <button data-lang="fr" class="lang-btn">Français</button>
+        </div>
+        <button class="lang-cancel">Cancel</button>
+      </div>
+    `;
+    langModal.style.cssText = `
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 99999;
+      justify-content: center;
+      align-items: center;
+    `;
+    const modalContent = langModal.querySelector('.lang-modal-content');
+    modalContent.style.cssText = `
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 350px;
+      width: 90%;
+    `;
+    const modalTitle = langModal.querySelector('h3');
+    modalTitle.style.cssText = `
+      margin: 0 0 20px 0;
+      font-size: 18px;
+      color: #333;
+    `;
+    const langOptions = langModal.querySelector('.lang-options');
+    langOptions.style.cssText = `
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 15px;
+    `;
+    langModal.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.style.cssText = `
+        padding: 15px 20px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        background: white;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.2s;
+      `;
+    });
+    const cancelBtn = langModal.querySelector('.lang-cancel');
+    cancelBtn.style.cssText = `
+      padding: 10px 30px;
+      border: none;
+      background: #eee;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #666;
+    `;
+    document.body.appendChild(langModal);
+
+    // Function to show language modal and return selected language
+    function showLanguageModal() {
+      return new Promise((resolve) => {
+        langModal.style.display = 'flex';
+
+        const handleLangClick = (e) => {
+          if (e.target.classList.contains('lang-btn')) {
+            const selectedLang = e.target.dataset.lang;
+            langModal.style.display = 'none';
+            resolve(selectedLang);
+          }
+        };
+
+        const handleCancel = () => {
+          langModal.style.display = 'none';
+          resolve(null);
+        };
+
+        langOptions.addEventListener('click', handleLangClick, { once: true });
+        cancelBtn.addEventListener('click', handleCancel, { once: true });
+        langModal.addEventListener('click', (e) => {
+          if (e.target === langModal) handleCancel();
+        }, { once: true });
+      });
+    }
+
     document.getElementById('download-offer-btn').addEventListener('click', async function() {
       const btn = this;
       const originalText = btn.querySelector('span').textContent;
+      const originalLang = currentLang;
+
+      // Show language selection first
+      const selectedLang = await showLanguageModal();
+      if (!selectedLang) return; // User cancelled
+
+      // Apply selected language
+      setLanguage(selectedLang);
+
+      // Wait for language to apply
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       // For desktop browsers, just use window.print() - it works perfectly
       if (!needsPdfGeneration) {
@@ -1704,7 +1814,7 @@ if (selectionState.solar) {
       }
 
       // For iOS/mobile, generate a PDF file since print CSS doesn't work
-      btn.querySelector('span').textContent = '...';
+      btn.querySelector('span').textContent = 'LOADING';
       btn.disabled = true;
 
       try {
@@ -1797,6 +1907,41 @@ if (selectionState.solar) {
               height: auto !important;
               object-fit: contain !important;
             `;
+          }
+
+          // Fix section-1 footer layout (model name covered by finish type)
+          if (pageId === 'section-1') {
+            const footerLeft = clone.querySelector('.footer-left');
+            if (footerLeft) {
+              footerLeft.style.cssText = `
+                background-color: #ffffff;
+                flex-basis: 45%;
+                padding: 3%;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+              `;
+            }
+            const finishText = clone.querySelector('#finish-text');
+            if (finishText) {
+              finishText.style.cssText = `
+                font-size: 16px !important;
+                font-weight: 500 !important;
+                display: block !important;
+                margin-bottom: 8px !important;
+              `;
+            }
+            const modelName = clone.querySelector('#model-name-select');
+            if (modelName) {
+              modelName.style.cssText = `
+                font-size: 42px !important;
+                font-weight: 500 !important;
+                display: block !important;
+                line-height: 1.1 !important;
+                text-transform: uppercase !important;
+              `;
+            }
           }
 
           // Clean up interactive elements
