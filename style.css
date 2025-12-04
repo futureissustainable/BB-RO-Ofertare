@@ -767,12 +767,30 @@ p {
     }
 
     /* Fix padding for sections that use vw units - convert to fixed mm for print */
-    .page#section-2-text,
-    .page#section-3-text,
-    .page#section-upgrades,
-    .page#section-summary,
-    .page#section-floorplan {
-        padding: 12mm !important; /* equivalent to ~4vw of 297mm */
+    /* Use individual padding properties with high specificity to ensure override */
+    section.page#section-2-text,
+    section.page#section-3-text,
+    section.page#section-upgrades,
+    section.page#section-summary {
+        padding-top: 12mm !important;
+        padding-right: 12mm !important;
+        padding-bottom: 12mm !important;
+        padding-left: 12mm !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Floorplan has special layout - only needs side padding */
+    section.page#section-floorplan {
+        padding-top: 0 !important;
+        padding-right: 0 !important;
+        padding-bottom: 0 !important;
+        padding-left: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    section.page#section-floorplan #floorplan-details {
+        padding: 12mm !important;
+        box-sizing: border-box !important;
     }
 }
 
