@@ -1891,11 +1891,26 @@ if (selectionState.solar) {
             addBgAsImg(page, clone, 'cover');
           }
 
-          // Clean up interactive elements for print
-          clone.querySelectorAll('.interactive-select').forEach(el => {
-            el.style.border = 'none';
-            el.style.background = 'transparent';
-            el.style.webkitAppearance = 'none';
+          // Replace select elements with spans showing selected text
+          // html2canvas doesn't render select elements properly
+          const originalSelects = page.querySelectorAll('.interactive-select');
+          const cloneSelects = clone.querySelectorAll('.interactive-select');
+          cloneSelects.forEach((selectEl, index) => {
+            const originalSelect = originalSelects[index];
+            const selectedText = originalSelect?.options[originalSelect.selectedIndex]?.text || selectEl.value;
+            const span = document.createElement('span');
+            span.textContent = selectedText;
+            // Copy computed styles from original select
+            const computedStyle = originalSelect ? window.getComputedStyle(originalSelect) : null;
+            span.style.cssText = `
+              display: block;
+              font-size: ${computedStyle?.fontSize || '16px'};
+              font-weight: ${computedStyle?.fontWeight || '500'};
+              text-transform: ${computedStyle?.textTransform || 'none'};
+              color: ${computedStyle?.color || 'inherit'};
+              line-height: 1.2;
+            `;
+            selectEl.parentNode.replaceChild(span, selectEl);
           });
           clone.querySelectorAll('[contenteditable]').forEach(el => {
             el.removeAttribute('contenteditable');
