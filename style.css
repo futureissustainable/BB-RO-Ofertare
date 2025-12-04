@@ -699,18 +699,20 @@ p {
         margin: 0 !important;
         padding: 0 !important;
         background: white !important;
-        height: auto !important;
-        overflow: visible !important;
     }
 
     body {
         display: block !important;
         gap: 0 !important;
+        height: auto !important;
+        overflow: visible !important;
     }
 
     .page {
         width: 297mm !important;
         height: 210mm !important;
+        max-height: 210mm !important;
+        min-height: 210mm !important;
         margin: 0 !important;
         padding: 0 !important;
         overflow: hidden !important;
@@ -718,6 +720,7 @@ p {
         box-shadow: none !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
+        box-sizing: border-box !important;
     }
 
     /* Force page break BEFORE each page except the first */
@@ -726,9 +729,20 @@ p {
         break-before: page !important;
     }
 
+    /* Override section-summary auto height */
+    #section-summary {
+        height: 210mm !important;
+        max-height: 210mm !important;
+        min-height: 210mm !important;
+        aspect-ratio: unset !important;
+        overflow: hidden !important;
+    }
+
     .page.page-hidden {
         display: none !important;
         height: 0 !important;
+        min-height: 0 !important;
+        max-height: 0 !important;
         overflow: hidden !important;
         page-break-before: avoid !important;
         break-before: avoid !important;
@@ -738,9 +752,6 @@ p {
     #language-selector,
     #lang-select-modal {
         display: none !important;
-        height: 0 !important;
-        width: 0 !important;
-        overflow: hidden !important;
     }
 
     .interactive-select {
