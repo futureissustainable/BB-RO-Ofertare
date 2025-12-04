@@ -699,6 +699,8 @@ p {
         margin: 0 !important;
         padding: 0 !important;
         background: white !important;
+        height: auto !important;
+        overflow: visible !important;
     }
 
     body {
@@ -710,25 +712,35 @@ p {
         width: 297mm !important;
         height: 210mm !important;
         margin: 0 !important;
+        padding: 0 !important;
         overflow: hidden !important;
         border: none !important;
         box-shadow: none !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
     }
 
-    /* Only add page breaks between pages, not after the last one */
-    .page:not(:last-child) {
-        page-break-after: always !important;
-        break-after: page !important;
+    /* Force page break BEFORE each page except the first */
+    .page ~ .page:not(.page-hidden) {
+        page-break-before: always !important;
+        break-before: page !important;
     }
 
     .page.page-hidden {
         display: none !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        page-break-before: avoid !important;
+        break-before: avoid !important;
     }
 
     #download-offer-btn,
     #language-selector,
     #lang-select-modal {
         display: none !important;
+        height: 0 !important;
+        width: 0 !important;
+        overflow: hidden !important;
     }
 
     .interactive-select {

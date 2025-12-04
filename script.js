@@ -1827,6 +1827,7 @@ if (selectionState.solar) {
 
           const clone = page.cloneNode(true);
 
+          // Set base page dimensions - use block layout to avoid flex issues
           clone.style.cssText = `
             width: ${RENDER_WIDTH}px !important;
             height: ${RENDER_HEIGHT}px !important;
@@ -1838,47 +1839,74 @@ if (selectionState.solar) {
             overflow: hidden !important;
             position: relative !important;
             box-sizing: border-box !important;
+            display: flex !important;
+            flex-direction: column !important;
           `;
 
-          // Handle full-page background images
-          if (pageId === 'section-2-image' || pageId === 'section-3-image') {
-            convertBgToImg(page, clone);
-          }
+          // Add clone to DOM first so we can compute styles
+          renderContainer.innerHTML = '';
+          renderContainer.appendChild(clone);
 
-          // Handle content-area background
-          const contentArea = page.querySelector('.content-area');
-          const cloneContentArea = clone.querySelector('.content-area');
-          if (contentArea && cloneContentArea) {
-            convertBgToImg(contentArea, cloneContentArea);
-          }
+          // Wait for layout to settle
+          await new Promise(resolve => setTimeout(resolve, 50));
 
-          // Handle passive-info-image background
-          const passiveImg = page.querySelector('#passive-info-image');
-          const clonePassiveImg = clone.querySelector('#passive-info-image');
-          if (passiveImg && clonePassiveImg) {
-            convertBgToImg(passiveImg, clonePassiveImg, true);
-          }
-
-          // Fix floorplan image sizing
-          const floorplanImg = clone.querySelector('#floorplan-image');
-          if (floorplanImg) {
-            floorplanImg.style.cssText = `
-              max-width: 100% !important;
-              max-height: 100% !important;
-              width: auto !important;
-              height: auto !important;
-              object-fit: contain !important;
-            `;
-          }
-
-          // Fix section-1 footer layout
+          // Handle section-1 (title page with header, content-area, footer)
           if (pageId === 'section-1') {
+            const cloneHeader = clone.querySelector('.header-bar');
+            const cloneContentArea = clone.querySelector('.content-area');
+            const cloneFooter = clone.querySelector('.footer-bar');
+
+            if (cloneHeader && cloneContentArea && cloneFooter) {
+              // Get computed heights after layout
+              const headerHeight = cloneHeader.offsetHeight;
+              const footerHeight = cloneFooter.offsetHeight;
+              const contentHeight = RENDER_HEIGHT - headerHeight - footerHeight;
+
+              // Set explicit heights
+              cloneHeader.style.cssText += `flex-shrink: 0 !important; height: ${headerHeight}px !important;`;
+              cloneFooter.style.cssText += `flex-shrink: 0 !important; height: ${footerHeight}px !important;`;
+              cloneContentArea.style.cssText = `
+                flex-grow: 0 !important;
+                flex-shrink: 0 !important;
+                height: ${contentHeight}px !important;
+                width: 100% !important;
+                position: relative !important;
+                overflow: hidden !important;
+              `;
+
+              // Convert background to img with explicit dimensions
+              const contentArea = page.querySelector('.content-area');
+              if (contentArea) {
+                const bgImage = window.getComputedStyle(contentArea).backgroundImage;
+                if (bgImage && bgImage !== 'none') {
+                  const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
+                  if (urlMatch) {
+                    const img = document.createElement('img');
+                    img.src = urlMatch[1];
+                    img.crossOrigin = 'anonymous';
+                    img.style.cssText = `
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      width: ${RENDER_WIDTH}px;
+                      height: ${contentHeight}px;
+                      object-fit: cover;
+                      object-position: center;
+                    `;
+                    cloneContentArea.style.backgroundImage = 'none';
+                    cloneContentArea.appendChild(img);
+                  }
+                }
+              }
+            }
+
+            // Fix footer-left layout
             const footerLeft = clone.querySelector('.footer-left');
             if (footerLeft) {
               footerLeft.style.cssText = `
                 background-color: #ffffff !important;
                 flex-basis: 45% !important;
-                padding: 25px !important;
+                padding: 20px !important;
                 box-sizing: border-box !important;
                 display: flex !important;
                 flex-direction: column !important;
@@ -1892,24 +1920,26 @@ if (selectionState.solar) {
               wrapper.style.cssText = `
                 display: block !important;
                 position: static !important;
-                margin-bottom: ${idx === 0 ? '8px' : '0'} !important;
+                margin-bottom: ${idx === 0 ? '5px' : '0'} !important;
               `;
             });
             const finishText = clone.querySelector('#finish-text');
             if (finishText) {
               finishText.style.cssText = `
-                font-size: 16px !important;
+                font-size: 14px !important;
                 font-weight: 500 !important;
                 display: block !important;
                 width: 100% !important;
                 text-transform: capitalize !important;
                 position: static !important;
+                margin: 0 !important;
+                padding: 0 !important;
               `;
             }
             const modelName = clone.querySelector('#model-name-select');
             if (modelName) {
               modelName.style.cssText = `
-                font-size: 32px !important;
+                font-size: 28px !important;
                 font-weight: 500 !important;
                 display: block !important;
                 width: 100% !important;
@@ -1918,8 +1948,102 @@ if (selectionState.solar) {
                 position: static !important;
                 white-space: normal !important;
                 word-wrap: break-word !important;
+                margin: 0 !important;
+                padding: 0 !important;
               `;
             }
+          }
+
+          // Handle section-passive-info (side-by-side layout)
+          if (pageId === 'section-passive-info') {
+            clone.style.flexDirection = 'row !important';
+
+            const clonePassiveImg = clone.querySelector('#passive-info-image');
+            const clonePassiveText = clone.querySelector('#passive-info-text');
+
+            if (clonePassiveImg && clonePassiveText) {
+              const imgWidth = Math.round(RENDER_WIDTH * 0.45);
+              const textWidth = RENDER_WIDTH - imgWidth;
+
+              clonePassiveImg.style.cssText = `
+                width: ${imgWidth}px !important;
+                height: ${RENDER_HEIGHT}px !important;
+                flex-shrink: 0 !important;
+                position: relative !important;
+                overflow: hidden !important;
+              `;
+
+              clonePassiveText.style.cssText = `
+                width: ${textWidth}px !important;
+                height: ${RENDER_HEIGHT}px !important;
+                flex-shrink: 0 !important;
+                padding: 40px !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+              `;
+
+              // Convert background to img
+              const passiveImg = page.querySelector('#passive-info-image');
+              if (passiveImg) {
+                const bgImage = window.getComputedStyle(passiveImg).backgroundImage;
+                if (bgImage && bgImage !== 'none') {
+                  const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
+                  if (urlMatch) {
+                    const img = document.createElement('img');
+                    img.src = urlMatch[1];
+                    img.crossOrigin = 'anonymous';
+                    img.style.cssText = `
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      width: ${imgWidth}px;
+                      height: ${RENDER_HEIGHT}px;
+                      object-fit: contain;
+                      object-position: center;
+                      background-color: #fff;
+                    `;
+                    clonePassiveImg.style.backgroundImage = 'none';
+                    clonePassiveImg.appendChild(img);
+                  }
+                }
+              }
+            }
+          }
+
+          // Handle full-page background images (section-2-image, section-3-image)
+          if (pageId === 'section-2-image' || pageId === 'section-3-image') {
+            const bgImage = window.getComputedStyle(page).backgroundImage;
+            if (bgImage && bgImage !== 'none') {
+              const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
+              if (urlMatch) {
+                const img = document.createElement('img');
+                img.src = urlMatch[1];
+                img.crossOrigin = 'anonymous';
+                img.style.cssText = `
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: ${RENDER_WIDTH}px;
+                  height: ${RENDER_HEIGHT}px;
+                  object-fit: cover;
+                  object-position: center;
+                `;
+                clone.style.backgroundImage = 'none';
+                clone.appendChild(img);
+              }
+            }
+          }
+
+          // Fix floorplan image sizing
+          const floorplanImg = clone.querySelector('#floorplan-image');
+          if (floorplanImg) {
+            floorplanImg.style.cssText = `
+              max-width: 100% !important;
+              max-height: 100% !important;
+              width: auto !important;
+              height: auto !important;
+              object-fit: contain !important;
+            `;
           }
 
           // Clean up interactive elements
@@ -1935,10 +2059,11 @@ if (selectionState.solar) {
           clone.querySelectorAll('.interactive-select-wrapper').forEach(el => {
             el.style.setProperty('--arrow-display', 'none');
           });
+          clone.querySelectorAll('.interactive-select-wrapper::after').forEach(el => {
+            el.style.display = 'none';
+          });
 
-          renderContainer.innerHTML = '';
-          renderContainer.appendChild(clone);
-
+          // Wait for images to load
           const images = clone.querySelectorAll('img');
           await Promise.all(Array.from(images).map(img => {
             if (img.complete) return Promise.resolve();
@@ -1948,7 +2073,8 @@ if (selectionState.solar) {
             });
           }));
 
-          await new Promise(resolve => setTimeout(resolve, 150));
+          // Wait for layout to fully settle
+          await new Promise(resolve => setTimeout(resolve, 200));
 
           if (i > 0) {
             pdf.addPage('a4', 'landscape');
