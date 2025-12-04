@@ -1661,17 +1661,29 @@ if (selectionState.solar) {
     setLanguage(currentLang);
 
     // --- PDF Download Function ---
+    // Detect iOS/iPadOS/mobile devices that don't support print CSS properly
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const needsPdfGeneration = isIOS || isMobile;
+
     document.getElementById('download-offer-btn').addEventListener('click', async function() {
       const btn = this;
       const originalText = btn.querySelector('span').textContent;
+
+      // For desktop browsers, just use window.print() - it works perfectly
+      if (!needsPdfGeneration) {
+        window.print();
+        return;
+      }
+
+      // For iOS/mobile, generate a PDF file since print CSS doesn't work
       btn.querySelector('span').textContent = '...';
       btn.disabled = true;
-      btn.style.display = 'none';
 
       try {
         // A4 landscape: 297mm x 210mm
         // At 96 DPI: 1122.52px x 793.70px
-        // Using 2x scale for quality: 2245 x 1587
         const PDF_WIDTH_MM = 297;
         const PDF_HEIGHT_MM = 210;
         const RENDER_WIDTH = 1122;
@@ -1789,7 +1801,6 @@ if (selectionState.solar) {
 
       btn.querySelector('span').textContent = originalText;
       btn.disabled = false;
-      btn.style.display = 'flex';
     });
   }
 
