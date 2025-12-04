@@ -739,7 +739,8 @@ p {
     }
 
     #download-offer-btn,
-    #language-selector {
+    #language-selector,
+    #lang-select-modal {
         display: none !important;
     }
 

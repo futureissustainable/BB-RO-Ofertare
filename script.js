@@ -1668,7 +1668,7 @@ if (selectionState.solar) {
     const needsPdfGeneration = isIOS || isMobile;
 
     // Helper to convert background-image to actual img element
-    function convertBgToImg(element, clone) {
+    function convertBgToImg(element, clone, forceContain = false) {
       const style = window.getComputedStyle(element);
       const bgImage = style.backgroundImage;
       if (bgImage && bgImage !== 'none') {
@@ -1677,14 +1677,16 @@ if (selectionState.solar) {
           const img = document.createElement('img');
           img.src = urlMatch[1];
           img.crossOrigin = 'anonymous';
+          // Use contain to prevent stretching, cover only for specific full-bleed images
+          const fitMode = forceContain || style.backgroundSize === 'contain' ? 'contain' : 'cover';
           img.style.cssText = `
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: ${style.backgroundSize === 'contain' ? 'contain' : 'cover'};
-            object-position: ${style.backgroundPosition || 'center'};
+            object-fit: ${fitMode};
+            object-position: center;
           `;
           clone.style.position = 'relative';
           clone.style.backgroundImage = 'none';
@@ -1890,11 +1892,11 @@ if (selectionState.solar) {
             convertBgToImg(contentArea, cloneContentArea);
           }
 
-          // Handle passive-info-image background
+          // Handle passive-info-image background (use contain to prevent stretch)
           const passiveImg = page.querySelector('#passive-info-image');
           const clonePassiveImg = clone.querySelector('#passive-info-image');
           if (passiveImg && clonePassiveImg) {
-            convertBgToImg(passiveImg, clonePassiveImg);
+            convertBgToImg(passiveImg, clonePassiveImg, true);
           }
 
           // Fix floorplan image sizing
@@ -1914,32 +1916,49 @@ if (selectionState.solar) {
             const footerLeft = clone.querySelector('.footer-left');
             if (footerLeft) {
               footerLeft.style.cssText = `
-                background-color: #ffffff;
-                flex-basis: 45%;
-                padding: 3%;
-                box-sizing: border-box;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
+                background-color: #ffffff !important;
+                flex-basis: 45% !important;
+                padding: 25px !important;
+                box-sizing: border-box !important;
+                display: block !important;
+                overflow: visible !important;
+              `;
+            }
+            // Remove the wrapper divs and set direct styles
+            const finishWrapper = clone.querySelector('.footer-left .interactive-select-wrapper:first-child');
+            if (finishWrapper) {
+              finishWrapper.style.cssText = `
+                display: block !important;
+                margin-bottom: 10px !important;
+              `;
+            }
+            const modelWrapper = clone.querySelector('.footer-left .interactive-select-wrapper:last-child');
+            if (modelWrapper) {
+              modelWrapper.style.cssText = `
+                display: block !important;
               `;
             }
             const finishText = clone.querySelector('#finish-text');
             if (finishText) {
               finishText.style.cssText = `
-                font-size: 16px !important;
+                font-size: 14px !important;
                 font-weight: 500 !important;
                 display: block !important;
-                margin-bottom: 8px !important;
+                margin-bottom: 5px !important;
+                position: relative !important;
+                text-transform: capitalize !important;
               `;
             }
             const modelName = clone.querySelector('#model-name-select');
             if (modelName) {
               modelName.style.cssText = `
-                font-size: 42px !important;
+                font-size: 36px !important;
                 font-weight: 500 !important;
                 display: block !important;
-                line-height: 1.1 !important;
+                line-height: 1.2 !important;
                 text-transform: uppercase !important;
+                position: relative !important;
+                margin-top: 5px !important;
               `;
             }
           }
