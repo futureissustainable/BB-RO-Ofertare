@@ -5,33 +5,33 @@
     --text-muted: #555555;
     --a4-width: 1200px;
     --a4-ratio: calc(297 / 210);
-    --primary-blue: #007bff; /* Culoare de accent principală */
-    --selected-bg-blue: #f0f7ff; /* Fundal pentru elementele selectate */
+    --primary-blue: #007bff;
+    --selected-bg-blue: #f0f7ff;
 }
 
 /* --- ON-SCREEN STYLES --- */
 html {
     scroll-snap-type: none;
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: none;
 }
 html::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+    display: none;
 }
 
 body {
     margin: 0;
-    padding: 0 0; /* Vertical padding for on-screen viewing */
+    padding: 0 0;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    gap: 5vh; /* Spacing between pages */
+    gap: 5vh;
     font-weight: 300;
     box-sizing: border-box;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 body::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+    display: none;
 }
 
 #config-panel {
@@ -45,8 +45,8 @@ body::-webkit-scrollbar {
     flex-direction: column;
     overflow: hidden;
     background-color: var(--light-bg);
-    box-shadow: none; /* Removed drop shadow */
-    border: 1px solid #eee; /* Added a light border to distinguish pages */
+    box-shadow: none;
+    border: 1px solid #eee;
 }
 
 body > .page:last-of-type {
@@ -140,7 +140,6 @@ p {
     color: var(--text-light);
     background-color: var(--primary-blue);
 }
-/* --- END LANGUAGE SELECTOR STYLES --- */
 
 #section-1 .footer-bar {
     display: flex;
@@ -336,7 +335,7 @@ p {
 }
 #floorplan-details::-webkit-scrollbar {
     display: none;
-} /* Hide scrollbar for this specific element */
+}
 #floorplan-image-container {
     flex-basis: 65%;
     display: flex;
@@ -663,8 +662,8 @@ p {
 .label-2 { left: 20%; }
 .label-3 { left: 50%; }
 .label-4 { left: 80%; }
-.label-5 { 
-    left: 100%; 
+.label-5 {
+    left: 100%;
     width: 6vw;
     min-width: 60px;
 }
@@ -708,8 +707,6 @@ p {
     }
 
     .page {
-        display: flex !important;
-        flex-direction: column !important;
         width: 297mm !important;
         height: 210mm !important;
         margin: 0 !important;
@@ -718,29 +715,21 @@ p {
         box-shadow: none !important;
         page-break-after: always !important;
         break-after: page !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-        visibility: visible !important;
-        opacity: 1 !important;
     }
 
     .page.page-hidden {
         display: none !important;
-        page-break-after: avoid !important;
-        break-after: avoid !important;
     }
 
-    /* Prevent extra blank page - target last visible page */
     #section-summary {
-        page-break-after: avoid !important;
-        break-after: avoid !important;
+        page-break-after: auto !important;
+        break-after: auto !important;
     }
 
     #download-offer-btn,
     #language-selector,
     #lang-select-modal {
         display: none !important;
-        visibility: hidden !important;
     }
 
     .interactive-select {
