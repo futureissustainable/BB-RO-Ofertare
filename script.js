@@ -1695,7 +1695,7 @@ if (selectionState.solar) {
       }
     }
 
-    // Create language selection modal
+    // Create language selection modal (shown on page load for view-only mode)
     const langModal = document.createElement('div');
     langModal.id = 'lang-select-modal';
     langModal.innerHTML = `
@@ -1707,7 +1707,6 @@ if (selectionState.solar) {
           <button data-lang="de" class="lang-btn">Deutsch</button>
           <button data-lang="fr" class="lang-btn">Français</button>
         </div>
-        <button class="lang-cancel">Cancel</button>
       </div>
     `;
     langModal.style.cssText = `
@@ -1737,12 +1736,11 @@ if (selectionState.solar) {
       font-size: 18px;
       color: #333;
     `;
-    const langOptions = langModal.querySelector('.lang-options');
-    langOptions.style.cssText = `
+    const langOptionsDiv = langModal.querySelector('.lang-options');
+    langOptionsDiv.style.cssText = `
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-bottom: 15px;
     `;
     langModal.querySelectorAll('.lang-btn').forEach(btn => {
       btn.style.cssText = `
@@ -1756,84 +1754,47 @@ if (selectionState.solar) {
         transition: all 0.2s;
       `;
     });
-    const cancelBtn = langModal.querySelector('.lang-cancel');
-    cancelBtn.style.cssText = `
-      padding: 10px 30px;
-      border: none;
-      background: #eee;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-      color: #666;
-    `;
     document.body.appendChild(langModal);
 
-    // Function to show language modal and return selected language
-    function showLanguageModal() {
-      return new Promise((resolve) => {
-        langModal.style.display = 'flex';
-
-        const handleLangClick = (e) => {
-          if (e.target.classList.contains('lang-btn')) {
-            const selectedLang = e.target.dataset.lang;
-            langModal.style.display = 'none';
-            resolve(selectedLang);
-          }
-        };
-
-        const handleCancel = () => {
+    // Show language modal on page load if NOT in edit mode
+    if (!isEditMode) {
+      langModal.style.display = 'flex';
+      langOptionsDiv.addEventListener('click', (e) => {
+        if (e.target.classList.contains('lang-btn')) {
+          const selectedLang = e.target.dataset.lang;
+          setLanguage(selectedLang);
           langModal.style.display = 'none';
-          resolve(null);
-        };
-
-        langOptions.addEventListener('click', handleLangClick, { once: true });
-        cancelBtn.addEventListener('click', handleCancel, { once: true });
-        langModal.addEventListener('click', (e) => {
-          if (e.target === langModal) handleCancel();
-        }, { once: true });
+        }
       });
     }
 
+    // Simple download button - window.print() for desktop, PDF for iOS
     document.getElementById('download-offer-btn').addEventListener('click', async function() {
       const btn = this;
       const originalText = btn.querySelector('span').textContent;
-      const originalLang = currentLang;
 
-      // Show language selection first
-      const selectedLang = await showLanguageModal();
-      if (!selectedLang) return; // User cancelled
-
-      // Apply selected language
-      setLanguage(selectedLang);
-
-      // Wait for language to apply
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      // For desktop browsers, just use window.print() - it works perfectly
+      // For desktop browsers, just use window.print()
       if (!needsPdfGeneration) {
         window.print();
         return;
       }
 
-      // For iOS/mobile, generate a PDF file since print CSS doesn't work
+      // For iOS/mobile, generate a PDF file
       btn.querySelector('span').textContent = 'LOADING';
       btn.disabled = true;
 
       try {
-        // A4 landscape: 297mm x 210mm
         const PDF_WIDTH_MM = 297;
         const PDF_HEIGHT_MM = 210;
         const RENDER_WIDTH = 1122;
         const RENDER_HEIGHT = 793;
 
-        // Get all visible pages
         const pages = Array.from(document.querySelectorAll('.page:not(.page-hidden)'));
 
         if (pages.length === 0) {
           throw new Error('No pages to export');
         }
 
-        // Create jsPDF instance
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF({
           orientation: 'landscape',
@@ -1842,7 +1803,6 @@ if (selectionState.solar) {
           compress: true
         });
 
-        // Create a hidden container for rendering
         const renderContainer = document.createElement('div');
         renderContainer.style.cssText = `
           position: fixed;
@@ -1856,16 +1816,11 @@ if (selectionState.solar) {
         `;
         document.body.appendChild(renderContainer);
 
-        // Process each page
         for (let i = 0; i < pages.length; i++) {
           const page = pages[i];
           const pageId = page.id;
 
-          // Clone the page
           const clone = page.cloneNode(true);
-
-          // Get original computed styles to preserve padding
-          const originalStyles = window.getComputedStyle(page);
 
           clone.style.cssText = `
             width: ${RENDER_WIDTH}px !important;
@@ -1880,19 +1835,19 @@ if (selectionState.solar) {
             box-sizing: border-box !important;
           `;
 
-          // Handle full-page background images (section-2-image, section-3-image)
+          // Handle full-page background images
           if (pageId === 'section-2-image' || pageId === 'section-3-image') {
             convertBgToImg(page, clone);
           }
 
-          // Handle content-area background (section-1 main image)
+          // Handle content-area background
           const contentArea = page.querySelector('.content-area');
           const cloneContentArea = clone.querySelector('.content-area');
           if (contentArea && cloneContentArea) {
             convertBgToImg(contentArea, cloneContentArea);
           }
 
-          // Handle passive-info-image background (use contain to prevent stretch)
+          // Handle passive-info-image background
           const passiveImg = page.querySelector('#passive-info-image');
           const clonePassiveImg = clone.querySelector('#passive-info-image');
           if (passiveImg && clonePassiveImg) {
@@ -1911,7 +1866,7 @@ if (selectionState.solar) {
             `;
           }
 
-          // Fix section-1 footer layout (model name covered by finish type)
+          // Fix section-1 footer layout
           if (pageId === 'section-1') {
             const footerLeft = clone.querySelector('.footer-left');
             if (footerLeft) {
@@ -1924,19 +1879,13 @@ if (selectionState.solar) {
                 overflow: visible !important;
               `;
             }
-            // Remove the wrapper divs and set direct styles
             const finishWrapper = clone.querySelector('.footer-left .interactive-select-wrapper:first-child');
             if (finishWrapper) {
-              finishWrapper.style.cssText = `
-                display: block !important;
-                margin-bottom: 10px !important;
-              `;
+              finishWrapper.style.cssText = `display: block !important; margin-bottom: 10px !important;`;
             }
             const modelWrapper = clone.querySelector('.footer-left .interactive-select-wrapper:last-child');
             if (modelWrapper) {
-              modelWrapper.style.cssText = `
-                display: block !important;
-              `;
+              modelWrapper.style.cssText = `display: block !important;`;
             }
             const finishText = clone.querySelector('#finish-text');
             if (finishText) {
@@ -1945,7 +1894,6 @@ if (selectionState.solar) {
                 font-weight: 500 !important;
                 display: block !important;
                 margin-bottom: 5px !important;
-                position: relative !important;
                 text-transform: capitalize !important;
               `;
             }
@@ -1957,7 +1905,6 @@ if (selectionState.solar) {
                 display: block !important;
                 line-height: 1.2 !important;
                 text-transform: uppercase !important;
-                position: relative !important;
                 margin-top: 5px !important;
               `;
             }
@@ -1977,11 +1924,9 @@ if (selectionState.solar) {
             el.style.setProperty('--arrow-display', 'none');
           });
 
-          // Clear and add clone to render container
           renderContainer.innerHTML = '';
           renderContainer.appendChild(clone);
 
-          // Wait for images to load
           const images = clone.querySelectorAll('img');
           await Promise.all(Array.from(images).map(img => {
             if (img.complete) return Promise.resolve();
@@ -1991,15 +1936,12 @@ if (selectionState.solar) {
             });
           }));
 
-          // Wait a bit for styles to apply
           await new Promise(resolve => setTimeout(resolve, 150));
 
-          // Add new page for all except first
           if (i > 0) {
             pdf.addPage('a4', 'landscape');
           }
 
-          // Capture with html2canvas
           const canvas = await html2canvas(clone, {
             scale: 2,
             useCORS: true,
@@ -2012,15 +1954,12 @@ if (selectionState.solar) {
             windowHeight: RENDER_HEIGHT
           });
 
-          // Add to PDF - exact fit to A4 landscape
           const imgData = canvas.toDataURL('image/jpeg', 0.92);
           pdf.addImage(imgData, 'JPEG', 0, 0, PDF_WIDTH_MM, PDF_HEIGHT_MM);
         }
 
-        // Clean up
         document.body.removeChild(renderContainer);
 
-        // Save the PDF
         const clientName = document.getElementById('client-name')?.textContent || 'Client';
         const safeName = clientName.replace(/[^a-zA-Z0-9\s-]/g, '').trim() || 'Client';
         const filename = `Oferta-Biobuilds-${safeName}.pdf`;
@@ -2028,7 +1967,6 @@ if (selectionState.solar) {
 
       } catch (error) {
         console.error('PDF generation failed:', error);
-        // Fallback to window.print()
         window.print();
       }
 
