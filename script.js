@@ -1,4 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // --- Edit Mode Detection ---
+  // Check if #edit is in the URL hash
+  const isEditMode = window.location.hash.includes('edit');
+
+  // Store the hash to preserve it
+  let preservedHash = window.location.hash;
+
+  // Apply view-only mode if not in edit mode
+  if (!isEditMode) {
+    document.body.classList.add('view-only');
+    // Remove contenteditable attributes in view-only mode
+    document.querySelectorAll('[contenteditable="true"]').forEach(el => {
+      el.removeAttribute('contenteditable');
+    });
+  }
+
+  // Preserve #edit hash when URL changes (e.g., from UTM parameters)
+  const originalPushState = history.pushState;
+  history.pushState = function() {
+    originalPushState.apply(history, arguments);
+    if (preservedHash && !window.location.hash.includes('edit') && preservedHash.includes('edit')) {
+      window.location.hash = preservedHash;
+    }
+  };
+
+  const originalReplaceState = history.replaceState;
+  history.replaceState = function() {
+    originalReplaceState.apply(history, arguments);
+    if (preservedHash && !window.location.hash.includes('edit') && preservedHash.includes('edit')) {
+      window.location.hash = preservedHash;
+    }
+  };
+
   let currentLang = "ro";
   const translations = {
     ro: {
@@ -79,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
       notesLabel: "Mențiuni:",
       termsAndConditions:
         "Această ofertă este supusă termenilor și condițiilor aplicabile, care pot fi consultate la biobuilds.com/TC. Continuând, confirmați că le înțelegeți și le acceptați.",
+      downloadOffer: "Descarcă Oferta",
       totalLabel: "TOTAL",
       vatLabel: "+TVA",
       turnkey: "La Cheie",
@@ -258,6 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
       notesLabel: "Notes:",
       termsAndConditions:
         "This offer is subject to the applicable terms and conditions, which can be viewed at biobuilds.com/TC. By proceeding, you confirm that you understand and accept them.",
+      downloadOffer: "Download Offer",
       totalLabel: "TOTAL",
       vatLabel: "+VAT",
       turnkey: "Turnkey",
@@ -434,6 +469,7 @@ document.addEventListener("DOMContentLoaded", () => {
       notesLabel: "Anmerkungen:",
       termsAndConditions:
         "Dieses Angebot unterliegt den geltenden AGB, einsehbar unter biobuilds.com/TC. Mit der Annahme bestätigen Sie, dass Sie diese verstanden und akzeptiert haben.",
+      downloadOffer: "Angebot herunterladen",
       totalLabel: "GESAMT",
       vatLabel: "+ MwSt.",
       turnkey: "Schlüsselfertig",
@@ -612,6 +648,7 @@ document.addEventListener("DOMContentLoaded", () => {
       notesLabel: "Notes :",
       termsAndConditions:
         "Cette offre est soumise aux conditions générales applicables, consultables sur biobuilds.com/TC. En poursuivant, vous confirmez les avoir comprises et acceptées.",
+      downloadOffer: "Télécharger l'offre",
       totalLabel: "TOTAL",
       vatLabel: "+ TVA",
       turnkey: "Clé en main",
