@@ -1185,8 +1185,14 @@ if (selectionState.solar) {
     document.getElementById("passive-info-image").style.backgroundImage =
       `url('${modelData.passiveImg}')`;
     generateSection2Content(document.getElementById("section-2-text"), facade);
+    let section2ImageUrl;
+    if (finish === "semi-finished") {
+      section2ImageUrl = modelData.images.semi_parquet[parquet];
+    } else {
+      section2ImageUrl = modelData.images.facade[facade];
+    }
     document.getElementById("section-2-image").style.backgroundImage =
-      `url('https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/69303cdf299025f5b7e0e219_95%20Wall%20Section.avif')`;
+      `url('${section2ImageUrl}')`;
     if (showTurnkeyDetails) {
       document.getElementById("section-3-image").style.backgroundImage =
         `url('${modelData.images.parquet[parquet]}')`;
