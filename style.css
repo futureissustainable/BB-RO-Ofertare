@@ -708,6 +708,8 @@ p {
     }
 
     .page {
+        display: flex !important;
+        flex-direction: column !important;
         width: 297mm !important;
         height: 210mm !important;
         margin: 0 !important;
@@ -718,6 +720,8 @@ p {
         break-after: page !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
 
     .page.page-hidden {
@@ -727,21 +731,16 @@ p {
     }
 
     /* Prevent extra blank page - target last visible page */
-    .page:last-of-type,
     #section-summary {
         page-break-after: avoid !important;
         break-after: avoid !important;
-    }
-
-    /* Hide any trailing content */
-    body > *:not(.page) {
-        display: none !important;
     }
 
     #download-offer-btn,
     #language-selector,
     #lang-select-modal {
         display: none !important;
+        visibility: hidden !important;
     }
 
     .interactive-select {

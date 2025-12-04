@@ -1681,16 +1681,16 @@ if (selectionState.solar) {
           const img = document.createElement('img');
           img.src = urlMatch[1];
           img.crossOrigin = 'anonymous';
-          // Use contain to prevent stretching, cover only for specific full-bleed images
-          const fitMode = forceContain || style.backgroundSize === 'contain' ? 'contain' : 'cover';
+          // Always use contain to prevent stretching
           img.style.cssText = `
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: ${fitMode};
+            object-fit: contain;
             object-position: center;
+            background-color: #fff;
           `;
           clone.style.position = 'relative';
           clone.style.backgroundImage = 'none';
