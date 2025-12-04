@@ -1671,35 +1671,6 @@ if (selectionState.solar) {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const needsPdfGeneration = isIOS || isMobile;
 
-    // Helper to convert background-image to actual img element
-    function convertBgToImg(element, clone, useContain = false) {
-      const style = window.getComputedStyle(element);
-      const bgImage = style.backgroundImage;
-      if (bgImage && bgImage !== 'none') {
-        const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
-        if (urlMatch) {
-          const img = document.createElement('img');
-          img.src = urlMatch[1];
-          img.crossOrigin = 'anonymous';
-          // Use 'contain' for passive-info-image, 'cover' for content-area to match original CSS
-          const fitMode = useContain ? 'contain' : 'cover';
-          img.style.cssText = `
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: ${fitMode};
-            object-position: center;
-            background-color: #fff;
-          `;
-          clone.style.position = 'relative';
-          clone.style.backgroundImage = 'none';
-          clone.insertBefore(img, clone.firstChild);
-        }
-      }
-    }
-
     // Create language selection modal (shown on page load for view-only mode)
     const langModal = document.createElement('div');
     langModal.id = 'lang-select-modal';
@@ -1821,249 +1792,90 @@ if (selectionState.solar) {
         `;
         document.body.appendChild(renderContainer);
 
+        // Helper function to convert background-image to img element
+        function addBgAsImg(originalEl, cloneEl, objectFit = 'cover') {
+          const bgImage = window.getComputedStyle(originalEl).backgroundImage;
+          if (bgImage && bgImage !== 'none') {
+            const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
+            if (urlMatch) {
+              const img = document.createElement('img');
+              img.src = urlMatch[1];
+              img.crossOrigin = 'anonymous';
+              img.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: ${objectFit};
+                object-position: center;
+              `;
+              cloneEl.style.position = 'relative';
+              cloneEl.style.backgroundImage = 'none';
+              cloneEl.insertBefore(img, cloneEl.firstChild);
+            }
+          }
+        }
+
         for (let i = 0; i < pages.length; i++) {
           const page = pages[i];
           const pageId = page.id;
 
           const clone = page.cloneNode(true);
 
-          // Set base page dimensions - use block layout to avoid flex issues
-          clone.style.cssText = `
-            width: ${RENDER_WIDTH}px !important;
-            height: ${RENDER_HEIGHT}px !important;
-            min-height: ${RENDER_HEIGHT}px !important;
-            max-height: ${RENDER_HEIGHT}px !important;
-            margin: 0 !important;
-            border: none !important;
-            box-shadow: none !important;
-            overflow: hidden !important;
-            position: relative !important;
-            box-sizing: border-box !important;
-            display: flex !important;
-            flex-direction: column !important;
-          `;
+          // Set page dimensions while preserving the flex layout
+          clone.style.width = RENDER_WIDTH + 'px';
+          clone.style.height = RENDER_HEIGHT + 'px';
+          clone.style.minHeight = RENDER_HEIGHT + 'px';
+          clone.style.maxHeight = RENDER_HEIGHT + 'px';
+          clone.style.margin = '0';
+          clone.style.border = 'none';
+          clone.style.boxShadow = 'none';
+          clone.style.overflow = 'hidden';
+          clone.style.boxSizing = 'border-box';
 
-          // Add clone to DOM first so we can compute styles
+          // Add to DOM for rendering
           renderContainer.innerHTML = '';
           renderContainer.appendChild(clone);
 
-          // Wait for layout to settle
-          await new Promise(resolve => setTimeout(resolve, 50));
-
-          // Handle section-1 (title page with header, content-area, footer)
+          // Convert background images to actual img elements for html2canvas
+          // Section 1: content-area background
           if (pageId === 'section-1') {
-            const cloneHeader = clone.querySelector('.header-bar');
+            const contentArea = page.querySelector('.content-area');
             const cloneContentArea = clone.querySelector('.content-area');
-            const cloneFooter = clone.querySelector('.footer-bar');
-
-            if (cloneHeader && cloneContentArea && cloneFooter) {
-              // Get computed heights after layout
-              const headerHeight = cloneHeader.offsetHeight;
-              const footerHeight = cloneFooter.offsetHeight;
-              const contentHeight = RENDER_HEIGHT - headerHeight - footerHeight;
-
-              // Set explicit heights
-              cloneHeader.style.cssText += `flex-shrink: 0 !important; height: ${headerHeight}px !important;`;
-              cloneFooter.style.cssText += `flex-shrink: 0 !important; height: ${footerHeight}px !important;`;
-              cloneContentArea.style.cssText = `
-                flex-grow: 0 !important;
-                flex-shrink: 0 !important;
-                height: ${contentHeight}px !important;
-                width: 100% !important;
-                position: relative !important;
-                overflow: hidden !important;
-              `;
-
-              // Convert background to img with explicit dimensions
-              const contentArea = page.querySelector('.content-area');
-              if (contentArea) {
-                const bgImage = window.getComputedStyle(contentArea).backgroundImage;
-                if (bgImage && bgImage !== 'none') {
-                  const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
-                  if (urlMatch) {
-                    const img = document.createElement('img');
-                    img.src = urlMatch[1];
-                    img.crossOrigin = 'anonymous';
-                    img.style.cssText = `
-                      position: absolute;
-                      top: 0;
-                      left: 0;
-                      width: ${RENDER_WIDTH}px;
-                      height: ${contentHeight}px;
-                      object-fit: cover;
-                      object-position: center;
-                    `;
-                    cloneContentArea.style.backgroundImage = 'none';
-                    cloneContentArea.appendChild(img);
-                  }
-                }
-              }
-            }
-
-            // Fix footer-left layout
-            const footerLeft = clone.querySelector('.footer-left');
-            if (footerLeft) {
-              footerLeft.style.cssText = `
-                background-color: #ffffff !important;
-                flex-basis: 45% !important;
-                padding: 20px !important;
-                box-sizing: border-box !important;
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: center !important;
-                overflow: visible !important;
-              `;
-            }
-            // Style all wrappers in footer-left
-            const wrappers = clone.querySelectorAll('.footer-left .interactive-select-wrapper');
-            wrappers.forEach((wrapper, idx) => {
-              wrapper.style.cssText = `
-                display: block !important;
-                position: static !important;
-                margin-bottom: ${idx === 0 ? '5px' : '0'} !important;
-              `;
-            });
-            const finishText = clone.querySelector('#finish-text');
-            if (finishText) {
-              finishText.style.cssText = `
-                font-size: 14px !important;
-                font-weight: 500 !important;
-                display: block !important;
-                width: 100% !important;
-                text-transform: capitalize !important;
-                position: static !important;
-                margin: 0 !important;
-                padding: 0 !important;
-              `;
-            }
-            const modelName = clone.querySelector('#model-name-select');
-            if (modelName) {
-              modelName.style.cssText = `
-                font-size: 28px !important;
-                font-weight: 500 !important;
-                display: block !important;
-                width: 100% !important;
-                line-height: 1.1 !important;
-                text-transform: uppercase !important;
-                position: static !important;
-                white-space: normal !important;
-                word-wrap: break-word !important;
-                margin: 0 !important;
-                padding: 0 !important;
-              `;
+            if (contentArea && cloneContentArea) {
+              addBgAsImg(contentArea, cloneContentArea, 'cover');
             }
           }
 
-          // Handle section-passive-info (side-by-side layout)
+          // Section passive-info: side image background
           if (pageId === 'section-passive-info') {
-            clone.style.flexDirection = 'row !important';
-
+            const passiveImg = page.querySelector('#passive-info-image');
             const clonePassiveImg = clone.querySelector('#passive-info-image');
-            const clonePassiveText = clone.querySelector('#passive-info-text');
-
-            if (clonePassiveImg && clonePassiveText) {
-              const imgWidth = Math.round(RENDER_WIDTH * 0.45);
-              const textWidth = RENDER_WIDTH - imgWidth;
-
-              clonePassiveImg.style.cssText = `
-                width: ${imgWidth}px !important;
-                height: ${RENDER_HEIGHT}px !important;
-                flex-shrink: 0 !important;
-                position: relative !important;
-                overflow: hidden !important;
-              `;
-
-              clonePassiveText.style.cssText = `
-                width: ${textWidth}px !important;
-                height: ${RENDER_HEIGHT}px !important;
-                flex-shrink: 0 !important;
-                padding: 40px !important;
-                box-sizing: border-box !important;
-                overflow: hidden !important;
-              `;
-
-              // Convert background to img
-              const passiveImg = page.querySelector('#passive-info-image');
-              if (passiveImg) {
-                const bgImage = window.getComputedStyle(passiveImg).backgroundImage;
-                if (bgImage && bgImage !== 'none') {
-                  const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
-                  if (urlMatch) {
-                    const img = document.createElement('img');
-                    img.src = urlMatch[1];
-                    img.crossOrigin = 'anonymous';
-                    img.style.cssText = `
-                      position: absolute;
-                      top: 0;
-                      left: 0;
-                      width: ${imgWidth}px;
-                      height: ${RENDER_HEIGHT}px;
-                      object-fit: contain;
-                      object-position: center;
-                      background-color: #fff;
-                    `;
-                    clonePassiveImg.style.backgroundImage = 'none';
-                    clonePassiveImg.appendChild(img);
-                  }
-                }
-              }
+            if (passiveImg && clonePassiveImg) {
+              addBgAsImg(passiveImg, clonePassiveImg, 'contain');
             }
           }
 
-          // Handle full-page background images (section-2-image, section-3-image)
+          // Full-page background images
           if (pageId === 'section-2-image' || pageId === 'section-3-image') {
-            const bgImage = window.getComputedStyle(page).backgroundImage;
-            if (bgImage && bgImage !== 'none') {
-              const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
-              if (urlMatch) {
-                const img = document.createElement('img');
-                img.src = urlMatch[1];
-                img.crossOrigin = 'anonymous';
-                img.style.cssText = `
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  width: ${RENDER_WIDTH}px;
-                  height: ${RENDER_HEIGHT}px;
-                  object-fit: cover;
-                  object-position: center;
-                `;
-                clone.style.backgroundImage = 'none';
-                clone.appendChild(img);
-              }
-            }
+            addBgAsImg(page, clone, 'cover');
           }
 
-          // Fix floorplan image sizing
-          const floorplanImg = clone.querySelector('#floorplan-image');
-          if (floorplanImg) {
-            floorplanImg.style.cssText = `
-              max-width: 100% !important;
-              max-height: 100% !important;
-              width: auto !important;
-              height: auto !important;
-              object-fit: contain !important;
-            `;
-          }
-
-          // Clean up interactive elements
+          // Clean up interactive elements for print
           clone.querySelectorAll('.interactive-select').forEach(el => {
             el.style.border = 'none';
-            el.style.borderBottom = 'none';
             el.style.background = 'transparent';
+            el.style.webkitAppearance = 'none';
           });
           clone.querySelectorAll('[contenteditable]').forEach(el => {
             el.removeAttribute('contenteditable');
-            el.style.background = 'none';
-          });
-          clone.querySelectorAll('.interactive-select-wrapper').forEach(el => {
-            el.style.setProperty('--arrow-display', 'none');
           });
           clone.querySelectorAll('.interactive-select-wrapper::after').forEach(el => {
             el.style.display = 'none';
           });
 
-          // Wait for images to load
+          // Wait for all images to load
           const images = clone.querySelectorAll('img');
           await Promise.all(Array.from(images).map(img => {
             if (img.complete) return Promise.resolve();
@@ -2073,8 +1885,8 @@ if (selectionState.solar) {
             });
           }));
 
-          // Wait for layout to fully settle
-          await new Promise(resolve => setTimeout(resolve, 200));
+          // Short delay for layout
+          await new Promise(resolve => setTimeout(resolve, 100));
 
           if (i > 0) {
             pdf.addPage('a4', 'landscape');
