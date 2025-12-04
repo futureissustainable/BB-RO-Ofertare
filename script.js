@@ -1792,12 +1792,24 @@ if (selectionState.solar) {
         `;
         document.body.appendChild(renderContainer);
 
-        // Helper function to convert background-image to img element
+        // Helper function to convert background-image to img element with explicit dimensions
         function addBgAsImg(originalEl, cloneEl, objectFit = 'cover') {
           const bgImage = window.getComputedStyle(originalEl).backgroundImage;
           if (bgImage && bgImage !== 'none') {
             const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
             if (urlMatch) {
+              // Get actual computed dimensions after layout
+              const width = cloneEl.offsetWidth;
+              const height = cloneEl.offsetHeight;
+
+              // Set explicit dimensions on container
+              cloneEl.style.width = width + 'px';
+              cloneEl.style.height = height + 'px';
+              cloneEl.style.position = 'relative';
+              cloneEl.style.backgroundImage = 'none';
+              cloneEl.style.flexGrow = '0';
+              cloneEl.style.flexShrink = '0';
+
               const img = document.createElement('img');
               img.src = urlMatch[1];
               img.crossOrigin = 'anonymous';
@@ -1805,13 +1817,11 @@ if (selectionState.solar) {
                 position: absolute;
                 top: 0;
                 left: 0;
-                width: 100%;
-                height: 100%;
+                width: ${width}px;
+                height: ${height}px;
                 object-fit: ${objectFit};
                 object-position: center;
               `;
-              cloneEl.style.position = 'relative';
-              cloneEl.style.backgroundImage = 'none';
               cloneEl.insertBefore(img, cloneEl.firstChild);
             }
           }
@@ -1837,6 +1847,9 @@ if (selectionState.solar) {
           // Add to DOM for rendering
           renderContainer.innerHTML = '';
           renderContainer.appendChild(clone);
+
+          // Wait for flex layout to calculate
+          await new Promise(resolve => setTimeout(resolve, 50));
 
           // Convert background images to actual img elements for html2canvas
           // Section 1: content-area background
@@ -1871,9 +1884,6 @@ if (selectionState.solar) {
           clone.querySelectorAll('[contenteditable]').forEach(el => {
             el.removeAttribute('contenteditable');
           });
-          clone.querySelectorAll('.interactive-select-wrapper::after').forEach(el => {
-            el.style.display = 'none';
-          });
 
           // Wait for all images to load
           const images = clone.querySelectorAll('img');
@@ -1885,7 +1895,7 @@ if (selectionState.solar) {
             });
           }));
 
-          // Short delay for layout
+          // Short delay for final layout
           await new Promise(resolve => setTimeout(resolve, 100));
 
           if (i > 0) {
