@@ -774,4 +774,76 @@ p {
         right: -140px;
         width: 130px;
     }
+
+    #download-offer-btn {
+        display: none !important;
+    }
+}
+
+/* --- Sticky Download Button --- */
+#download-offer-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    z-index: 9999;
+}
+
+#download-offer-btn:hover {
+    background: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+#download-offer-btn svg {
+    flex-shrink: 0;
+}
+
+/* --- View-Only Mode (no #edit in URL) --- */
+body.view-only #language-selector,
+body.view-only .interactive-select-wrapper,
+body.view-only .upgrade-item.clickable,
+body.view-only .option-button,
+body.view-only [contenteditable="true"] {
+    pointer-events: none;
+}
+
+body.view-only #language-selector {
+    display: none;
+}
+
+body.view-only .interactive-select-wrapper::after {
+    display: none;
+}
+
+body.view-only .interactive-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+}
+
+body.view-only .option-button {
+    opacity: 0.5;
+    cursor: default;
+}
+
+body.view-only .option-button.active {
+    opacity: 1;
+}
+
+body.view-only .upgrade-item.clickable {
+    cursor: default;
 }
