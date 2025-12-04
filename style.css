@@ -713,17 +713,16 @@ p {
         overflow: hidden !important;
         border: none !important;
         box-shadow: none !important;
+    }
+
+    /* Only add page breaks between pages, not after the last one */
+    .page:not(:last-child) {
         page-break-after: always !important;
         break-after: page !important;
     }
 
     .page.page-hidden {
         display: none !important;
-    }
-
-    #section-summary {
-        page-break-after: auto !important;
-        break-after: auto !important;
     }
 
     #download-offer-btn,
