@@ -1672,7 +1672,7 @@ if (selectionState.solar) {
     const needsPdfGeneration = isIOS || isMobile;
 
     // Helper to convert background-image to actual img element
-    function convertBgToImg(element, clone, forceContain = false) {
+    function convertBgToImg(element, clone, useContain = false) {
       const style = window.getComputedStyle(element);
       const bgImage = style.backgroundImage;
       if (bgImage && bgImage !== 'none') {
@@ -1681,14 +1681,15 @@ if (selectionState.solar) {
           const img = document.createElement('img');
           img.src = urlMatch[1];
           img.crossOrigin = 'anonymous';
-          // Always use contain to prevent stretching
+          // Use 'contain' for passive-info-image, 'cover' for content-area to match original CSS
+          const fitMode = useContain ? 'contain' : 'cover';
           img.style.cssText = `
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: ${fitMode};
             object-position: center;
             background-color: #fff;
           `;
@@ -1879,37 +1880,44 @@ if (selectionState.solar) {
                 flex-basis: 45% !important;
                 padding: 25px !important;
                 box-sizing: border-box !important;
-                display: block !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
                 overflow: visible !important;
               `;
             }
-            const finishWrapper = clone.querySelector('.footer-left .interactive-select-wrapper:first-child');
-            if (finishWrapper) {
-              finishWrapper.style.cssText = `display: block !important; margin-bottom: 10px !important;`;
-            }
-            const modelWrapper = clone.querySelector('.footer-left .interactive-select-wrapper:last-child');
-            if (modelWrapper) {
-              modelWrapper.style.cssText = `display: block !important;`;
-            }
+            // Style all wrappers in footer-left
+            const wrappers = clone.querySelectorAll('.footer-left .interactive-select-wrapper');
+            wrappers.forEach((wrapper, idx) => {
+              wrapper.style.cssText = `
+                display: block !important;
+                position: static !important;
+                margin-bottom: ${idx === 0 ? '8px' : '0'} !important;
+              `;
+            });
             const finishText = clone.querySelector('#finish-text');
             if (finishText) {
               finishText.style.cssText = `
-                font-size: 14px !important;
+                font-size: 16px !important;
                 font-weight: 500 !important;
                 display: block !important;
-                margin-bottom: 5px !important;
+                width: 100% !important;
                 text-transform: capitalize !important;
+                position: static !important;
               `;
             }
             const modelName = clone.querySelector('#model-name-select');
             if (modelName) {
               modelName.style.cssText = `
-                font-size: 36px !important;
+                font-size: 32px !important;
                 font-weight: 500 !important;
                 display: block !important;
-                line-height: 1.2 !important;
+                width: 100% !important;
+                line-height: 1.1 !important;
                 text-transform: uppercase !important;
-                margin-top: 5px !important;
+                position: static !important;
+                white-space: normal !important;
+                word-wrap: break-word !important;
               `;
             }
           }
