@@ -1386,11 +1386,36 @@ if (selectionState.solar) {
   }
 
   function updateUrlParams() {
-    const stateForUrl = { ...selectionState };
-    if (stateForUrl.basePriceOverride === null) {
-      delete stateForUrl.basePriceOverride;
+    // Build URL params in SQF_* format for compatibility
+    const params = new URLSearchParams();
+
+    params.set("SQF_TYPE", selectionState.model);
+    params.set("SQF_FINISH", selectionState.finish);
+    params.set("SQF_FLOORPLAN", "floorplan-" + selectionState.floorplan);
+    params.set("SQF_PARQUET", "parquet-" + selectionState.parquet);
+    params.set("SQF_FACADE", "facade-" + selectionState.facade);
+    params.set("SQF_VENTILATION", selectionState.ventilation ? "ventilation-system" : "no-ventilation");
+    params.set("SQF_BLINDS", selectionState.blinds ? "blinds" : "no-blinds");
+    params.set("SQF_SOLAR", selectionState.solar ? "solar" : "no-solar");
+
+    if (selectionState.basePriceOverride !== null) {
+      params.set("SQF_PRICE", selectionState.basePriceOverride);
     }
-    const params = new URLSearchParams(stateForUrl);
+
+    // Keep the simple params for backwards compatibility and additional data
+    if (selectionState.clientName && selectionState.clientName !== "Nume Client") {
+      params.set("clientName", selectionState.clientName);
+    }
+    if (selectionState.offerNr) {
+      params.set("offerNr", selectionState.offerNr);
+    }
+    if (selectionState.offerDate && selectionState.offerDate !== "xx.06.2025") {
+      params.set("offerDate", selectionState.offerDate);
+    }
+    if (selectionState.mentions) {
+      params.set("mentions", selectionState.mentions);
+    }
+
     window.history.pushState(
       { path: `?${params.toString()}` },
       "",
@@ -1487,25 +1512,95 @@ if (selectionState.solar) {
   // --- INITIALIZATION ---
   function initialize() {
     const params = new URLSearchParams(window.location.search);
-    selectionState.model = params.get("model") || selectionState.model;
-    selectionState.finish = params.get("finish") || selectionState.finish;
-    selectionState.facade = params.get("facade") || selectionState.facade;
-    selectionState.floorplan =
-      params.get("floorplan") || selectionState.floorplan;
-    selectionState.blinds = params.get("blinds") === "false" ? false : true;
-    selectionState.ventilation =
-      params.get("ventilation") === "false" ? false : true;
-    selectionState.solar = params.get("solar") === "true" ? true : false;
-    selectionState.parquet =
-      params.get("parquet") ||
-      (selectionState.finish === "turnkey" ? "cashmere" : "osb");
+
+    // Helper function to extract value from prefixed format (e.g., "floorplan-a" -> "a")
+    function extractValue(prefixedValue, prefix) {
+      if (!prefixedValue) return null;
+      if (prefixedValue.startsWith(prefix + "-")) {
+        return prefixedValue.substring(prefix.length + 1);
+      }
+      return prefixedValue;
+    }
+
+    // Support both SQF_* format and simple format for model/type
+    const sqfType = params.get("SQF_TYPE");
+    selectionState.model = sqfType || params.get("model") || selectionState.model;
+
+    // Support both SQF_FINISH and finish
+    const sqfFinish = params.get("SQF_FINISH");
+    selectionState.finish = sqfFinish || params.get("finish") || selectionState.finish;
+
+    // Support both SQF_FACADE and facade (extract from "facade-yakisugi" format)
+    const sqfFacade = params.get("SQF_FACADE");
+    if (sqfFacade) {
+      selectionState.facade = extractValue(sqfFacade, "facade");
+    } else {
+      selectionState.facade = params.get("facade") || selectionState.facade;
+    }
+
+    // Support both SQF_FLOORPLAN and floorplan (extract from "floorplan-a" format)
+    const sqfFloorplan = params.get("SQF_FLOORPLAN");
+    if (sqfFloorplan) {
+      selectionState.floorplan = extractValue(sqfFloorplan, "floorplan");
+    } else {
+      selectionState.floorplan = params.get("floorplan") || selectionState.floorplan;
+    }
+
+    // Support both SQF_BLINDS and blinds
+    const sqfBlinds = params.get("SQF_BLINDS");
+    const simpleBlinds = params.get("blinds");
+    if (sqfBlinds !== null) {
+      // SQF_BLINDS: "blinds" or truthy value means enabled, "no-blinds" or empty means disabled
+      selectionState.blinds = sqfBlinds === "blinds" || sqfBlinds === "true" || sqfBlinds === "";
+    } else if (simpleBlinds !== null) {
+      selectionState.blinds = simpleBlinds !== "false";
+    } else {
+      selectionState.blinds = true; // default
+    }
+
+    // Support both SQF_VENTILATION and ventilation
+    const sqfVentilation = params.get("SQF_VENTILATION");
+    const simpleVentilation = params.get("ventilation");
+    if (sqfVentilation !== null) {
+      // SQF_VENTILATION: "ventilation-system" or truthy means enabled
+      selectionState.ventilation = sqfVentilation === "ventilation-system" || sqfVentilation === "true" || sqfVentilation === "";
+    } else if (simpleVentilation !== null) {
+      selectionState.ventilation = simpleVentilation !== "false";
+    } else {
+      selectionState.ventilation = true; // default
+    }
+
+    // Support both SQF_SOLAR and solar
+    const sqfSolar = params.get("SQF_SOLAR");
+    const simpleSolar = params.get("solar");
+    if (sqfSolar !== null) {
+      selectionState.solar = sqfSolar === "solar" || sqfSolar === "true";
+    } else if (simpleSolar !== null) {
+      selectionState.solar = simpleSolar === "true";
+    } else {
+      selectionState.solar = false; // default
+    }
+
+    // Support both SQF_PARQUET and parquet (extract from "parquet-cashmere" format)
+    const sqfParquet = params.get("SQF_PARQUET");
+    if (sqfParquet) {
+      selectionState.parquet = extractValue(sqfParquet, "parquet");
+    } else {
+      selectionState.parquet =
+        params.get("parquet") ||
+        (selectionState.finish === "turnkey" ? "cashmere" : "osb");
+    }
+
     selectionState.clientName =
       params.get("clientName") || selectionState.clientName;
     selectionState.offerNr = params.get("offerNr") || null;
     selectionState.offerDate =
       params.get("offerDate") || selectionState.offerDate;
     selectionState.mentions = params.get("mentions") || selectionState.mentions;
-    const urlBasePrice = params.get("basePriceOverride");
+
+    // Support both SQF_PRICE and basePriceOverride
+    const sqfPrice = params.get("SQF_PRICE");
+    const urlBasePrice = sqfPrice || params.get("basePriceOverride");
     if (urlBasePrice && urlBasePrice !== "null") {
       selectionState.basePriceOverride = parseFloat(urlBasePrice);
     }
