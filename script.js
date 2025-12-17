@@ -1111,6 +1111,15 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   };
 
+  // Get current date in DD.MM.YYYY format
+  const getCurrentDate = () => {
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    return `${day}.${month}.${year}`;
+  };
+
   const selectionState = {
     model: "sanctuary-142",
     finish: "turnkey",
@@ -1122,7 +1131,7 @@ document.addEventListener("DOMContentLoaded", () => {
     solar: false,
     clientName: "Nume Client",
     offerNr: null,
-    offerDate: "xx.06.2025",
+    offerDate: getCurrentDate(),
     mentions: "",
     basePriceOverride: null,
   };
@@ -1418,7 +1427,7 @@ if (selectionState.solar) {
     if (selectionState.offerNr) {
       params.set("offerNr", selectionState.offerNr);
     }
-    if (selectionState.offerDate && selectionState.offerDate !== "xx.06.2025") {
+    if (selectionState.offerDate) {
       params.set("offerDate", selectionState.offerDate);
     }
     if (selectionState.mentions) {

@@ -820,6 +820,10 @@ body.view-only #language-selector {
     display: none;
 }
 
+body.view-only #client-name {
+    display: none;
+}
+
 body.view-only .interactive-select-wrapper::after {
     display: none;
 }
@@ -852,6 +856,11 @@ body.view-only .upgrade-item.clickable {
         min-height: auto;
         height: auto;
         overflow: visible;
+    }
+
+    /* Section 1: Ensure main image has height on mobile */
+    #section-1 .content-area {
+        min-height: 50vw;
     }
 
     /* Floorplan section: stack vertically on mobile */
