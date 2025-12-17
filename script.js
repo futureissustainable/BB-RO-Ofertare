@@ -33,6 +33,15 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   let currentLang = "en";
+
+  // Check URL hash for language routing (#ro, #en, #de, #fr)
+  const hashLang = window.location.hash.match(/#(ro|en|de|fr)(?:\b|$)/i);
+  let langFromHash = false;
+  if (hashLang) {
+    currentLang = hashLang[1].toLowerCase();
+    langFromHash = true;
+  }
+
   const translations = {
     ro: {
       pageTitle: "Oferta Generata - Biobuilds",
@@ -1827,8 +1836,8 @@ if (selectionState.solar) {
     });
     document.body.appendChild(langModal);
 
-    // Show language modal on page load if NOT in edit mode
-    if (!isEditMode) {
+    // Show language modal on page load if NOT in edit mode AND no language hash
+    if (!isEditMode && !langFromHash) {
       langModal.style.display = 'flex';
       langOptionsDiv.addEventListener('click', (e) => {
         if (e.target.classList.contains('lang-btn')) {

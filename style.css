@@ -843,3 +843,110 @@ body.view-only .option-button.active {
 body.view-only .upgrade-item.clickable {
     cursor: default;
 }
+
+/* --- MOBILE RESPONSIVE STYLES (on-screen only, not print) --- */
+@media screen and (max-width: 768px) {
+    /* Allow pages to grow naturally on mobile instead of fixed aspect ratio */
+    .page {
+        aspect-ratio: unset;
+        min-height: auto;
+        height: auto;
+        overflow: visible;
+    }
+
+    /* Floorplan section: stack vertically on mobile */
+    #section-floorplan {
+        flex-direction: column;
+    }
+
+    #floorplan-details {
+        flex-basis: auto;
+        padding: 6vw;
+    }
+
+    #floorplan-image-container {
+        flex-basis: auto;
+        padding: 4vw;
+        min-height: 50vw;
+    }
+
+    #floorplan-details h2,
+    #floorplan-details .interactive-select {
+        font-size: 5vw;
+    }
+
+    #floorplan-details h3 {
+        font-size: 4vw;
+    }
+
+    .detail-item {
+        font-size: 3.5vw;
+        padding: 2vw 0;
+    }
+
+    /* Upgrades section: stack columns vertically */
+    #section-upgrades {
+        padding: 6vw;
+    }
+
+    #section-upgrades h2 {
+        font-size: 5vw;
+    }
+
+    #section-upgrades h3 {
+        font-size: 3.5vw;
+    }
+
+    #section-upgrades p {
+        font-size: 3.5vw;
+    }
+
+    .flex-wrapper {
+        flex-direction: column;
+        gap: 4vw;
+    }
+
+    .upgrade-item h4 {
+        font-size: 3.5vw;
+    }
+
+    .option-button {
+        font-size: 3vw;
+        padding: 12px;
+    }
+
+    /* Timeline adjustments for mobile */
+    .timeline-container {
+        transform: scale(1);
+        margin: 4vw 0;
+    }
+
+    .label {
+        font-size: 2.5vw !important;
+    }
+
+    /* General text adjustments */
+    #section-2-text h2,
+    #section-3-text h2 {
+        font-size: 5vw;
+    }
+
+    #section-2-text h3,
+    #section-3-text h3 {
+        font-size: 3.5vw;
+    }
+
+    #section-2-text p,
+    #section-3-text p {
+        font-size: 3.5vw;
+    }
+
+    #section-2-text h4,
+    #section-3-text h4 {
+        font-size: 3.5vw;
+    }
+
+    .turnkey-disclaimer {
+        font-size: 3vw;
+    }
+}
