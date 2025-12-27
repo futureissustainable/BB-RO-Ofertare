@@ -7,6 +7,47 @@
     --a4-ratio: calc(297 / 210);
     --primary-blue: #007bff;
     --selected-bg-blue: #f0f7ff;
+
+    /* Custom cursor URLs */
+    --cursor-default: url('assets/cursor/default.cur'), url('assets/cursor/default.png'), auto;
+    --cursor-grab: url('assets/cursor/grab.cur'), url('assets/cursor/grab.png'), grab;
+    --cursor-grabbing: url('assets/cursor/grabbing.cur'), url('assets/cursor/grabbing.png'), grabbing;
+    --cursor-loading: url('assets/cursor/loading.cur'), url('assets/cursor/loading.png'), wait;
+}
+
+/* --- Custom Cursor Styles --- */
+html, body {
+    cursor: var(--cursor-default);
+}
+
+/* Loading cursor for body when loading */
+body.loading,
+body.loading * {
+    cursor: var(--cursor-loading) !important;
+}
+
+/* Grab cursor for draggable/hoverable interactive elements */
+.interactive-select,
+.option-button,
+.upgrade-item.clickable,
+#language-selector a,
+#download-offer-btn,
+[contenteditable="true"],
+button,
+a {
+    cursor: var(--cursor-grab);
+}
+
+/* Grabbing cursor when actively dragging/clicking */
+.interactive-select:active,
+.option-button:active,
+.upgrade-item.clickable:active,
+#language-selector a:active,
+#download-offer-btn:active,
+[contenteditable="true"]:active,
+button:active,
+a:active {
+    cursor: var(--cursor-grabbing);
 }
 
 /* --- ON-SCREEN STYLES --- */
