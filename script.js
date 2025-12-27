@@ -1617,9 +1617,10 @@ if (selectionState.solar) {
     selectionState.mentions = params.get("mentions") || selectionState.mentions;
 
     // Support both SQF_PRICE and basePriceOverride
+    // Only use price override in edit mode - in view-only mode, calculate price from selections
     const sqfPrice = params.get("SQF_PRICE");
     const urlBasePrice = sqfPrice || params.get("basePriceOverride");
-    if (urlBasePrice && urlBasePrice !== "null") {
+    if (urlBasePrice && urlBasePrice !== "null" && isEditMode) {
       selectionState.basePriceOverride = parseFloat(urlBasePrice);
     }
 
