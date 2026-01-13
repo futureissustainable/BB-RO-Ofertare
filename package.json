@@ -1,0 +1,19 @@
+{
+  "name": "bb-ro-ofertare",
+  "version": "1.0.0",
+  "description": "BioBuilds Modular Home Offer Generator",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && node scripts/build.js",
+    "lint": "eslint src/**/*.ts --fix",
+    "lint:check": "eslint src/**/*.ts",
+    "typecheck": "tsc --noEmit",
+    "dev": "tsc --watch"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "typescript": "^5.5.0"
+  }
+}

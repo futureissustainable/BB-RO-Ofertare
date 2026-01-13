@@ -1,10 +1,40 @@
 document.addEventListener("DOMContentLoaded", () => {
+  "use strict";
+
+  // ============================================
+  // CONFIGURATION CONSTANTS
+  // ============================================
+  const CONFIG = {
+    // PDF generation settings
+    PDF_WIDTH_MM: 297,
+    PDF_HEIGHT_MM: 210,
+    RENDER_WIDTH: 1122,
+    RENDER_HEIGHT: 793,
+    IMAGE_QUALITY: 0.92,
+
+    // Font sizes for PDF (vw ratios and max px)
+    FONT_SIZES: {
+      'model-name-select': { vw: 0.045, max: 60 },
+      'finish-text': { vw: 0.018, max: 22 },
+      'floorplan-title-select': { vw: 0.022, max: 28 }
+    },
+
+    // Timeouts
+    FLEX_LAYOUT_WAIT: 50,
+    FINAL_LAYOUT_WAIT: 100,
+
+    // Validation limits
+    MAX_PRICE_VALUE: 10000000,
+    MIN_PRICE_VALUE: 0,
+    OFFER_ID_LENGTH: 4
+  };
+
   // --- Edit Mode Detection ---
   // Check if #edit is in the URL hash
   const isEditMode = window.location.hash.includes('edit');
 
   // Store the hash to preserve it
-  let preservedHash = window.location.hash;
+  const preservedHash = window.location.hash;
 
   // Apply view-only mode if not in edit mode
   if (!isEditMode) {
@@ -1146,13 +1176,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function parseCurrency(text) {
     if (!text) return 0;
-    const number = parseFloat(
-      String(text)
-        .replace(/[^0-9,-]/g, "")
-        .replace(".", "")
-        .replace(",", "."),
-    );
-    return isNaN(number) ? 0 : number;
+
+    // Remove everything except digits, comma, period (no minus - prices are positive)
+    const cleaned = String(text)
+      .replace(/[^0-9,.]/g, '')
+      .replace(/\s/g, '');
+
+    if (!cleaned) return 0;
+
+    // Handle European format (1.234,56) vs US format (1,234.56)
+    let normalized;
+    const commaIndex = cleaned.lastIndexOf(',');
+    const periodIndex = cleaned.lastIndexOf('.');
+
+    if (commaIndex > periodIndex) {
+      // European format: periods as thousands separator, comma as decimal
+      normalized = cleaned.replace(/\./g, '').replace(',', '.');
+    } else {
+      // US format or no decimals: commas as thousands separator
+      normalized = cleaned.replace(/,/g, '');
+    }
+
+    const number = parseFloat(normalized);
+
+    // Validate result
+    if (isNaN(number)) return 0;
+    if (number < 0) return 0;
+    if (number > 10000000) return 10000000; // Cap at 10 million EUR
+
+    return Math.round(number); // Round to nearest integer for EUR
   }
 
   function createDetailItem(label, value) {
@@ -1313,7 +1365,7 @@ if (selectionState.solar) {
     const priceSpan = document.createElement("span");
     priceSpan.id = "base-price-editable";
     priceSpan.setAttribute("contenteditable", "true");
-    let displayPrice =
+    const displayPrice =
       selectionState.basePriceOverride !== null
         ? selectionState.basePriceOverride
         : price;
@@ -1617,11 +1669,16 @@ if (selectionState.solar) {
     selectionState.mentions = params.get("mentions") || selectionState.mentions;
 
     // Support both SQF_PRICE and basePriceOverride
-    // Only use price override in edit mode - in view-only mode, calculate price from selections
+    // FIX: Price override now works in both edit AND view-only mode
+    // This allows shared links with custom prices to display correctly
     const sqfPrice = params.get("SQF_PRICE");
     const urlBasePrice = sqfPrice || params.get("basePriceOverride");
-    if (urlBasePrice && urlBasePrice !== "null" && isEditMode) {
-      selectionState.basePriceOverride = parseFloat(urlBasePrice);
+    if (urlBasePrice && urlBasePrice !== "null") {
+      const parsedPrice = parseFloat(urlBasePrice);
+      // Validate the price is a reasonable number
+      if (!isNaN(parsedPrice) && parsedPrice > 0 && parsedPrice < 10000000) {
+        selectionState.basePriceOverride = parsedPrice;
+      }
     }
 
     document.getElementById("model-name-select").innerHTML = Object.keys(
@@ -1779,10 +1836,32 @@ if (selectionState.solar) {
     setLanguage(currentLang);
 
     // --- PDF Download Function ---
-    // Detect iOS/iPadOS/mobile devices that don't support print CSS properly
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    // Detect iOS/iPadOS/mobile devices using feature detection (more reliable than UA strings)
+    function detectIOSDevice() {
+      const isIOSUA = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const isIPadOS = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+      return isIOSUA || isIPadOS;
+    }
+
+    function detectMobileDevice() {
+      // Feature detection approach - more reliable than UA string matching
+      const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+      const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
+      // iOS detection (special case)
+      if (detectIOSDevice()) return true;
+
+      // Feature-based detection for touch devices with small screens
+      if (hasTouchScreen && (isSmallScreen || isCoarsePointer)) return true;
+
+      // Fallback to UA for edge cases (Android tablets that report large screens)
+      const mobileUA = /Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      return mobileUA && hasTouchScreen;
+    }
+
+    const isIOS = detectIOSDevice();
+    const isMobile = detectMobileDevice();
     const needsPdfGeneration = isIOS || isMobile;
 
     // Create language selection modal (shown on page load for view-only mode)
@@ -1874,10 +1953,11 @@ if (selectionState.solar) {
       btn.disabled = true;
 
       try {
-        const PDF_WIDTH_MM = 297;
-        const PDF_HEIGHT_MM = 210;
-        const RENDER_WIDTH = 1122;
-        const RENDER_HEIGHT = 793;
+        // Use configuration constants
+        const PDF_WIDTH_MM = CONFIG.PDF_WIDTH_MM;
+        const PDF_HEIGHT_MM = CONFIG.PDF_HEIGHT_MM;
+        const RENDER_WIDTH = CONFIG.RENDER_WIDTH;
+        const RENDER_HEIGHT = CONFIG.RENDER_HEIGHT;
 
         const pages = Array.from(document.querySelectorAll('.page:not(.page-hidden)'));
 
@@ -1913,10 +1993,6 @@ if (selectionState.solar) {
           if (bgImage && bgImage !== 'none') {
             const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
             if (urlMatch) {
-              // Get container dimensions
-              const containerWidth = cloneEl.offsetWidth;
-              const containerHeight = cloneEl.offsetHeight;
-
               // Clear background and set up container
               cloneEl.style.backgroundImage = 'none';
               cloneEl.style.position = 'relative';
@@ -1979,7 +2055,7 @@ if (selectionState.solar) {
           renderContainer.appendChild(clone);
 
           // Wait for flex layout to calculate
-          await new Promise(resolve => setTimeout(resolve, 50));
+          await new Promise(resolve => setTimeout(resolve, CONFIG.FLEX_LAYOUT_WAIT));
 
           // Convert background images to actual img elements for html2canvas
           // Section 1: content-area background
@@ -2013,7 +2089,7 @@ if (selectionState.solar) {
             if (sel.id) {
               const val = sel.value;
               let text = val;
-              for (let opt of sel.options) {
+              for (const opt of sel.options) {
                 if (opt.value === val) {
                   text = opt.text;
                   break;
@@ -2024,11 +2100,10 @@ if (selectionState.solar) {
           });
 
           // Font sizes in vw from CSS - calculate for RENDER_WIDTH since vw units won't work in off-screen container
-          const fontSizeMap = {
-            'model-name-select': Math.min(RENDER_WIDTH * 0.045, 60) + 'px', // 4.5vw, max 60px
-            'finish-text': Math.min(RENDER_WIDTH * 0.018, 22) + 'px', // 1.8vw, max 22px
-            'floorplan-title-select': Math.min(RENDER_WIDTH * 0.022, 28) + 'px' // 2.2vw, max 28px
-          };
+          const fontSizeMap = {};
+          for (const [id, config] of Object.entries(CONFIG.FONT_SIZES)) {
+            fontSizeMap[id] = Math.min(RENDER_WIDTH * config.vw, config.max) + 'px';
+          }
 
           clone.querySelectorAll('.interactive-select').forEach(selectEl => {
             const selId = selectEl.id;
@@ -2071,7 +2146,7 @@ if (selectionState.solar) {
           }));
 
           // Short delay for final layout
-          await new Promise(resolve => setTimeout(resolve, 100));
+          await new Promise(resolve => setTimeout(resolve, CONFIG.FINAL_LAYOUT_WAIT));
 
           if (i > 0) {
             pdf.addPage('a4', 'landscape');
@@ -2089,7 +2164,7 @@ if (selectionState.solar) {
             windowHeight: RENDER_HEIGHT
           });
 
-          const imgData = canvas.toDataURL('image/jpeg', 0.92);
+          const imgData = canvas.toDataURL('image/jpeg', CONFIG.IMAGE_QUALITY);
           pdf.addImage(imgData, 'JPEG', 0, 0, PDF_WIDTH_MM, PDF_HEIGHT_MM);
         }
 
