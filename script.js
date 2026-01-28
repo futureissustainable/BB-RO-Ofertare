@@ -3,6 +3,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // Check if #edit is in the URL hash
   const isEditMode = window.location.hash.includes('edit');
 
+  // --- Auxiliary Mode Detection ---
+  // Check if #auxiliary is in the URL hash
+  const isAuxiliaryMode = window.location.hash.includes('auxiliary');
+
+  // If auxiliary mode, render auxiliary cost guide and exit
+  if (isAuxiliaryMode) {
+    initializeAuxiliaryMode(isEditMode);
+    return; // Don't run normal offer initialization
+  }
+
   // Store the hash to preserve it
   let preservedHash = window.location.hash;
 
@@ -2108,6 +2118,530 @@ if (selectionState.solar) {
       btn.querySelector('span').textContent = originalText;
       btn.disabled = false;
     });
+  }
+
+  // --- Auxiliary Mode Function ---
+  function initializeAuxiliaryMode(isEditMode) {
+    // Get model from URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const sqfType = params.get('SQF_TYPE') || params.get('model');
+
+    // Map model names to auxiliary format
+    const modelMap = {
+      'nest': 'nomad',
+      'nomad': 'nomad',
+      'wanderlust': 'wanderlust',
+      'serenity': 'serenity',
+      'sanctuary': 'sanctuary'
+    };
+
+    let urlModel = null;
+    if (sqfType) {
+      const modelKey = sqfType.split('-')[0].toLowerCase();
+      urlModel = modelMap[modelKey] || null;
+    }
+
+    // Get language from URL hash
+    const hashLang = window.location.hash.match(/#(ro|en|de)(?:\b|$)/i);
+    const currentLang = hashLang ? hashLang[1].toLowerCase() : 'ro';
+
+    // Generate auxiliary HTML and replace body content
+    document.body.innerHTML = generateAuxiliaryHTML();
+
+    // Add auxiliary-specific styles
+    const auxiliaryStyles = document.createElement('style');
+    auxiliaryStyles.textContent = getAuxiliaryStyles();
+    document.head.appendChild(auxiliaryStyles);
+
+    // Initialize auxiliary functionality
+    let auxCurrentLang = currentLang;
+
+    // Language switcher function
+    window.switchAuxLanguage = function(lang) {
+      auxCurrentLang = lang;
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-lang-btn') === lang) {
+          btn.classList.add('active');
+        }
+      });
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        el.classList.remove('active-lang');
+        if (el.getAttribute('data-lang') === lang) {
+          el.classList.add('active-lang');
+        }
+      });
+    };
+
+    // Model filter function
+    window.filterAuxModels = function() {
+      const checkboxes = document.querySelectorAll('.model-checkbox input[type="checkbox"]');
+      const selectedModels = Array.from(checkboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+
+      document.querySelectorAll('.page[data-model]').forEach(page => {
+        const modelName = page.getAttribute('data-model');
+        if (selectedModels.includes(modelName)) {
+          page.classList.remove('hidden');
+        } else {
+          page.classList.add('hidden');
+        }
+      });
+    };
+
+    // Hide model selector if not in edit mode
+    if (!isEditMode) {
+      const modelSelector = document.querySelector('.model-selector');
+      if (modelSelector) {
+        modelSelector.style.display = 'none';
+      }
+    }
+
+    // Set model filter from URL parameter
+    if (urlModel) {
+      const checkboxes = document.querySelectorAll('.model-checkbox input[type="checkbox"]');
+      checkboxes.forEach(cb => {
+        cb.checked = (cb.value === urlModel);
+      });
+    }
+
+    // Apply initial language and filter
+    window.switchAuxLanguage(currentLang);
+    window.filterAuxModels();
+  }
+
+  function getAuxiliaryStyles() {
+    return `
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      :root {
+        --title-color: #14171c;
+        --paragraph-color: #737579;
+        --accent-color: #000;
+        --border-color: #e5e7eb;
+        --bg-white: #ffffff;
+      }
+      body {
+        font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--title-color);
+        background: #f3f4f6;
+        line-height: 1.6;
+        padding: 20px 0;
+      }
+      h1 { font-size: 4.8rem; line-height: 1.1em; font-weight: 500; }
+      h2 { font-size: 2rem; line-height: 1.2em; font-weight: 500; }
+      h3 { font-size: 1.6rem; line-height: 1.25em; font-weight: 500; }
+      p { font-size: 0.75rem; line-height: 1.6em; font-weight: 300; color: var(--paragraph-color); }
+      .page {
+        width: 297mm; height: 210mm; margin: 0 auto 20px; background: white;
+        position: relative; padding: 40px 48px; display: flex; flex-direction: column;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+      .language-switcher {
+        position: absolute; top: 24px; right: 40px; display: flex; gap: 4px;
+        background: #f9fafb; border-radius: 8px; padding: 4px;
+      }
+      .language-switcher button {
+        font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 500;
+        padding: 8px 16px; border: none; background: transparent;
+        color: var(--paragraph-color); cursor: pointer; border-radius: 6px; transition: all 0.2s ease;
+      }
+      .language-switcher button.active { background: var(--accent-color); color: white; }
+      .language-switcher button:hover:not(.active) { background: #e5e7eb; }
+      .intro-page {
+        justify-content: flex-end; align-items: flex-start; text-align: left;
+        background-image:
+          linear-gradient(to right, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%),
+          linear-gradient(rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 30%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.6) 70%, rgba(255,255,255,0.85) 85%, rgba(255,255,255,1) 100%),
+          url('https://images.pexels.com/photos/1834399/pexels-photo-1834399.jpeg');
+        background-size: cover; background-position: center; padding-bottom: 60px; padding-left: 60px;
+      }
+      .intro-page h1 { margin-bottom: 16px; letter-spacing: -0.02em; }
+      .intro-page .subtitle { font-size: 1.4rem; font-weight: 300; color: var(--paragraph-color); margin-bottom: 8px; max-width: 600px; }
+      .intro-page .description { max-width: 500px; font-size: 1rem; line-height: 1.8em; }
+      .model-header { margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid var(--border-color); }
+      .model-title { font-size: 2.4rem; font-weight: 500; margin-bottom: 4px; }
+      .model-size { font-size: 1rem; color: var(--paragraph-color); font-weight: 300; }
+      .phases-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; margin-bottom: 32px; }
+      .phase-title { font-size: 0.95rem; font-weight: 500; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em; }
+      table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+      thead { display: none; }
+      td { font-size: 0.75rem; padding: 8px 0; color: var(--paragraph-color); font-weight: 300; }
+      .price-cell { text-align: right; font-weight: 400; white-space: nowrap; }
+      .total-row { background: transparent; font-weight: 500; border-top: 1px solid var(--border-color); }
+      .total-row td { padding: 12px 0; padding-top: 16px; font-size: 0.85rem; color: var(--title-color); }
+      .grand-total { margin-top: auto; padding-top: 24px; border-top: 2px solid var(--title-color); display: flex; justify-content: space-between; align-items: baseline; }
+      .grand-total-label { font-size: 0.95rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+      .grand-total-amount { font-size: 2.4rem; font-weight: 500; letter-spacing: -0.02em; }
+      [data-lang]:not(.active-lang) { display: none; }
+      .model-selector {
+        position: fixed; top: 24px; left: 40px; display: flex; gap: 12px;
+        background: #f9fafb; border-radius: 8px; padding: 8px 12px; z-index: 1000;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      }
+      .model-checkbox { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.8rem; color: var(--paragraph-color); }
+      .model-checkbox input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent-color); }
+      .model-checkbox input[type="checkbox"]:checked + span { color: var(--title-color); font-weight: 500; }
+      .page[data-model].hidden { display: none; }
+      .info-page { padding: 48px 60px; }
+      .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px 64px; margin-top: 40px; }
+      .info-section { display: flex; flex-direction: column; gap: 16px; }
+      .info-section h3 { font-size: 1.1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color); }
+      .info-section p { font-size: 0.85rem; line-height: 1.8em; font-weight: 300; }
+      .info-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+      .info-list li { font-size: 0.85rem; line-height: 1.7em; color: var(--paragraph-color); font-weight: 300; padding-left: 20px; position: relative; }
+      .info-list li:before { content: "—"; position: absolute; left: 0; color: var(--title-color); font-weight: 400; }
+      @media print {
+        @page { size: A4 landscape; margin: 0; }
+        body { margin: 0; padding: 0; background: white; }
+        .page { margin: 0; box-shadow: none; page-break-after: always; }
+        .language-switcher, .model-selector { display: none; }
+      }
+    `;
+  }
+
+  function generateAuxiliaryHTML() {
+    return `
+      <div class="model-selector">
+        <label class="model-checkbox"><input type="checkbox" value="nomad" checked onchange="filterAuxModels()"><span>Nomad</span></label>
+        <label class="model-checkbox"><input type="checkbox" value="wanderlust" checked onchange="filterAuxModels()"><span>Wanderlust</span></label>
+        <label class="model-checkbox"><input type="checkbox" value="serenity" checked onchange="filterAuxModels()"><span>Serenity</span></label>
+        <label class="model-checkbox"><input type="checkbox" value="sanctuary" checked onchange="filterAuxModels()"><span>Sanctuary</span></label>
+      </div>
+
+      <div class="page intro-page">
+        <div class="language-switcher">
+          <button onclick="switchAuxLanguage('ro')" class="lang-btn active" data-lang-btn="ro">RO</button>
+          <button onclick="switchAuxLanguage('en')" class="lang-btn" data-lang-btn="en">EN</button>
+          <button onclick="switchAuxLanguage('de')" class="lang-btn" data-lang-btn="de">DE</button>
+        </div>
+        <p class="subtitle active-lang" data-lang="ro">Transparență Absolută a Costurilor</p>
+        <p class="subtitle" data-lang="en">Absolute Cost Transparency</p>
+        <p class="subtitle" data-lang="de">Absolute Kostentransparenz</p>
+        <h1>BIOBUILDS</h1>
+        <div class="description active-lang" data-lang="ro"><p>Claritate bugetară pe etape (înainte / în timpul / după construcție). Aliniere cu practicile locale și execuție rapidă.</p></div>
+        <div class="description" data-lang="en"><p>Budget clarity by phases (before / during / after construction). Alignment with local practices and rapid execution.</p></div>
+        <div class="description" data-lang="de"><p>Budgetklarheit nach Phasen (vor / während / nach dem Bau). Ausrichtung auf lokale Praktiken und schnelle Ausführung.</p></div>
+      </div>
+
+      <!-- Nomad 24m² -->
+      <div class="page" data-model="nomad">
+        <div class="language-switcher">
+          <button onclick="switchAuxLanguage('ro')" class="lang-btn active" data-lang-btn="ro">RO</button>
+          <button onclick="switchAuxLanguage('en')" class="lang-btn" data-lang-btn="en">EN</button>
+          <button onclick="switchAuxLanguage('de')" class="lang-btn" data-lang-btn="de">DE</button>
+        </div>
+        <div class="model-header"><div class="model-title">Nomad</div><div class="model-size">24 m²</div></div>
+        <div class="phases-grid">
+          <div class="phase-section">
+            <div class="phase-title active-lang" data-lang="ro">Înainte de construcție</div>
+            <div class="phase-title" data-lang="en">Before construction</div>
+            <div class="phase-title" data-lang="de">Vor Baubeginn</div>
+            <table><tbody>
+              <tr><td class="active-lang" data-lang="ro">Topograf</td><td data-lang="en">Surveyor & base plan</td><td data-lang="de">Vermesser + Lageplan</td><td class="price-cell">1.500–2.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Studiu geotehnic</td><td data-lang="en">Geotechnical report</td><td data-lang="de">Geotechnisches Gutachten</td><td class="price-cell">1.500–2.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Arhitect (faze 1–5)</td><td data-lang="en">Architect (phases 1–5)</td><td data-lang="de">Architekt HOAI LPH 1–5</td><td class="price-cell">3.000–4.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Taxă dosar</td><td data-lang="en">Building application fee</td><td data-lang="de">Bauantragsgebühr</td><td class="price-cell">1.000–1.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Aviz rețea electrică</td><td data-lang="en">Grid connection application</td><td data-lang="de">Netzanschluss Strom</td><td class="price-cell">500–500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Aviz apă</td><td data-lang="en">Water connection application</td><td data-lang="de">Wasseranschluss</td><td class="price-cell">500–500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Statică pentru autorizație</td><td data-lang="en">Structural calc. for permit</td><td data-lang="de">Statische Berechnung</td><td class="price-cell">1.000–1.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Manager de șantier (faze 6–8)</td><td data-lang="en">Construction manager (6–8)</td><td data-lang="de">Bauleitung LPH 6–8</td><td class="price-cell">1.500–2.000 EUR</td></tr>
+              <tr class="total-row"><td class="active-lang" data-lang="ro"><strong>Subtotal</strong></td><td data-lang="en"><strong>Subtotal</strong></td><td data-lang="de"><strong>Zwischensumme</strong></td><td class="price-cell"><strong>10.500 EUR</strong></td></tr>
+            </tbody></table>
+          </div>
+          <div class="phase-section">
+            <div class="phase-title active-lang" data-lang="ro">În timpul construcției</div>
+            <div class="phase-title" data-lang="en">During construction</div>
+            <div class="phase-title" data-lang="de">Während Bau</div>
+            <table><tbody>
+              <tr><td class="active-lang" data-lang="ro">Șuruburi fundație (6 buc.)</td><td data-lang="en">Screw foundations (6 pcs)</td><td data-lang="de">Schraubfundamente (6 Stk)</td><td class="price-cell">2.800–4.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Branșamente locale</td><td data-lang="en">Local utility hookups</td><td data-lang="de">Hausanschlüsse lokal</td><td class="price-cell">2.000–4.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Macara + închideri stradale</td><td data-lang="en">Mobile crane + road closure</td><td data-lang="de">Autokran + Straßensperrung</td><td class="price-cell">1.500–3.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Electrician</td><td data-lang="en">Electrician T&M</td><td data-lang="de">Elektriker nach Aufwand</td><td class="price-cell">500–1.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Terasamente</td><td data-lang="en">Earthworks</td><td data-lang="de">Erdarbeiten</td><td class="price-cell">2.000–10.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Stâlp racordare contoare</td><td data-lang="en">Meter pillar</td><td data-lang="de">Zähleranschlusssäule</td><td class="price-cell">1.000–3.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Canalizare/Cămine</td><td data-lang="en">Drains/shafts</td><td data-lang="de">Entwässerung/Schächte</td><td class="price-cell">1.000–10.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Tablou conexiune exterior</td><td data-lang="en">External distribution board</td><td data-lang="de">Außenanschlussverteiler</td><td class="price-cell">2.000–3.000 EUR</td></tr>
+              <tr class="total-row"><td class="active-lang" data-lang="ro"><strong>Subtotal</strong></td><td data-lang="en"><strong>Subtotal</strong></td><td data-lang="de"><strong>Zwischensumme</strong></td><td class="price-cell"><strong>12.800 EUR</strong></td></tr>
+            </tbody></table>
+          </div>
+          <div class="phase-section">
+            <div class="phase-title active-lang" data-lang="ro">După construcție</div>
+            <div class="phase-title" data-lang="en">After construction</div>
+            <div class="phase-title" data-lang="de">Nach Bau</div>
+            <table><tbody>
+              <tr><td class="active-lang" data-lang="ro">Cămin apă</td><td data-lang="en">Water inspection chamber</td><td data-lang="de">Kontrollschacht Wasser</td><td class="price-cell">1.000–1.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Amenajări (terasă)</td><td data-lang="en">Minimal landscaping (terrace)</td><td data-lang="de">Außenanlagen (Terrasse)</td><td class="price-cell">1.500–2.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Diverse / rezervă</td><td data-lang="en">Contingency</td><td data-lang="de">Unvorhergesehenes</td><td class="price-cell">500–1.500 EUR</td></tr>
+              <tr class="total-row"><td class="active-lang" data-lang="ro"><strong>Subtotal</strong></td><td data-lang="en"><strong>Subtotal</strong></td><td data-lang="de"><strong>Zwischensumme</strong></td><td class="price-cell"><strong>3.000 EUR</strong></td></tr>
+            </tbody></table>
+          </div>
+        </div>
+        <div class="grand-total">
+          <div class="grand-total-label active-lang" data-lang="ro">Total Costuri</div>
+          <div class="grand-total-label" data-lang="en">Total Costs</div>
+          <div class="grand-total-label" data-lang="de">Gesamtkosten</div>
+          <div class="grand-total-amount">26.300 EUR</div>
+        </div>
+      </div>
+
+      <!-- Wanderlust 48m² -->
+      <div class="page" data-model="wanderlust">
+        <div class="language-switcher">
+          <button onclick="switchAuxLanguage('ro')" class="lang-btn active" data-lang-btn="ro">RO</button>
+          <button onclick="switchAuxLanguage('en')" class="lang-btn" data-lang-btn="en">EN</button>
+          <button onclick="switchAuxLanguage('de')" class="lang-btn" data-lang-btn="de">DE</button>
+        </div>
+        <div class="model-header"><div class="model-title">Wanderlust</div><div class="model-size">48 m²</div></div>
+        <div class="phases-grid">
+          <div class="phase-section">
+            <div class="phase-title active-lang" data-lang="ro">Înainte de construcție</div>
+            <div class="phase-title" data-lang="en">Before construction</div>
+            <div class="phase-title" data-lang="de">Vor Baubeginn</div>
+            <table><tbody>
+              <tr><td class="active-lang" data-lang="ro">Arhitect (faze 1–5)</td><td data-lang="en">Architect (phases 1–5)</td><td data-lang="de">Architekt HOAI LPH 1–5</td><td class="price-cell">5.000–6.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Manager de șantier (faze 6–8)</td><td data-lang="en">Construction manager (6–8)</td><td data-lang="de">Bauleitung LPH 6–8</td><td class="price-cell">3.000–4.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Taxă dosar</td><td data-lang="en">Building application fee</td><td data-lang="de">Bauantragsgebühr</td><td class="price-cell">1.500–2.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Consultant energetic</td><td data-lang="en">Energy consultant</td><td data-lang="de">Energieberater</td><td class="price-cell">3.000–5.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Topograf</td><td data-lang="en">Surveyor & base plan</td><td data-lang="de">Vermesser + Lageplan</td><td class="price-cell">2.000–2.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Statică pentru autorizație</td><td data-lang="en">Structural calc. for permit</td><td data-lang="de">Statische Berechnung</td><td class="price-cell">1.500–2.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Studiu geotehnic</td><td data-lang="en">Geotechnical report</td><td data-lang="de">Geotechnisches Gutachten</td><td class="price-cell">1.500–2.000 EUR</td></tr>
+              <tr class="total-row"><td class="active-lang" data-lang="ro"><strong>Subtotal</strong></td><td data-lang="en"><strong>Subtotal</strong></td><td data-lang="de"><strong>Zwischensumme</strong></td><td class="price-cell"><strong>17.500 EUR</strong></td></tr>
+            </tbody></table>
+          </div>
+          <div class="phase-section">
+            <div class="phase-title active-lang" data-lang="ro">În timpul construcției</div>
+            <div class="phase-title" data-lang="en">During construction</div>
+            <div class="phase-title" data-lang="de">Während Bau</div>
+            <table><tbody>
+              <tr><td class="active-lang" data-lang="ro">Șuruburi fundație (12 buc.)</td><td data-lang="en">Screw foundations (12 pcs)</td><td data-lang="de">Schraubfundamente (12 Stk)</td><td class="price-cell">5.000–6.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Branșamente locale</td><td data-lang="en">Local utility hookups</td><td data-lang="de">Hausanschlüsse lokal</td><td class="price-cell">4.000–8.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Macara + închideri stradale</td><td data-lang="en">Mobile crane + road closure</td><td data-lang="de">Autokran + Straßensperrung</td><td class="price-cell">3.000–8.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Aviz rețea electrică</td><td data-lang="en">Electricity application</td><td data-lang="de">Netzanschluss Strom</td><td class="price-cell">500–500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Aviz apă</td><td data-lang="en">Water application</td><td data-lang="de">Wasseranschluss</td><td class="price-cell">500–500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Cămin apă</td><td data-lang="en">Water inspection chamber</td><td data-lang="de">Kontrollschacht Wasser</td><td class="price-cell">1.000–1.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Electrician</td><td data-lang="en">Electrician T&M</td><td data-lang="de">Elektriker nach Aufwand</td><td class="price-cell">1.000–2.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Tablou conexiune ext.</td><td data-lang="en">External distribution board</td><td data-lang="de">Außenanschlussverteiler</td><td class="price-cell">2.000–4.000 EUR</td></tr>
+              <tr class="total-row"><td class="active-lang" data-lang="ro"><strong>Subtotal</strong></td><td data-lang="en"><strong>Subtotal</strong></td><td data-lang="de"><strong>Zwischensumme</strong></td><td class="price-cell"><strong>17.000 EUR</strong></td></tr>
+            </tbody></table>
+          </div>
+          <div class="phase-section">
+            <div class="phase-title active-lang" data-lang="ro">După construcție</div>
+            <div class="phase-title" data-lang="en">After construction</div>
+            <div class="phase-title" data-lang="de">Nach Bau</div>
+            <table><tbody>
+              <tr><td class="active-lang" data-lang="ro">Bucătărie</td><td data-lang="en">Kitchen</td><td data-lang="de">Küche</td><td class="price-cell">3.000–8.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Diverse / neprevăzute</td><td data-lang="en">Unforeseen</td><td data-lang="de">Unvorhergesehenes</td><td class="price-cell">500–2.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Terasă</td><td data-lang="en">Terrace</td><td data-lang="de">Terrasse</td><td class="price-cell">2.000–3.000 EUR</td></tr>
+              <tr class="total-row"><td class="active-lang" data-lang="ro"><strong>Subtotal</strong></td><td data-lang="en"><strong>Subtotal</strong></td><td data-lang="de"><strong>Zwischensumme</strong></td><td class="price-cell"><strong>5.500 EUR</strong></td></tr>
+            </tbody></table>
+          </div>
+        </div>
+        <div class="grand-total">
+          <div class="grand-total-label active-lang" data-lang="ro">Total Costuri</div>
+          <div class="grand-total-label" data-lang="en">Total Costs</div>
+          <div class="grand-total-label" data-lang="de">Gesamtkosten</div>
+          <div class="grand-total-amount">40.000 EUR</div>
+        </div>
+      </div>
+
+      <!-- Serenity 95m² -->
+      <div class="page" data-model="serenity">
+        <div class="language-switcher">
+          <button onclick="switchAuxLanguage('ro')" class="lang-btn active" data-lang-btn="ro">RO</button>
+          <button onclick="switchAuxLanguage('en')" class="lang-btn" data-lang-btn="en">EN</button>
+          <button onclick="switchAuxLanguage('de')" class="lang-btn" data-lang-btn="de">DE</button>
+        </div>
+        <div class="model-header"><div class="model-title">Serenity</div><div class="model-size">95 m²</div></div>
+        <div class="phases-grid">
+          <div class="phase-section">
+            <div class="phase-title active-lang" data-lang="ro">Înainte de construcție</div>
+            <div class="phase-title" data-lang="en">Before construction</div>
+            <div class="phase-title" data-lang="de">Vor Baubeginn</div>
+            <table><tbody>
+              <tr><td class="active-lang" data-lang="ro">Arhitect (faze 1–5)</td><td data-lang="en">Architect (phases 1–5)</td><td data-lang="de">Architekt HOAI LPH 1–5</td><td class="price-cell">8.000–10.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Manager de șantier (faze 6–8)</td><td data-lang="en">Construction manager (6–8)</td><td data-lang="de">Bauleitung LPH 6–8</td><td class="price-cell">4.000–5.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Taxă dosar</td><td data-lang="en">Building application fee</td><td data-lang="de">Bauantragsgebühr</td><td class="price-cell">1.500–2.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Consultant energetic</td><td data-lang="en">Energy consultant</td><td data-lang="de">Energieberater</td><td class="price-cell">3.000–5.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Topograf</td><td data-lang="en">Surveyor & base plan</td><td data-lang="de">Vermesser + Lageplan</td><td class="price-cell">2.000–2.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Statică pentru autorizație</td><td data-lang="en">Structural calc. for permit</td><td data-lang="de">Statische Berechnung</td><td class="price-cell">1.500–2.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Studiu geotehnic</td><td data-lang="en">Geotechnical report</td><td data-lang="de">Geotechnisches Gutachten</td><td class="price-cell">1.500–2.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Aviz rețea electrică</td><td data-lang="en">Grid connection application</td><td data-lang="de">Netzanschluss Strom</td><td class="price-cell">500–500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Aviz apă</td><td data-lang="en">Water connection application</td><td data-lang="de">Wasseranschluss</td><td class="price-cell">500–500 EUR</td></tr>
+              <tr class="total-row"><td class="active-lang" data-lang="ro"><strong>Subtotal</strong></td><td data-lang="en"><strong>Subtotal</strong></td><td data-lang="de"><strong>Zwischensumme</strong></td><td class="price-cell"><strong>22.500 EUR</strong></td></tr>
+            </tbody></table>
+          </div>
+          <div class="phase-section">
+            <div class="phase-title active-lang" data-lang="ro">În timpul construcției</div>
+            <div class="phase-title" data-lang="en">During construction</div>
+            <div class="phase-title" data-lang="de">Während Bau</div>
+            <table><tbody>
+              <tr><td class="active-lang" data-lang="ro">Șuruburi fundație (18 buc.)</td><td data-lang="en">Screw foundations (18 pcs)</td><td data-lang="de">Schraubfundamente (18 Stk)</td><td class="price-cell">8.280–12.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Grinzi suport (6 buc.)</td><td data-lang="en">Support beams (6 pcs)</td><td data-lang="de">Träger (6 Stk)</td><td class="price-cell">6.800–8.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Branșamente locale</td><td data-lang="en">Local utility hookups</td><td data-lang="de">Hausanschlüsse lokal</td><td class="price-cell">5.000–15.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Macara + închideri stradale</td><td data-lang="en">Mobile crane + road closure</td><td data-lang="de">Autokran + Straßensperrung</td><td class="price-cell">3.000–4.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Cămin apă</td><td data-lang="en">Water inspection chamber</td><td data-lang="de">Kontrollschacht Wasser</td><td class="price-cell">1.000–1.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Electrician</td><td data-lang="en">Electrician T&M</td><td data-lang="de">Elektriker nach Aufwand</td><td class="price-cell">1.000–2.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Tablou conexiune ext.</td><td data-lang="en">External distribution board</td><td data-lang="de">Außenanschlussverteiler</td><td class="price-cell">2.000–6.000 EUR</td></tr>
+              <tr class="total-row"><td class="active-lang" data-lang="ro"><strong>Subtotal</strong></td><td data-lang="en"><strong>Subtotal</strong></td><td data-lang="de"><strong>Zwischensumme</strong></td><td class="price-cell"><strong>27.080 EUR</strong></td></tr>
+            </tbody></table>
+          </div>
+          <div class="phase-section">
+            <div class="phase-title active-lang" data-lang="ro">După construcție</div>
+            <div class="phase-title" data-lang="en">After construction</div>
+            <div class="phase-title" data-lang="de">Nach Bau</div>
+            <table><tbody>
+              <tr><td class="active-lang" data-lang="ro">Bucătărie</td><td data-lang="en">Kitchen</td><td data-lang="de">Küche</td><td class="price-cell">5.000–12.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Diverse / neprevăzute</td><td data-lang="en">Unforeseen</td><td data-lang="de">Unvorhergesehenes</td><td class="price-cell">500–2.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Terasă</td><td data-lang="en">Terrace</td><td data-lang="de">Terrasse</td><td class="price-cell">2.000–3.500 EUR</td></tr>
+              <tr class="total-row"><td class="active-lang" data-lang="ro"><strong>Subtotal</strong></td><td data-lang="en"><strong>Subtotal</strong></td><td data-lang="de"><strong>Zwischensumme</strong></td><td class="price-cell"><strong>7.500 EUR</strong></td></tr>
+            </tbody></table>
+          </div>
+        </div>
+        <div class="grand-total">
+          <div class="grand-total-label active-lang" data-lang="ro">Total Costuri</div>
+          <div class="grand-total-label" data-lang="en">Total Costs</div>
+          <div class="grand-total-label" data-lang="de">Gesamtkosten</div>
+          <div class="grand-total-amount">57.080 EUR</div>
+        </div>
+      </div>
+
+      <!-- Sanctuary 142m² -->
+      <div class="page" data-model="sanctuary">
+        <div class="language-switcher">
+          <button onclick="switchAuxLanguage('ro')" class="lang-btn active" data-lang-btn="ro">RO</button>
+          <button onclick="switchAuxLanguage('en')" class="lang-btn" data-lang-btn="en">EN</button>
+          <button onclick="switchAuxLanguage('de')" class="lang-btn" data-lang-btn="de">DE</button>
+        </div>
+        <div class="model-header"><div class="model-title">Sanctuary</div><div class="model-size">142 m²</div></div>
+        <div class="phases-grid">
+          <div class="phase-section">
+            <div class="phase-title active-lang" data-lang="ro">Înainte de construcție</div>
+            <div class="phase-title" data-lang="en">Before construction</div>
+            <div class="phase-title" data-lang="de">Vor Baubeginn</div>
+            <table><tbody>
+              <tr><td class="active-lang" data-lang="ro">Arhitect (faze 1–5)</td><td data-lang="en">Architect (phases 1–5)</td><td data-lang="de">Architekt HOAI LPH 1–5</td><td class="price-cell">11.000–13.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Manager de șantier (faze 6–8)</td><td data-lang="en">Construction manager (6–8)</td><td data-lang="de">Bauleitung LPH 6–8</td><td class="price-cell">5.000–6.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Taxă dosar</td><td data-lang="en">Building application fee</td><td data-lang="de">Bauantragsgebühr</td><td class="price-cell">2.000–2.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Consultant energetic</td><td data-lang="en">Energy consultant</td><td data-lang="de">Energieberater</td><td class="price-cell">4.500–5.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Topograf</td><td data-lang="en">Surveyor & base plan</td><td data-lang="de">Vermesser + Lageplan</td><td class="price-cell">2.000–2.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Statică pentru autorizație</td><td data-lang="en">Structural calc. for permit</td><td data-lang="de">Statische Berechnung</td><td class="price-cell">1.500–2.500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Studiu geotehnic</td><td data-lang="en">Geotechnical report</td><td data-lang="de">Geotechnisches Gutachten</td><td class="price-cell">1.500–2.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Aviz rețea electrică</td><td data-lang="en">Grid connection application</td><td data-lang="de">Netzanschluss Strom</td><td class="price-cell">500–500 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Aviz apă</td><td data-lang="en">Water connection application</td><td data-lang="de">Wasseranschluss</td><td class="price-cell">500–500 EUR</td></tr>
+              <tr class="total-row"><td class="active-lang" data-lang="ro"><strong>Subtotal</strong></td><td data-lang="en"><strong>Subtotal</strong></td><td data-lang="de"><strong>Zwischensumme</strong></td><td class="price-cell"><strong>28.500 EUR</strong></td></tr>
+            </tbody></table>
+          </div>
+          <div class="phase-section">
+            <div class="phase-title active-lang" data-lang="ro">În timpul construcției</div>
+            <div class="phase-title" data-lang="en">During construction</div>
+            <div class="phase-title" data-lang="de">Während Bau</div>
+            <table><tbody>
+              <tr><td class="active-lang" data-lang="ro">Șuruburi fundație (24 buc.)</td><td data-lang="en">Screw foundations (24 pcs)</td><td data-lang="de">Schraubfundamente (24 Stk)</td><td class="price-cell">11.000–18.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Grinzi suport (6 buc.)</td><td data-lang="en">Support beams (6 pcs)</td><td data-lang="de">Träger (6 Stk)</td><td class="price-cell">6.000–9.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Lucrări edilitare</td><td data-lang="en">Civil engineering works</td><td data-lang="de">Tiefbauarbeiten</td><td class="price-cell">5.000–15.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Macara + închideri stradale</td><td data-lang="en">Mobile crane + road closure</td><td data-lang="de">Autokran + Straßensperrung</td><td class="price-cell">5.000–10.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Branșamente locale</td><td data-lang="en">Local utility hookups</td><td data-lang="de">Hausanschlüsse lokal</td><td class="price-cell">2.000–5.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Electrician</td><td data-lang="en">Electrician T&M</td><td data-lang="de">Elektriker nach Aufwand</td><td class="price-cell">1.000–2.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Tablou conexiune ext.</td><td data-lang="en">External distribution board</td><td data-lang="de">Außenanschlussverteiler</td><td class="price-cell">3.000–7.000 EUR</td></tr>
+              <tr class="total-row"><td class="active-lang" data-lang="ro"><strong>Subtotal</strong></td><td data-lang="en"><strong>Subtotal</strong></td><td data-lang="de"><strong>Zwischensumme</strong></td><td class="price-cell"><strong>33.000 EUR</strong></td></tr>
+            </tbody></table>
+          </div>
+          <div class="phase-section">
+            <div class="phase-title active-lang" data-lang="ro">După construcție</div>
+            <div class="phase-title" data-lang="en">After construction</div>
+            <div class="phase-title" data-lang="de">Nach Bau</div>
+            <table><tbody>
+              <tr><td class="active-lang" data-lang="ro">Bucătărie</td><td data-lang="en">Kitchen</td><td data-lang="de">Küche</td><td class="price-cell">7.000–18.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Diverse / neprevăzute</td><td data-lang="en">Unforeseen</td><td data-lang="de">Unvorhergesehenes</td><td class="price-cell">500–2.000 EUR</td></tr>
+              <tr><td class="active-lang" data-lang="ro">Terasă</td><td data-lang="en">Terrace</td><td data-lang="de">Terrasse</td><td class="price-cell">2.500–4.000 EUR</td></tr>
+              <tr class="total-row"><td class="active-lang" data-lang="ro"><strong>Subtotal</strong></td><td data-lang="en"><strong>Subtotal</strong></td><td data-lang="de"><strong>Zwischensumme</strong></td><td class="price-cell"><strong>10.000 EUR</strong></td></tr>
+            </tbody></table>
+          </div>
+        </div>
+        <div class="grand-total">
+          <div class="grand-total-label active-lang" data-lang="ro">Total Costuri</div>
+          <div class="grand-total-label" data-lang="en">Total Costs</div>
+          <div class="grand-total-label" data-lang="de">Gesamtkosten</div>
+          <div class="grand-total-amount">71.500 EUR</div>
+        </div>
+      </div>
+
+      <!-- Info Page -->
+      <div class="page info-page">
+        <div class="language-switcher">
+          <button onclick="switchAuxLanguage('ro')" class="lang-btn active" data-lang-btn="ro">RO</button>
+          <button onclick="switchAuxLanguage('en')" class="lang-btn" data-lang-btn="en">EN</button>
+          <button onclick="switchAuxLanguage('de')" class="lang-btn" data-lang-btn="de">DE</button>
+        </div>
+        <div class="info-grid">
+          <div class="info-section">
+            <h3 class="active-lang" data-lang="ro">Legendă</h3>
+            <h3 data-lang="en">Legend</h3>
+            <h3 data-lang="de">Legende</h3>
+            <ul class="info-list">
+              <li class="active-lang" data-lang="ro">Esențial–max = interval estimativ (Esențial este folosit în totaluri)</li>
+              <li data-lang="en">Essential–max = estimated range (Essential is used in totals)</li>
+              <li data-lang="de">Wesentlich–max = geschätzter Bereich (Wesentlich wird in Summen verwendet)</li>
+              <li class="active-lang" data-lang="ro">Valori în euro, fără TVA, fără prețul modulului</li>
+              <li data-lang="en">Values in euros, without VAT, without module price</li>
+              <li data-lang="de">Werte in Euro, ohne MwSt., ohne Modulpreis</li>
+              <li class="active-lang" data-lang="ro">„Esențiale" = strict necesare pentru punerea în operă</li>
+              <li data-lang="en">"Essential" = strictly necessary for implementation</li>
+              <li data-lang="de">„Wesentlich" = unbedingt erforderlich für die Umsetzung</li>
+            </ul>
+          </div>
+          <div class="info-section">
+            <h3 class="active-lang" data-lang="ro">De ce acest ghid</h3>
+            <h3 data-lang="en">Why this guide</h3>
+            <h3 data-lang="de">Warum dieser Leitfaden</h3>
+            <ul class="info-list">
+              <li class="active-lang" data-lang="ro">Claritate bugetară pe etape (înainte / în timpul / după construcție)</li>
+              <li data-lang="en">Budget clarity by phases (before / during / after construction)</li>
+              <li data-lang="de">Budgetklarheit nach Phasen (vor / während / nach dem Bau)</li>
+              <li class="active-lang" data-lang="ro">Aliniere cu practicile locale și execuție rapidă</li>
+              <li data-lang="en">Alignment with local practices and rapid execution</li>
+              <li data-lang="de">Ausrichtung auf lokale Praktiken und schnelle Ausführung</li>
+            </ul>
+          </div>
+          <div class="info-section">
+            <h3 class="active-lang" data-lang="ro">Variabile bugetare</h3>
+            <h3 data-lang="en">Budget variables</h3>
+            <h3 data-lang="de">Budgetvariablen</h3>
+            <ul class="info-list">
+              <li class="active-lang" data-lang="ro">Distanța până la utilități, tip contor, capacități disponibile</li>
+              <li data-lang="en">Distance to utilities, meter type, available capacities</li>
+              <li data-lang="de">Entfernung zu Versorgungsleitungen, Zählertyp, verfügbare Kapazitäten</li>
+              <li class="active-lang" data-lang="ro">Sol dificil → terasamente suplimentare, fundație clasică</li>
+              <li data-lang="en">Difficult soil → additional earthworks, classic foundation</li>
+              <li data-lang="de">Schwieriger Boden → zusätzliche Erdarbeiten, klassisches Fundament</li>
+              <li class="active-lang" data-lang="ro">Reglementări locale pentru macara și închideri</li>
+              <li data-lang="en">Local regulations for crane and road closures</li>
+              <li data-lang="de">Lokale Vorschriften für Kran und Straßensperrungen</li>
+            </ul>
+            <p class="active-lang" data-lang="ro" style="margin-top: 16px; font-style: italic;">Toate prețurile sunt estimări și pot varia în funcție de teren, locație, dimensiunea proiectului.</p>
+            <p data-lang="en" style="margin-top: 16px; font-style: italic;">All prices are estimates and can vary based on land, location, project size.</p>
+            <p data-lang="de" style="margin-top: 16px; font-style: italic;">Alle Preise sind Schätzungen und können je nach Grundstück, Standort, Projektgröße variieren.</p>
+          </div>
+          <div class="info-section">
+            <h3 class="active-lang" data-lang="ro">Pași următori</h3>
+            <h3 data-lang="en">Next steps</h3>
+            <h3 data-lang="de">Nächste Schritte</h3>
+            <ul class="info-list">
+              <li class="active-lang" data-lang="ro">Verificare teren (foto, plan cadastral)</li>
+              <li data-lang="en">Site verification (photos, cadastral plan)</li>
+              <li data-lang="de">Grundstücksüberprüfung (Fotos, Katasterplan)</li>
+              <li class="active-lang" data-lang="ro">Pachet proiectare: arhitect + statică + studii</li>
+              <li data-lang="en">Design package: architect + structural + studies</li>
+              <li data-lang="de">HOAI-Set: Architekt + Statik + Studien</li>
+              <li class="active-lang" data-lang="ro">Layout fundații și plan logistic (macara, acces)</li>
+              <li data-lang="en">Foundation layout and logistics plan (crane, access)</li>
+              <li data-lang="de">Fundamentlayout und Logistikplan (Kran, Zugang)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    `;
   }
 
   initialize();
