@@ -2370,8 +2370,10 @@ if (selectionState.solar) {
       #aux-download-btn svg { flex-shrink: 0; }
       @media print {
         @page { size: A4 landscape; margin: 0; }
-        body { margin: 0; padding: 0; background: white; }
-        .page { margin: 0; box-shadow: none; page-break-after: always; padding: 40px 48px; width: 297mm; height: 210mm; }
+        body { margin: 0; padding: 0; background: white; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .page { margin: 0 !important; box-shadow: none !important; page-break-after: always; padding: 40px 48px !important; width: 297mm !important; height: 210mm !important; }
+        .intro-page { padding: 40px 48px 60px 60px !important; }
+        .info-page { padding: 48px 60px !important; }
         .language-switcher, .model-selector, #aux-download-btn { display: none !important; }
       }
     `;
