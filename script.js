@@ -1247,6 +1247,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const randomPart = generateRandomLetters(4);
     const newId = `${modelPrefix}/${finishPrefix}/${randomPart}`;
     selectionState.offerNr = newId;
+    document.getElementById("offer-nr").textContent = newId;
   }
 
   function recalculateTotals() {
@@ -1709,7 +1710,9 @@ if (selectionState.solar) {
     finishSelect.value = selectionState.finish;
     document.getElementById("client-name").textContent =
       selectionState.clientName;
-    if (!selectionState.offerNr) {
+    if (selectionState.offerNr) {
+      document.getElementById("offer-nr").textContent = selectionState.offerNr;
+    } else {
       generateAndSetOfferId();
     }
     document.getElementById("offer-date").textContent =
@@ -1829,6 +1832,7 @@ if (selectionState.solar) {
       document.getElementById("client-name"),
       "clientName",
     );
+    addStateUpdateListener(document.getElementById("offer-nr"), "offerNr");
     addStateUpdateListener(document.getElementById("offer-date"), "offerDate");
 
     const mentionsEl = document.querySelector(".mentiuni-editable");
