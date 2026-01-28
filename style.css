@@ -748,7 +748,7 @@ p {
         break-before: avoid !important;
     }
 
-    #download-offer-btn,
+    #sticky-buttons,
     #language-selector,
     #lang-select-modal {
         display: none !important;
@@ -802,11 +802,17 @@ p {
     }
 }
 
-/* --- Sticky Download Button --- */
-#download-offer-btn {
+/* --- Sticky Button Container --- */
+#sticky-buttons {
     position: fixed;
     bottom: 30px;
     right: 30px;
+    display: flex;
+    gap: 12px;
+    z-index: 9999;
+}
+
+#download-offer-btn {
     background: #000;
     color: #fff;
     border: none;
@@ -820,7 +826,6 @@ p {
     font-weight: 500;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
-    z-index: 9999;
 }
 
 #download-offer-btn:hover {
@@ -829,8 +834,45 @@ p {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
+#aux-costs-btn {
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
+    padding: 13px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+#aux-costs-btn:hover {
+    background: #f5f5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+#aux-costs-btn svg,
 #download-offer-btn svg {
     flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    #sticky-buttons {
+        flex-direction: column;
+        left: 15px;
+        right: 15px;
+        bottom: 70px;
+    }
+    #aux-costs-btn,
+    #download-offer-btn {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* --- View-Only Mode (no #edit in URL) --- */
@@ -882,6 +924,11 @@ body.view-only .upgrade-item.clickable {
         min-height: auto;
         height: auto;
         overflow: visible;
+    }
+
+    /* Hide house-image on mobile as it clips out of bounds */
+    .house-image {
+        display: none;
     }
 
     /* Section 1: Ensure main image has height on mobile */

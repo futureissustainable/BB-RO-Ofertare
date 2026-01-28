@@ -188,6 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
       termsAndConditions:
         "Această ofertă este supusă termenilor și condițiilor aplicabile, care pot fi consultate la biobuilds.com/TC. Continuând, confirmați că le înțelegeți și le acceptați.",
       downloadOffer: "Descarcă Oferta",
+      auxCosts: "Costuri Auxiliare",
       totalLabel: "TOTAL",
       vatLabel: "+TVA",
       turnkey: "La Cheie",
@@ -368,6 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
       termsAndConditions:
         "This offer is subject to the applicable terms and conditions, which can be viewed at biobuilds.com/TC. By proceeding, you confirm that you understand and accept them.",
       downloadOffer: "Download Offer",
+      auxCosts: "Auxiliary Costs",
       totalLabel: "TOTAL",
       vatLabel: "+VAT",
       turnkey: "Turnkey",
@@ -545,6 +547,7 @@ document.addEventListener("DOMContentLoaded", () => {
       termsAndConditions:
         "Dieses Angebot unterliegt den geltenden AGB, einsehbar unter biobuilds.com/TC. Mit der Annahme bestätigen Sie, dass Sie diese verstanden und akzeptiert haben.",
       downloadOffer: "Angebot herunterladen",
+      auxCosts: "Nebenkosten",
       totalLabel: "GESAMT",
       vatLabel: "+ MwSt.",
       turnkey: "Schlüsselfertig",
@@ -724,6 +727,7 @@ document.addEventListener("DOMContentLoaded", () => {
       termsAndConditions:
         "Cette offre est soumise aux conditions générales applicables, consultables sur biobuilds.com/TC. En poursuivant, vous confirmez les avoir comprises et acceptées.",
       downloadOffer: "Télécharger l'offre",
+      auxCosts: "Coûts Auxiliaires",
       totalLabel: "TOTAL",
       vatLabel: "+ TVA",
       turnkey: "Clé en main",
@@ -1924,6 +1928,16 @@ if (selectionState.solar) {
       });
     }
 
+    // Auxiliary costs button - navigate to auxiliary view
+    document.getElementById('aux-costs-btn').addEventListener('click', function() {
+      const currentUrl = new URL(window.location.href);
+      const hash = currentUrl.hash.replace('#', '');
+      const langMatch = hash.match(/^(ro|en|de|fr)$/i);
+      const lang = langMatch ? langMatch[1] : 'ro';
+      currentUrl.hash = lang + '-auxiliary';
+      window.location.href = currentUrl.toString();
+    });
+
     // Simple download button - window.print() for desktop, PDF for iOS
     document.getElementById('download-offer-btn').addEventListener('click', async function() {
       const btn = this;
@@ -2281,10 +2295,20 @@ if (selectionState.solar) {
     document.getElementById('aux-download-btn').addEventListener('click', function() {
       window.print();
     });
+
+    // Back to offer button handler
+    document.getElementById('back-to-offer-btn').addEventListener('click', function() {
+      const currentUrl = new URL(window.location.href);
+      // Remove 'auxiliary' from hash, keep language
+      const hash = currentUrl.hash.replace('#', '').replace('-auxiliary', '').replace('auxiliary', '');
+      currentUrl.hash = hash || 'ro';
+      window.location.href = currentUrl.toString();
+    });
   }
 
   function getAuxiliaryStyles() {
     return `
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
       * { margin: 0; padding: 0; box-sizing: border-box; }
       :root {
         --title-color: #14171c;
@@ -2356,18 +2380,35 @@ if (selectionState.solar) {
       .disclaimer { margin-top: auto; padding-top: 16px; text-align: left; }
       .disclaimer p { font-size: 0.7rem; line-height: 1.6em; color: var(--paragraph-color); font-weight: 300; }
       .disclaimer p strong { color: var(--title-color); font-weight: 400; }
-      #aux-download-btn {
+      #aux-sticky-buttons {
         position: fixed; bottom: 30px; right: 30px; z-index: 9999;
-        display: flex; align-items: center; gap: 10px;
-        background: #000; color: #fff;
-        font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 500;
-        padding: 15px 25px; border: none; border-radius: 50px;
-        cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        transition: all 0.3s ease;
+        display: flex; gap: 12px;
       }
-      #aux-download-btn:hover { background: #333; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+      #aux-download-btn, #back-to-offer-btn {
+        display: flex; align-items: center; gap: 10px;
+        font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 500;
+        padding: 13px 20px; border-radius: 50px;
+        cursor: pointer; transition: all 0.3s ease;
+      }
+      #aux-download-btn {
+        background: #000; color: #fff; border: 2px solid #000;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      }
+      #aux-download-btn:hover { background: #333; border-color: #333; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
       #aux-download-btn:active { transform: translateY(0); }
       #aux-download-btn svg { flex-shrink: 0; }
+      #back-to-offer-btn {
+        background: #fff; color: #000; border: 2px solid #000;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      }
+      #back-to-offer-btn:hover { background: #f5f5f5; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+      #back-to-offer-btn:active { transform: translateY(0); }
+      #back-to-offer-btn svg { flex-shrink: 0; }
+      #back-to-offer-btn [data-lang]:not(.active-lang) { display: none; }
+      @media (max-width: 768px) {
+        #aux-sticky-buttons { flex-direction: column; left: 15px; right: 15px; bottom: 70px; }
+        #aux-download-btn, #back-to-offer-btn { font-size: 14px; padding: 12px 18px; width: 100%; justify-content: center; }
+      }
       #aux-lang-modal {
         display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
         background: rgba(0,0,0,0.7); z-index: 99999; justify-content: center; align-items: center;
@@ -2388,7 +2429,7 @@ if (selectionState.solar) {
         .page { margin: 0 !important; box-shadow: none !important; page-break-after: always; padding: 40px 48px !important; width: 297mm !important; height: 210mm !important; }
         .intro-page { padding: 40px 48px 60px 60px !important; }
         .info-page { padding: 48px 60px !important; }
-        .model-selector, #aux-download-btn, #aux-lang-modal { display: none !important; }
+        .model-selector, #aux-sticky-buttons, #aux-lang-modal { display: none !important; }
       }
     `;
   }
@@ -2413,16 +2454,27 @@ if (selectionState.solar) {
         <label class="model-checkbox"><input type="checkbox" value="sanctuary" checked onchange="filterAuxModels()"><span>Sanctuary</span></label>
       </div>
 
-      <button id="aux-download-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="7 10 12 15 17 10"></polyline>
-          <line x1="12" y1="15" x2="12" y2="3"></line>
-        </svg>
-        <span class="active-lang" data-lang="ro">Descarcă</span>
-        <span data-lang="en">Download</span>
-        <span data-lang="de">Herunterladen</span>
-      </button>
+      <div id="aux-sticky-buttons">
+        <button id="back-to-offer-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span class="active-lang" data-lang="ro">Înapoi la Ofertă</span>
+          <span data-lang="en">Back to Offer</span>
+          <span data-lang="de">Zurück zum Angebot</span>
+        </button>
+        <button id="aux-download-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span class="active-lang" data-lang="ro">Descarcă</span>
+          <span data-lang="en">Download</span>
+          <span data-lang="de">Herunterladen</span>
+        </button>
+      </div>
 
       <div class="page intro-page">
         <p class="subtitle active-lang" data-lang="ro">Transparență Absolută a Costurilor</p>
