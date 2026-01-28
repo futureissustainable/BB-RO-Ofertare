@@ -2353,10 +2353,9 @@ if (selectionState.solar) {
       .info-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
       .info-list li { font-size: 0.85rem; line-height: 1.7em; color: var(--paragraph-color); font-weight: 300; padding-left: 20px; position: relative; }
       .info-list li:before { content: "•"; position: absolute; left: 0; color: var(--title-color); font-weight: 400; }
-      .disclaimer-page { padding: 40px 60px; background: #f8f9fa; }
-      .disclaimer-content { max-width: 800px; margin: 0 auto; text-align: center; }
-      .disclaimer-content p { font-size: 0.9rem; line-height: 1.8em; color: var(--paragraph-color); font-weight: 300; }
-      .disclaimer-content p strong { color: var(--title-color); font-weight: 500; }
+      .disclaimer { margin-top: auto; padding-top: 16px; text-align: left; }
+      .disclaimer p { font-size: 0.7rem; line-height: 1.6em; color: var(--paragraph-color); font-weight: 300; }
+      .disclaimer p strong { color: var(--title-color); font-weight: 400; }
       #aux-download-btn {
         position: fixed; bottom: 24px; right: 24px; z-index: 1000;
         display: flex; align-items: center; gap: 8px;
@@ -2372,7 +2371,7 @@ if (selectionState.solar) {
       @media print {
         @page { size: A4 landscape; margin: 0; }
         body { margin: 0; padding: 0; background: white; }
-        .page { margin: 0; box-shadow: none; page-break-after: always; }
+        .page { margin: 0; box-shadow: none; page-break-after: always; padding: 40px 48px; width: 297mm; height: 210mm; }
         .language-switcher, .model-selector, #aux-download-btn { display: none !important; }
       }
     `;
@@ -2472,6 +2471,11 @@ if (selectionState.solar) {
           <div class="grand-total-label" data-lang="de">Gesamtkosten</div>
           <div class="grand-total-amount">26.300 EUR</div>
         </div>
+        <div class="disclaimer">
+          <p class="active-lang" data-lang="ro"><strong>Notă:</strong> Multe dintre aceste costuri pot să nu fie necesare. Aceasta este o prezentare completă pentru transparență. Multe poziții sunt opționale. Totul depinde de specificul proiectului, zona și cerințele dumneavoastră.</p>
+          <p data-lang="en"><strong>Note:</strong> Many of these costs may not be required. This is a full scope overview for transparency. Many items are optional. It depends on your project, location, and requirements.</p>
+          <p data-lang="de"><strong>Hinweis:</strong> Viele Kosten sind möglicherweise nicht erforderlich. Dies ist eine vollständige Übersicht für Transparenz. Viele Positionen sind optional. Es hängt von Ihrem Projekt, Standort und Anforderungen ab.</p>
+        </div>
       </div>
 
       <!-- Wanderlust 48m² -->
@@ -2531,6 +2535,11 @@ if (selectionState.solar) {
           <div class="grand-total-label" data-lang="en">Total Costs</div>
           <div class="grand-total-label" data-lang="de">Gesamtkosten</div>
           <div class="grand-total-amount">40.000 EUR</div>
+        </div>
+        <div class="disclaimer">
+          <p class="active-lang" data-lang="ro"><strong>Notă:</strong> Multe dintre aceste costuri pot să nu fie necesare. Aceasta este o prezentare completă pentru transparență. Multe poziții sunt opționale. Totul depinde de specificul proiectului, zona și cerințele dumneavoastră.</p>
+          <p data-lang="en"><strong>Note:</strong> Many of these costs may not be required. This is a full scope overview for transparency. Many items are optional. It depends on your project, location, and requirements.</p>
+          <p data-lang="de"><strong>Hinweis:</strong> Viele Kosten sind möglicherweise nicht erforderlich. Dies ist eine vollständige Übersicht für Transparenz. Viele Positionen sind optional. Es hängt von Ihrem Projekt, Standort und Anforderungen ab.</p>
         </div>
       </div>
 
@@ -2593,6 +2602,11 @@ if (selectionState.solar) {
           <div class="grand-total-label" data-lang="de">Gesamtkosten</div>
           <div class="grand-total-amount">57.080 EUR</div>
         </div>
+        <div class="disclaimer">
+          <p class="active-lang" data-lang="ro"><strong>Notă:</strong> Multe dintre aceste costuri pot să nu fie necesare. Aceasta este o prezentare completă pentru transparență. Multe poziții sunt opționale. Totul depinde de specificul proiectului, zona și cerințele dumneavoastră.</p>
+          <p data-lang="en"><strong>Note:</strong> Many of these costs may not be required. This is a full scope overview for transparency. Many items are optional. It depends on your project, location, and requirements.</p>
+          <p data-lang="de"><strong>Hinweis:</strong> Viele Kosten sind möglicherweise nicht erforderlich. Dies ist eine vollständige Übersicht für Transparenz. Viele Positionen sind optional. Es hängt von Ihrem Projekt, Standort und Anforderungen ab.</p>
+        </div>
       </div>
 
       <!-- Sanctuary 142m² -->
@@ -2653,6 +2667,11 @@ if (selectionState.solar) {
           <div class="grand-total-label" data-lang="en">Total Costs</div>
           <div class="grand-total-label" data-lang="de">Gesamtkosten</div>
           <div class="grand-total-amount">71.500 EUR</div>
+        </div>
+        <div class="disclaimer">
+          <p class="active-lang" data-lang="ro"><strong>Notă:</strong> Multe dintre aceste costuri pot să nu fie necesare. Aceasta este o prezentare completă pentru transparență. Multe poziții sunt opționale. Totul depinde de specificul proiectului, zona și cerințele dumneavoastră.</p>
+          <p data-lang="en"><strong>Note:</strong> Many of these costs may not be required. This is a full scope overview for transparency. Many items are optional. It depends on your project, location, and requirements.</p>
+          <p data-lang="de"><strong>Hinweis:</strong> Viele Kosten sind möglicherweise nicht erforderlich. Dies ist eine vollständige Übersicht für Transparenz. Viele Positionen sind optional. Es hängt von Ihrem Projekt, Standort und Anforderungen ab.</p>
         </div>
       </div>
 
@@ -2728,21 +2747,6 @@ if (selectionState.solar) {
               <li data-lang="de">Fundamentlayout und Logistikplan (Kran, Zugang)</li>
             </ul>
           </div>
-        </div>
-      </div>
-
-      <!-- Disclaimer -->
-      <div class="page disclaimer-page">
-        <div class="disclaimer-content">
-          <p class="active-lang" data-lang="ro">
-            <strong>Notă:</strong> Multe dintre aceste costuri pot să nu fie necesare pentru proiectul dumneavoastră. Aceasta este o prezentare completă a tuturor costurilor posibile, pentru transparență totală. Multe poziții sunt opționale sau nu se aplică în toate cazurile. Totul depinde de specificul proiectului, zona geografică și cerințele dumneavoastră.
-          </p>
-          <p data-lang="en">
-            <strong>Note:</strong> Many of these costs may not be required for your project. This is a full scope overview of all possible costs, provided for complete transparency. Many items are optional or may not apply in all cases. It depends entirely on your specific project, location, and requirements.
-          </p>
-          <p data-lang="de">
-            <strong>Hinweis:</strong> Viele dieser Kosten sind möglicherweise für Ihr Projekt nicht erforderlich. Dies ist eine vollständige Übersicht aller möglichen Kosten, die der vollständigen Transparenz dient. Viele Positionen sind optional oder treffen nicht in allen Fällen zu. Es hängt ganz von Ihrem spezifischen Projekt, Standort und Ihren Anforderungen ab.
-          </p>
         </div>
       </div>
     `;
