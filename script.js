@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
       pageTitle: "Oferta Generata - Biobuilds",
       validity: "VALABILITATE: 30 ZILE",
       offerLabel: "OFERTA",
-      offerFor: "Ofertă-",
+      offerFor: "Ofertă ",
       clientNamePlaceholder: "Nume Client",
       footerSlogan:
         "Modular este modern, inovator și sustenabil. Alege spațiul ideal pentru tine, construit la cele mai înalte standarde de construcție din lume.",
@@ -293,7 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
       pageTitle: "Generated Offer - Biobuilds",
       validity: "VALIDITY: 30 DAYS",
       offerLabel: "OFFER",
-      offerFor: "Offer-",
+      offerFor: "Offer ",
       clientNamePlaceholder: "Client Name",
       footerSlogan:
         "Modular is modern, innovative, and sustainable. Choose the ideal space for you, built to the highest construction standards in the world.",
@@ -471,7 +471,7 @@ document.addEventListener("DOMContentLoaded", () => {
       pageTitle: "Angebot Erstellt – Biobuilds",
       validity: "GÜLTIGKEIT: 30 TAGE",
       offerLabel: "ANGEBOT",
-      offerFor: "Angebot–",
+      offerFor: "Angebot ",
       clientNamePlaceholder: "Kunde Name",
       footerSlogan:
         "Modular ist modern, innovativ und nachhaltig. Wählen Sie den idealen Raum für sich, gebaut nach den höchsten Baustandards der Welt.",
@@ -649,7 +649,7 @@ document.addEventListener("DOMContentLoaded", () => {
       pageTitle: "Offre générée - Biobuilds",
       validity: "VALIDITÉ : 30 JOURS",
       offerLabel: "OFFRE",
-      offerFor: "Offre -",
+      offerFor: "Offre ",
       clientNamePlaceholder: "Nom du client",
       footerSlogan:
         "Le modulaire est moderne, innovant et durable. Choisissez l'espace idéal pour vous, construit selon les standards de construction les plus élevés au monde.",
