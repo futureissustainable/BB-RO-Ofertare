@@ -2308,6 +2308,7 @@ if (selectionState.solar) {
 
   function getAuxiliaryStyles() {
     return `
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
       * { margin: 0; padding: 0; box-sizing: border-box; }
       :root {
         --title-color: #14171c;
@@ -2405,8 +2406,8 @@ if (selectionState.solar) {
       #back-to-offer-btn svg { flex-shrink: 0; }
       #back-to-offer-btn [data-lang]:not(.active-lang) { display: none; }
       @media (max-width: 768px) {
-        #aux-sticky-buttons { flex-direction: column; right: 15px; bottom: 15px; }
-        #aux-download-btn, #back-to-offer-btn { font-size: 14px; padding: 12px 18px; }
+        #aux-sticky-buttons { flex-direction: column; left: 15px; right: 15px; bottom: 70px; }
+        #aux-download-btn, #back-to-offer-btn { font-size: 14px; padding: 12px 18px; width: 100%; justify-content: center; }
       }
       #aux-lang-modal {
         display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;

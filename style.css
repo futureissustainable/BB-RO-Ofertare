@@ -864,8 +864,14 @@ p {
 @media (max-width: 768px) {
     #sticky-buttons {
         flex-direction: column;
+        left: 15px;
         right: 15px;
-        bottom: 15px;
+        bottom: 70px;
+    }
+    #aux-costs-btn,
+    #download-offer-btn {
+        width: 100%;
+        justify-content: center;
     }
 }
 
@@ -918,6 +924,11 @@ body.view-only .upgrade-item.clickable {
         min-height: auto;
         height: auto;
         overflow: visible;
+    }
+
+    /* Hide house-image on mobile as it clips out of bounds */
+    .house-image {
+        display: none;
     }
 
     /* Section 1: Ensure main image has height on mobile */
