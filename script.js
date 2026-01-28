@@ -2406,7 +2406,7 @@ if (selectionState.solar) {
       #back-to-offer-btn svg { flex-shrink: 0; }
       #back-to-offer-btn [data-lang]:not(.active-lang) { display: none; }
       @media (max-width: 768px) {
-        #aux-sticky-buttons { flex-direction: column; left: 15px; right: 15px; bottom: 70px; }
+        #aux-sticky-buttons { flex-direction: column; left: 15px; right: 15px; bottom: 120px; }
         #aux-download-btn, #back-to-offer-btn { font-size: 14px; padding: 12px 18px; width: 100%; justify-content: center; }
       }
       #aux-lang-modal {
