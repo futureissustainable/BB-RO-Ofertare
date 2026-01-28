@@ -2265,6 +2265,11 @@ if (selectionState.solar) {
     // Apply initial language and filter
     window.switchAuxLanguage(currentLang);
     window.filterAuxModels();
+
+    // Download button handler
+    document.getElementById('aux-download-btn').addEventListener('click', function() {
+      window.print();
+    });
   }
 
   function getAuxiliaryStyles() {
@@ -2352,11 +2357,23 @@ if (selectionState.solar) {
       .disclaimer-content { max-width: 800px; margin: 0 auto; text-align: center; }
       .disclaimer-content p { font-size: 0.9rem; line-height: 1.8em; color: var(--paragraph-color); font-weight: 300; }
       .disclaimer-content p strong { color: var(--title-color); font-weight: 500; }
+      #aux-download-btn {
+        position: fixed; bottom: 24px; right: 24px; z-index: 1000;
+        display: flex; align-items: center; gap: 8px;
+        background: var(--title-color); color: white;
+        font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 500;
+        padding: 12px 20px; border: none; border-radius: 8px;
+        cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transition: all 0.2s ease;
+      }
+      #aux-download-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.2); }
+      #aux-download-btn:active { transform: translateY(0); }
+      #aux-download-btn svg { flex-shrink: 0; }
       @media print {
         @page { size: A4 landscape; margin: 0; }
         body { margin: 0; padding: 0; background: white; }
         .page { margin: 0; box-shadow: none; page-break-after: always; }
-        .language-switcher, .model-selector { display: none; }
+        .language-switcher, .model-selector, #aux-download-btn { display: none !important; }
       }
     `;
   }
@@ -2369,6 +2386,17 @@ if (selectionState.solar) {
         <label class="model-checkbox"><input type="checkbox" value="serenity" checked onchange="filterAuxModels()"><span>Serenity</span></label>
         <label class="model-checkbox"><input type="checkbox" value="sanctuary" checked onchange="filterAuxModels()"><span>Sanctuary</span></label>
       </div>
+
+      <button id="aux-download-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span class="active-lang" data-lang="ro">Descarcă</span>
+        <span data-lang="en">Download</span>
+        <span data-lang="de">Herunterladen</span>
+      </button>
 
       <div class="page intro-page">
         <div class="language-switcher">
