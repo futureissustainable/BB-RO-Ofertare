@@ -5,8 +5,8 @@
     --text-muted: #555555;
     --a4-width: 1200px;
     --a4-ratio: calc(297 / 210);
-    --primary-blue: #007bff;
-    --selected-bg-blue: #f0f7ff;
+    --primary-blue: #000000;
+    --selected-bg-blue: #f5f5f5;
 }
 
 /* --- ON-SCREEN STYLES --- */
@@ -773,6 +773,39 @@ p {
     .page#section-summary,
     .page#section-floorplan {
         padding: 12mm !important; /* equivalent to ~4vw of 297mm */
+    }
+
+    /* Fix house-image overlapping timeline */
+    .house-image {
+        right: -35mm !important;
+        width: 32mm !important;
+        min-width: 32mm !important;
+    }
+
+    .timeline-container {
+        width: 65% !important;
+    }
+
+    /* Fix turnkey/semi-turnkey text size */
+    .turnkey-disclaimer {
+        font-size: 2mm !important;
+        padding: 0 5mm !important;
+    }
+
+    #section-2-text p,
+    #section-3-text p {
+        font-size: 2.5mm !important;
+        line-height: 1.5 !important;
+    }
+
+    #section-2-text h3,
+    #section-3-text h3 {
+        font-size: 4mm !important;
+    }
+
+    #section-2-text h4,
+    #section-3-text h4 {
+        font-size: 3mm !important;
     }
 }
 
