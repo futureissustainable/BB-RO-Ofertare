@@ -786,26 +786,19 @@ p {
         width: 65% !important;
     }
 
-    /* Fix turnkey/semi-turnkey text size */
+    /* Fix model/finish stacking on hero page */
+    #section-1 .footer-left {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    #section-1 .footer-left .interactive-select-wrapper {
+        display: block !important;
+    }
+
+    /* Minimum font size for print */
     .turnkey-disclaimer {
-        font-size: 2mm !important;
-        padding: 0 5mm !important;
-    }
-
-    #section-2-text p,
-    #section-3-text p {
-        font-size: 2.5mm !important;
-        line-height: 1.5 !important;
-    }
-
-    #section-2-text h3,
-    #section-3-text h3 {
-        font-size: 4mm !important;
-    }
-
-    #section-2-text h4,
-    #section-3-text h4 {
-        font-size: 3mm !important;
+        font-size: 0.7vw !important;
     }
 }
 
