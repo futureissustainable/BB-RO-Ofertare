@@ -1,6 +1,62 @@
+// @ts-check
+/**
+ * @fileoverview BioBuilds Offer Generator - Main Application Script
+ *
+ * Type Definitions:
+ * @typedef {'ro' | 'en' | 'de' | 'fr'} Language
+ * @typedef {'nest-24' | 'wanderlust-48' | 'serenity-95' | 'sanctuary-142'} ModelId
+ * @typedef {'turnkey' | 'semi-finished'} FinishType
+ * @typedef {'yakisugi' | 'lunawood'} FacadeType
+ * @typedef {'osb' | 'cashmere' | 'hazelnut'} ParquetType
+ * @typedef {'a' | 'b' | 'c'} FloorplanId
+ *
+ * @typedef {Object} FloorplanDetails
+ * @property {string} totalArea
+ * @property {string} interior
+ * @property {string} exterior
+ * @property {Record<string, string>} rooms
+ *
+ * @typedef {Object} Floorplan
+ * @property {string} name
+ * @property {string} url
+ * @property {FloorplanDetails} details
+ *
+ * @typedef {Object} ModelImages
+ * @property {Record<FacadeType, string>} facade
+ * @property {Record<'cashmere' | 'hazelnut', string>} parquet
+ * @property {Record<ParquetType, string>} semi_parquet
+ * @property {Record<string, Floorplan>} floorplan
+ *
+ * @typedef {Object} ModelData
+ * @property {string} name
+ * @property {string} co2Savings
+ * @property {string} passiveImg
+ * @property {ModelImages} images
+ *
+ * @typedef {Object} ModelPricing
+ * @property {Record<FinishType, number>} base
+ * @property {{parquet: Record<'cashmere' | 'hazelnut', number>, ventilation: number, blinds: number, solar: number}} upgrades
+ *
+ * @typedef {Object} SelectionState
+ * @property {ModelId} model
+ * @property {FinishType} finish
+ * @property {FacadeType} facade
+ * @property {ParquetType} parquet
+ * @property {FloorplanId} floorplan
+ * @property {boolean} blinds
+ * @property {boolean} ventilation
+ * @property {boolean} solar
+ * @property {string} clientName
+ * @property {string|null} offerNr
+ * @property {string} offerDate
+ * @property {string} mentions
+ * @property {number|null} basePriceOverride
+ */
+
 document.addEventListener("DOMContentLoaded", () => {
   // --- Edit Mode Detection ---
   // Check if #edit is in the URL hash
+  /** @type {boolean} */
   const isEditMode = window.location.hash.includes('edit');
 
   // --- Auxiliary Mode Detection ---
