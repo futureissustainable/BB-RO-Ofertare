@@ -2307,7 +2307,7 @@ if (selectionState.solar) {
         color: var(--paragraph-color); cursor: pointer; border-radius: 3px; transition: all 0.2s ease;
         text-decoration: none;
       }
-      .language-switcher button.active { background: #3b82f6; color: white; }
+      .language-switcher button.active { background: var(--title-color); color: white; }
       .language-switcher button:hover:not(.active) { color: var(--title-color); }
       .intro-page {
         justify-content: flex-end; align-items: flex-start; text-align: left;

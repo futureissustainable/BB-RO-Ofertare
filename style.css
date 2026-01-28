@@ -138,7 +138,7 @@ p {
 }
 #language-selector a.active {
     color: var(--text-light);
-    background-color: var(--primary-blue);
+    background-color: var(--text-dark);
 }
 
 #section-1 .footer-bar {
