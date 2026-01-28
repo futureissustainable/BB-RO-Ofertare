@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
       plan: "Plan",
       customPlan: "Plan personalizat",
       osbStandard: "OSB (Standard)",
-      included: "(Inclus)",
+      included: "Inclus",
       dimensions: "Dimensiuni",
       totalArea: "Suprafață Totală",
       interiorDimensions: "Dimensiuni Interioare",
@@ -319,7 +319,7 @@ document.addEventListener("DOMContentLoaded", () => {
       plan: "Plan",
       customPlan: "Custom plan",
       osbStandard: "OSB (Standard)",
-      included: "(Included)",
+      included: "Included",
       dimensions: "Dimensions",
       totalArea: "Total Area",
       interiorDimensions: "Internal Dimensions",
@@ -496,7 +496,7 @@ document.addEventListener("DOMContentLoaded", () => {
       plan: "Plan",
       customPlan: "Individueller Plan",
       osbStandard: "OSB (Standard)",
-      included: "(Inklusive)",
+      included: "Inklusive",
       dimensions: "Dimensionen",
       totalArea: "Gesamtfläche",
       interiorDimensions: "Innenmaße",
@@ -675,7 +675,7 @@ document.addEventListener("DOMContentLoaded", () => {
       plan: "Plan",
       customPlan: "Plan personnalisé",
       osbStandard: "OSB (Standard)",
-      included: "(Inclus)",
+      included: "Inclus",
       dimensions: "Dimensions",
       totalArea: "Surface totale",
       interiorDimensions: "Dimensions intérieures",
@@ -1361,15 +1361,15 @@ if (selectionState.solar) {
     );
     if (selectionState.blinds)
       addInclusion(
-        `- ${translations[currentLang].smartBlindsTitleUpgrade} ${finish === "turnkey" ? `(${translations[currentLang].included})` : ""}`,
+        `- ${translations[currentLang].smartBlindsTitleUpgrade} ${finish === "turnkey" ? translations[currentLang].included : ""}`,
       );
     if (selectionState.ventilation)
       addInclusion(
-        `- ${translations[currentLang].ventilationSystemTitleUpgrade} ${finish === "turnkey" ? `(${translations[currentLang].included})` : ""}`,
+        `- ${translations[currentLang].ventilationSystemTitleUpgrade} ${finish === "turnkey" ? translations[currentLang].included : ""}`,
       );
     if (selectionState.solar)
       addInclusion(
-        `- ${translations[currentLang].solarPanelsTitleUpgrade} ${finish === "turnkey" ? `(${translations[currentLang].included})` : ""}`,
+        `- ${translations[currentLang].solarPanelsTitleUpgrade} ${finish === "turnkey" ? translations[currentLang].included : ""}`,
       );
 
     recalculateTotals();
