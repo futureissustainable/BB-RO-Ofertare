@@ -2218,6 +2218,12 @@ if (selectionState.solar) {
     // Generate auxiliary HTML and replace body content
     document.body.innerHTML = generateAuxiliaryHTML();
 
+    // Add Poppins font via link tag (more reliable than @import)
+    const fontLink = document.createElement('link');
+    fontLink.rel = 'stylesheet';
+    fontLink.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap';
+    document.head.appendChild(fontLink);
+
     // Add auxiliary-specific styles
     const auxiliaryStyles = document.createElement('style');
     auxiliaryStyles.textContent = getAuxiliaryStyles();
@@ -2308,8 +2314,7 @@ if (selectionState.solar) {
 
   function getAuxiliaryStyles() {
     return `
-      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-      * { margin: 0; padding: 0; box-sizing: border-box; }
+      * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
       :root {
         --title-color: #14171c;
         --paragraph-color: #737579;
@@ -2324,6 +2329,8 @@ if (selectionState.solar) {
         line-height: 1.6;
         padding: 20px 0;
       }
+      a, button, input, select, textarea { -webkit-tap-highlight-color: transparent; outline-color: #000; }
+      ::selection { background: #000; color: #fff; }
       h1 { font-size: 4.8rem; line-height: 1.1em; font-weight: 500; }
       h2 { font-size: 2rem; line-height: 1.2em; font-weight: 500; }
       h3 { font-size: 1.6rem; line-height: 1.25em; font-weight: 500; }
