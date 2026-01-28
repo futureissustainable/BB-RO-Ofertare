@@ -2347,7 +2347,7 @@ if (selectionState.solar) {
       .info-section p { font-size: 0.85rem; line-height: 1.8em; font-weight: 300; }
       .info-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
       .info-list li { font-size: 0.85rem; line-height: 1.7em; color: var(--paragraph-color); font-weight: 300; padding-left: 20px; position: relative; }
-      .info-list li:before { content: "—"; position: absolute; left: 0; color: var(--title-color); font-weight: 400; }
+      .info-list li:before { content: "•"; position: absolute; left: 0; color: var(--title-color); font-weight: 400; }
       .disclaimer-page { padding: 40px 60px; background: #f8f9fa; }
       .disclaimer-content { max-width: 800px; margin: 0 auto; text-align: center; }
       .disclaimer-content p { font-size: 0.9rem; line-height: 1.8em; color: var(--paragraph-color); font-weight: 300; }
@@ -2707,13 +2707,13 @@ if (selectionState.solar) {
       <div class="page disclaimer-page">
         <div class="disclaimer-content">
           <p class="active-lang" data-lang="ro">
-            <strong>Notă:</strong> Multe dintre aceste costuri pot să nu fie necesare pentru proiectul dumneavoastră. Aceasta este o prezentare completă a tuturor costurilor posibile, pentru transparență totală. Multe poziții sunt opționale sau nu se aplică în toate cazurile — totul depinde de specificul proiectului, zona geografică și cerințele dumneavoastră.
+            <strong>Notă:</strong> Multe dintre aceste costuri pot să nu fie necesare pentru proiectul dumneavoastră. Aceasta este o prezentare completă a tuturor costurilor posibile, pentru transparență totală. Multe poziții sunt opționale sau nu se aplică în toate cazurile. Totul depinde de specificul proiectului, zona geografică și cerințele dumneavoastră.
           </p>
           <p data-lang="en">
-            <strong>Note:</strong> Many of these costs may not be required for your project. This is a full scope overview of all possible costs, provided for complete transparency. Many items are optional or may not apply in all cases — it depends entirely on your specific project, location, and requirements.
+            <strong>Note:</strong> Many of these costs may not be required for your project. This is a full scope overview of all possible costs, provided for complete transparency. Many items are optional or may not apply in all cases. It depends entirely on your specific project, location, and requirements.
           </p>
           <p data-lang="de">
-            <strong>Hinweis:</strong> Viele dieser Kosten sind möglicherweise für Ihr Projekt nicht erforderlich. Dies ist eine vollständige Übersicht aller möglichen Kosten, die der vollständigen Transparenz dient. Viele Positionen sind optional oder treffen nicht in allen Fällen zu — es hängt ganz von Ihrem spezifischen Projekt, Standort und Ihren Anforderungen ab.
+            <strong>Hinweis:</strong> Viele dieser Kosten sind möglicherweise für Ihr Projekt nicht erforderlich. Dies ist eine vollständige Übersicht aller möglichen Kosten, die der vollständigen Transparenz dient. Viele Positionen sind optional oder treffen nicht in allen Fällen zu. Es hängt ganz von Ihrem spezifischen Projekt, Standort und Ihren Anforderungen ab.
           </p>
         </div>
       </div>
