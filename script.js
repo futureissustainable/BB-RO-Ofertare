@@ -2299,16 +2299,16 @@ if (selectionState.solar) {
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       }
       .language-switcher {
-        position: absolute; top: 24px; right: 40px; display: flex; gap: 4px;
-        background: #f9fafb; border-radius: 8px; padding: 4px;
+        position: absolute; top: 24px; right: 40px; display: flex; gap: 8px;
       }
       .language-switcher button {
         font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 500;
-        padding: 8px 16px; border: none; background: transparent;
-        color: var(--paragraph-color); cursor: pointer; border-radius: 6px; transition: all 0.2s ease;
+        padding: 2px 6px; border: none; background: transparent;
+        color: var(--paragraph-color); cursor: pointer; border-radius: 3px; transition: all 0.2s ease;
+        text-decoration: none;
       }
-      .language-switcher button.active { background: var(--accent-color); color: white; }
-      .language-switcher button:hover:not(.active) { background: #e5e7eb; }
+      .language-switcher button.active { background: #3b82f6; color: white; }
+      .language-switcher button:hover:not(.active) { color: var(--title-color); }
       .intro-page {
         justify-content: flex-end; align-items: flex-start; text-align: left;
         background-image:
