@@ -2265,6 +2265,11 @@ if (selectionState.solar) {
     // Apply initial language and filter
     window.switchAuxLanguage(currentLang);
     window.filterAuxModels();
+
+    // Download button handler
+    document.getElementById('aux-download-btn').addEventListener('click', function() {
+      window.print();
+    });
   }
 
   function getAuxiliaryStyles() {
@@ -2294,16 +2299,16 @@ if (selectionState.solar) {
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       }
       .language-switcher {
-        position: absolute; top: 24px; right: 40px; display: flex; gap: 4px;
-        background: #f9fafb; border-radius: 8px; padding: 4px;
+        position: absolute; top: 24px; right: 40px; display: flex; gap: 8px;
       }
       .language-switcher button {
         font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 500;
-        padding: 8px 16px; border: none; background: transparent;
-        color: var(--paragraph-color); cursor: pointer; border-radius: 6px; transition: all 0.2s ease;
+        padding: 2px 6px; border: none; background: transparent;
+        color: var(--paragraph-color); cursor: pointer; border-radius: 3px; transition: all 0.2s ease;
+        text-decoration: none;
       }
-      .language-switcher button.active { background: var(--accent-color); color: white; }
-      .language-switcher button:hover:not(.active) { background: #e5e7eb; }
+      .language-switcher button.active { background: var(--title-color); color: white; }
+      .language-switcher button:hover:not(.active) { color: var(--title-color); }
       .intro-page {
         justify-content: flex-end; align-items: flex-start; text-align: left;
         background-image:
@@ -2347,12 +2352,28 @@ if (selectionState.solar) {
       .info-section p { font-size: 0.85rem; line-height: 1.8em; font-weight: 300; }
       .info-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
       .info-list li { font-size: 0.85rem; line-height: 1.7em; color: var(--paragraph-color); font-weight: 300; padding-left: 20px; position: relative; }
-      .info-list li:before { content: "—"; position: absolute; left: 0; color: var(--title-color); font-weight: 400; }
+      .info-list li:before { content: "•"; position: absolute; left: 0; color: var(--title-color); font-weight: 400; }
+      .disclaimer-page { padding: 40px 60px; background: #f8f9fa; }
+      .disclaimer-content { max-width: 800px; margin: 0 auto; text-align: center; }
+      .disclaimer-content p { font-size: 0.9rem; line-height: 1.8em; color: var(--paragraph-color); font-weight: 300; }
+      .disclaimer-content p strong { color: var(--title-color); font-weight: 500; }
+      #aux-download-btn {
+        position: fixed; bottom: 24px; right: 24px; z-index: 1000;
+        display: flex; align-items: center; gap: 8px;
+        background: var(--title-color); color: white;
+        font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 500;
+        padding: 12px 20px; border: none; border-radius: 8px;
+        cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transition: all 0.2s ease;
+      }
+      #aux-download-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.2); }
+      #aux-download-btn:active { transform: translateY(0); }
+      #aux-download-btn svg { flex-shrink: 0; }
       @media print {
         @page { size: A4 landscape; margin: 0; }
         body { margin: 0; padding: 0; background: white; }
         .page { margin: 0; box-shadow: none; page-break-after: always; }
-        .language-switcher, .model-selector { display: none; }
+        .language-switcher, .model-selector, #aux-download-btn { display: none !important; }
       }
     `;
   }
@@ -2365,6 +2386,17 @@ if (selectionState.solar) {
         <label class="model-checkbox"><input type="checkbox" value="serenity" checked onchange="filterAuxModels()"><span>Serenity</span></label>
         <label class="model-checkbox"><input type="checkbox" value="sanctuary" checked onchange="filterAuxModels()"><span>Sanctuary</span></label>
       </div>
+
+      <button id="aux-download-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span class="active-lang" data-lang="ro">Descarcă</span>
+        <span data-lang="en">Download</span>
+        <span data-lang="de">Herunterladen</span>
+      </button>
 
       <div class="page intro-page">
         <div class="language-switcher">
@@ -2696,6 +2728,21 @@ if (selectionState.solar) {
               <li data-lang="de">Fundamentlayout und Logistikplan (Kran, Zugang)</li>
             </ul>
           </div>
+        </div>
+      </div>
+
+      <!-- Disclaimer -->
+      <div class="page disclaimer-page">
+        <div class="disclaimer-content">
+          <p class="active-lang" data-lang="ro">
+            <strong>Notă:</strong> Multe dintre aceste costuri pot să nu fie necesare pentru proiectul dumneavoastră. Aceasta este o prezentare completă a tuturor costurilor posibile, pentru transparență totală. Multe poziții sunt opționale sau nu se aplică în toate cazurile. Totul depinde de specificul proiectului, zona geografică și cerințele dumneavoastră.
+          </p>
+          <p data-lang="en">
+            <strong>Note:</strong> Many of these costs may not be required for your project. This is a full scope overview of all possible costs, provided for complete transparency. Many items are optional or may not apply in all cases. It depends entirely on your specific project, location, and requirements.
+          </p>
+          <p data-lang="de">
+            <strong>Hinweis:</strong> Viele dieser Kosten sind möglicherweise für Ihr Projekt nicht erforderlich. Dies ist eine vollständige Übersicht aller möglichen Kosten, die der vollständigen Transparenz dient. Viele Positionen sind optional oder treffen nicht in allen Fällen zu. Es hängt ganz von Ihrem spezifischen Projekt, Standort und Ihren Anforderungen ab.
+          </p>
         </div>
       </div>
     `;
