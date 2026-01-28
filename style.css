@@ -795,6 +795,11 @@ p {
     #section-1 .footer-left .interactive-select-wrapper {
         display: block !important;
     }
+
+    /* Minimum font size for print */
+    .turnkey-disclaimer {
+        font-size: 0.7vw !important;
+    }
 }
 
 /* --- Sticky Download Button --- */
