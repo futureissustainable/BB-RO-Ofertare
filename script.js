@@ -1905,7 +1905,7 @@ if (selectionState.solar) {
     langModal.querySelectorAll('.lang-btn').forEach(btn => {
       btn.style.cssText = `
         padding: 15px 20px;
-        border: 2px solid #ddd;
+        border: 1px solid #ddd;
         border-radius: 8px;
         background: white;
         cursor: pointer;
@@ -2391,14 +2391,14 @@ if (selectionState.solar) {
         cursor: pointer; transition: all 0.3s ease;
       }
       #aux-download-btn {
-        background: #000; color: #fff; border: 2px solid #000;
+        background: #000; color: #fff; border: 1px solid #000;
         box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       }
       #aux-download-btn:hover { background: #333; border-color: #333; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
       #aux-download-btn:active { transform: translateY(0); }
       #aux-download-btn svg { flex-shrink: 0; }
       #back-to-offer-btn {
-        background: #fff; color: #000; border: 2px solid #000;
+        background: #fff; color: #000; border: 1px solid #000;
         box-shadow: 0 4px 15px rgba(0,0,0,0.15);
       }
       #back-to-offer-btn:hover { background: #f5f5f5; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
@@ -2419,7 +2419,7 @@ if (selectionState.solar) {
       #aux-lang-modal h3 { margin: 0 0 20px 0; font-size: 18px; color: #333; }
       #aux-lang-modal .lang-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
       #aux-lang-modal .lang-btn {
-        padding: 15px 20px; border: 2px solid #ddd; border-radius: 8px; background: white;
+        padding: 15px 20px; border: 1px solid #ddd; border-radius: 8px; background: white;
         cursor: pointer; font-size: 16px; font-weight: 500; transition: all 0.2s; font-family: 'Poppins', sans-serif;
       }
       #aux-lang-modal .lang-btn:hover { border-color: #000; background: #f5f5f5; }
