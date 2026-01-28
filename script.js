@@ -2283,6 +2283,7 @@ if (selectionState.solar) {
       .model-checkbox input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent-color); }
       .model-checkbox input[type="checkbox"]:checked + span { color: var(--title-color); font-weight: 500; }
       .page[data-model].hidden { display: none; }
+      .total-row, .grand-total { display: none; }
       .info-page { padding: 48px 60px; }
       .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px 64px; margin-top: 40px; }
       .info-section { display: flex; flex-direction: column; gap: 16px; }
