@@ -1394,10 +1394,40 @@
 
   <script>
     let currentLanguage = 'ro';
+    const isEditMode = window.location.hash.includes('edit');
+
+    // Parse model from URL parameters (supports SQF_TYPE=serenity-95 format)
+    function getModelFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const sqfType = params.get('SQF_TYPE') || params.get('model');
+
+      if (sqfType) {
+        // Extract model name from formats like "serenity-95" or "nest-24"
+        // Map to auxiliary model names: nomad (nest), wanderlust, serenity, sanctuary
+        const modelMap = {
+          'nest': 'nomad',
+          'nomad': 'nomad',
+          'wanderlust': 'wanderlust',
+          'serenity': 'serenity',
+          'sanctuary': 'sanctuary'
+        };
+
+        // Get the first part before any dash+number (e.g., "serenity-95" -> "serenity")
+        const modelKey = sqfType.split('-')[0].toLowerCase();
+        return modelMap[modelKey] || null;
+      }
+      return null;
+    }
+
+    // Parse language from URL hash
+    function getLanguageFromUrl() {
+      const hashLang = window.location.hash.match(/#(ro|en|de)(?:\b|$)/i);
+      return hashLang ? hashLang[1].toLowerCase() : null;
+    }
 
     function switchLanguage(lang) {
       currentLanguage = lang;
-      
+
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.remove('active');
         if (btn.getAttribute('data-lang-btn') === lang) {
@@ -1418,7 +1448,7 @@
       const selectedModels = Array.from(checkboxes)
         .filter(cb => cb.checked)
         .map(cb => cb.value);
-      
+
       // Show/hide model pages based on selection
       document.querySelectorAll('.page[data-model]').forEach(page => {
         const modelName = page.getAttribute('data-model');
@@ -1430,9 +1460,38 @@
       });
     }
 
+    // Set model selection based on URL parameter
+    function setModelFromUrl() {
+      const urlModel = getModelFromUrl();
+
+      if (urlModel) {
+        // Uncheck all, then check only the URL-specified model
+        const checkboxes = document.querySelectorAll('.model-checkbox input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+          cb.checked = (cb.value === urlModel);
+        });
+      }
+      // If no URL model, keep all checked (default behavior)
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
-      switchLanguage('ro');
-      filterModels(); // Initialize filter on load
+      // Hide model selector if not in edit mode
+      if (!isEditMode) {
+        const modelSelector = document.querySelector('.model-selector');
+        if (modelSelector) {
+          modelSelector.style.display = 'none';
+        }
+      }
+
+      // Set language from URL hash or default to 'ro'
+      const urlLang = getLanguageFromUrl();
+      switchLanguage(urlLang || 'ro');
+
+      // Set model filter from URL parameter
+      setModelFromUrl();
+
+      // Apply model filter
+      filterModels();
     });
   </script>
 </body>
