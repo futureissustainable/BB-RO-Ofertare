@@ -2211,23 +2211,28 @@ if (selectionState.solar) {
 
     // Initialize auxiliary functionality
     let auxCurrentLang = currentLang;
+    const langModal = document.getElementById('aux-lang-modal');
 
     // Language switcher function
     window.switchAuxLanguage = function(lang) {
       auxCurrentLang = lang;
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.getAttribute('data-lang-btn') === lang) {
-          btn.classList.add('active');
-        }
-      });
       document.querySelectorAll('[data-lang]').forEach(el => {
         el.classList.remove('active-lang');
         if (el.getAttribute('data-lang') === lang) {
           el.classList.add('active-lang');
         }
       });
+      // Hide modal after selection
+      langModal.style.display = 'none';
     };
+
+    // Setup modal language buttons
+    langModal.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lang = btn.getAttribute('data-lang');
+        window.switchAuxLanguage(lang);
+      });
+    });
 
     // Model filter function
     window.filterAuxModels = function() {
@@ -2263,8 +2268,14 @@ if (selectionState.solar) {
     }
 
     // Apply initial language and filter
-    window.switchAuxLanguage(currentLang);
     window.filterAuxModels();
+
+    // Show language modal if no language in URL hash, otherwise apply language
+    if (!hashLang) {
+      langModal.style.display = 'flex';
+    } else {
+      window.switchAuxLanguage(currentLang);
+    }
 
     // Download button handler
     document.getElementById('aux-download-btn').addEventListener('click', function() {
@@ -2298,17 +2309,6 @@ if (selectionState.solar) {
         position: relative; padding: 40px 48px; display: flex; flex-direction: column;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       }
-      .language-switcher {
-        position: absolute; top: 24px; right: 40px; display: flex; gap: 8px;
-      }
-      .language-switcher button {
-        font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 500;
-        padding: 2px 6px; border: none; background: transparent;
-        color: var(--paragraph-color); cursor: pointer; border-radius: 3px; transition: all 0.2s ease;
-        text-decoration: none;
-      }
-      .language-switcher button.active { background: var(--title-color); color: white; }
-      .language-switcher button:hover:not(.active) { color: var(--title-color); }
       .intro-page {
         justify-content: flex-end; align-items: flex-start; text-align: left;
         background-image:
@@ -2357,30 +2357,55 @@ if (selectionState.solar) {
       .disclaimer p { font-size: 0.7rem; line-height: 1.6em; color: var(--paragraph-color); font-weight: 300; }
       .disclaimer p strong { color: var(--title-color); font-weight: 400; }
       #aux-download-btn {
-        position: fixed; bottom: 24px; right: 24px; z-index: 1000;
-        display: flex; align-items: center; gap: 8px;
-        background: var(--title-color); color: white;
-        font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 500;
-        padding: 12px 20px; border: none; border-radius: 8px;
-        cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        transition: all 0.2s ease;
+        position: fixed; bottom: 30px; right: 30px; z-index: 9999;
+        display: flex; align-items: center; gap: 10px;
+        background: #000; color: #fff;
+        font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 500;
+        padding: 15px 25px; border: none; border-radius: 50px;
+        cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
       }
-      #aux-download-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.2); }
+      #aux-download-btn:hover { background: #333; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
       #aux-download-btn:active { transform: translateY(0); }
       #aux-download-btn svg { flex-shrink: 0; }
+      #aux-lang-modal {
+        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.7); z-index: 99999; justify-content: center; align-items: center;
+      }
+      #aux-lang-modal .lang-modal-content {
+        background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 350px; width: 90%;
+      }
+      #aux-lang-modal h3 { margin: 0 0 20px 0; font-size: 18px; color: #333; }
+      #aux-lang-modal .lang-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      #aux-lang-modal .lang-btn {
+        padding: 15px 20px; border: 2px solid #ddd; border-radius: 8px; background: white;
+        cursor: pointer; font-size: 16px; font-weight: 500; transition: all 0.2s; font-family: 'Poppins', sans-serif;
+      }
+      #aux-lang-modal .lang-btn:hover { border-color: #000; background: #f5f5f5; }
       @media print {
         @page { size: A4 landscape; margin: 0; }
         body { margin: 0; padding: 0; background: white; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         .page { margin: 0 !important; box-shadow: none !important; page-break-after: always; padding: 40px 48px !important; width: 297mm !important; height: 210mm !important; }
         .intro-page { padding: 40px 48px 60px 60px !important; }
         .info-page { padding: 48px 60px !important; }
-        .language-switcher, .model-selector, #aux-download-btn { display: none !important; }
+        .model-selector, #aux-download-btn, #aux-lang-modal { display: none !important; }
       }
     `;
   }
 
   function generateAuxiliaryHTML() {
     return `
+      <div id="aux-lang-modal">
+        <div class="lang-modal-content">
+          <h3>Select Language / Selectează Limba</h3>
+          <div class="lang-options">
+            <button data-lang="en" class="lang-btn">English</button>
+            <button data-lang="ro" class="lang-btn">Română</button>
+            <button data-lang="de" class="lang-btn">Deutsch</button>
+          </div>
+        </div>
+      </div>
+
       <div class="model-selector">
         <label class="model-checkbox"><input type="checkbox" value="nomad" checked onchange="filterAuxModels()"><span>Nomad</span></label>
         <label class="model-checkbox"><input type="checkbox" value="wanderlust" checked onchange="filterAuxModels()"><span>Wanderlust</span></label>
@@ -2389,7 +2414,7 @@ if (selectionState.solar) {
       </div>
 
       <button id="aux-download-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
           <polyline points="7 10 12 15 17 10"></polyline>
           <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -2400,11 +2425,6 @@ if (selectionState.solar) {
       </button>
 
       <div class="page intro-page">
-        <div class="language-switcher">
-          <button onclick="switchAuxLanguage('ro')" class="lang-btn active" data-lang-btn="ro">RO</button>
-          <button onclick="switchAuxLanguage('en')" class="lang-btn" data-lang-btn="en">EN</button>
-          <button onclick="switchAuxLanguage('de')" class="lang-btn" data-lang-btn="de">DE</button>
-        </div>
         <p class="subtitle active-lang" data-lang="ro">Transparență Absolută a Costurilor</p>
         <p class="subtitle" data-lang="en">Absolute Cost Transparency</p>
         <p class="subtitle" data-lang="de">Absolute Kostentransparenz</p>
@@ -2416,11 +2436,6 @@ if (selectionState.solar) {
 
       <!-- Nomad 24m² -->
       <div class="page" data-model="nomad">
-        <div class="language-switcher">
-          <button onclick="switchAuxLanguage('ro')" class="lang-btn active" data-lang-btn="ro">RO</button>
-          <button onclick="switchAuxLanguage('en')" class="lang-btn" data-lang-btn="en">EN</button>
-          <button onclick="switchAuxLanguage('de')" class="lang-btn" data-lang-btn="de">DE</button>
-        </div>
         <div class="model-header"><div class="model-title">Nomad</div><div class="model-size">24 m²</div></div>
         <div class="phases-grid">
           <div class="phase-section">
@@ -2482,11 +2497,6 @@ if (selectionState.solar) {
 
       <!-- Wanderlust 48m² -->
       <div class="page" data-model="wanderlust">
-        <div class="language-switcher">
-          <button onclick="switchAuxLanguage('ro')" class="lang-btn active" data-lang-btn="ro">RO</button>
-          <button onclick="switchAuxLanguage('en')" class="lang-btn" data-lang-btn="en">EN</button>
-          <button onclick="switchAuxLanguage('de')" class="lang-btn" data-lang-btn="de">DE</button>
-        </div>
         <div class="model-header"><div class="model-title">Wanderlust</div><div class="model-size">48 m²</div></div>
         <div class="phases-grid">
           <div class="phase-section">
@@ -2547,11 +2557,6 @@ if (selectionState.solar) {
 
       <!-- Serenity 95m² -->
       <div class="page" data-model="serenity">
-        <div class="language-switcher">
-          <button onclick="switchAuxLanguage('ro')" class="lang-btn active" data-lang-btn="ro">RO</button>
-          <button onclick="switchAuxLanguage('en')" class="lang-btn" data-lang-btn="en">EN</button>
-          <button onclick="switchAuxLanguage('de')" class="lang-btn" data-lang-btn="de">DE</button>
-        </div>
         <div class="model-header"><div class="model-title">Serenity</div><div class="model-size">95 m²</div></div>
         <div class="phases-grid">
           <div class="phase-section">
@@ -2613,11 +2618,6 @@ if (selectionState.solar) {
 
       <!-- Sanctuary 142m² -->
       <div class="page" data-model="sanctuary">
-        <div class="language-switcher">
-          <button onclick="switchAuxLanguage('ro')" class="lang-btn active" data-lang-btn="ro">RO</button>
-          <button onclick="switchAuxLanguage('en')" class="lang-btn" data-lang-btn="en">EN</button>
-          <button onclick="switchAuxLanguage('de')" class="lang-btn" data-lang-btn="de">DE</button>
-        </div>
         <div class="model-header"><div class="model-title">Sanctuary</div><div class="model-size">142 m²</div></div>
         <div class="phases-grid">
           <div class="phase-section">
@@ -2679,11 +2679,6 @@ if (selectionState.solar) {
 
       <!-- Info Page -->
       <div class="page info-page">
-        <div class="language-switcher">
-          <button onclick="switchAuxLanguage('ro')" class="lang-btn active" data-lang-btn="ro">RO</button>
-          <button onclick="switchAuxLanguage('en')" class="lang-btn" data-lang-btn="en">EN</button>
-          <button onclick="switchAuxLanguage('de')" class="lang-btn" data-lang-btn="de">DE</button>
-        </div>
         <div class="info-grid">
           <div class="info-section">
             <h3 class="active-lang" data-lang="ro">Legendă</h3>
