@@ -2229,7 +2229,7 @@ if (selectionState.solar) {
     // Setup modal language buttons
     langModal.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        const lang = btn.getAttribute('data-lang');
+        const lang = btn.getAttribute('data-select-lang');
         window.switchAuxLanguage(lang);
       });
     });
@@ -2399,9 +2399,9 @@ if (selectionState.solar) {
         <div class="lang-modal-content">
           <h3>Select Language / Selectează Limba</h3>
           <div class="lang-options">
-            <button data-lang="en" class="lang-btn">English</button>
-            <button data-lang="ro" class="lang-btn">Română</button>
-            <button data-lang="de" class="lang-btn">Deutsch</button>
+            <button data-select-lang="en" class="lang-btn">English</button>
+            <button data-select-lang="ro" class="lang-btn">Română</button>
+            <button data-select-lang="de" class="lang-btn">Deutsch</button>
           </div>
         </div>
       </div>
