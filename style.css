@@ -838,13 +838,13 @@ p {
     background: #000;
     color: #fff;
     border: none;
-    padding: 13px 20px;
+    padding: 15px 25px;
     border-radius: 50px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 14px;
+    gap: 10px;
+    font-size: 16px;
     font-weight: 500;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
