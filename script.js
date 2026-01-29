@@ -2394,7 +2394,7 @@ if (selectionState.solar) {
       #aux-download-btn, #back-to-offer-btn {
         display: flex; align-items: center; gap: 10px;
         font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 500;
-        padding: 13px 20px; border-radius: 50px;
+        padding: 15px 25px; border-radius: 50px;
         cursor: pointer; transition: all 0.3s ease;
       }
       #aux-download-btn {
@@ -2414,7 +2414,7 @@ if (selectionState.solar) {
       #back-to-offer-btn [data-lang]:not(.active-lang) { display: none; }
       @media (max-width: 768px) {
         #aux-sticky-buttons { flex-direction: column; left: 15px; right: 15px; bottom: 120px; }
-        #aux-download-btn, #back-to-offer-btn { font-size: 14px; padding: 12px 18px; width: 100%; justify-content: center; }
+        #aux-download-btn, #back-to-offer-btn { width: 100%; justify-content: center; }
       }
       #aux-lang-modal {
         display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
