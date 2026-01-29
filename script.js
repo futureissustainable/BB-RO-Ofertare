@@ -2398,17 +2398,17 @@ if (selectionState.solar) {
         cursor: pointer; transition: all 0.3s ease;
       }
       #aux-download-btn {
-        background: #000; color: #fff; border: 1px solid #000;
+        background: #000; color: #fff; border: none;
         box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       }
-      #aux-download-btn:hover { background: #333; border-color: #333; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+      #aux-download-btn:hover { background: #333; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
       #aux-download-btn:active { transform: translateY(0); }
       #aux-download-btn svg { flex-shrink: 0; }
       #back-to-offer-btn {
-        background: #fff; color: #000; border: 1px solid #000;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        background: #000; color: #fff; border: none;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       }
-      #back-to-offer-btn:hover { background: #f5f5f5; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+      #back-to-offer-btn:hover { background: #333; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
       #back-to-offer-btn:active { transform: translateY(0); }
       #back-to-offer-btn svg { flex-shrink: 0; }
       #back-to-offer-btn [data-lang]:not(.active-lang) { display: none; }
