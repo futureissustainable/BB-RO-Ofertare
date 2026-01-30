@@ -2067,7 +2067,8 @@ if (selectionState.solar) {
       if (selectionState.offerNr) {
         document.getElementById("offer-nr").textContent = selectionState.offerNr;
       }
-      document.getElementById("offer-date").textContent = selectionState.offerDate;
+      // Always use current date when generating PDF
+      document.getElementById("offer-date").textContent = getCurrentDate();
       document.querySelector(".mentiuni-editable").textContent = selectionState.mentions;
 
       const settings = qualitySettings[quality];
