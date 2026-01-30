@@ -2061,6 +2061,15 @@ if (selectionState.solar) {
       }
       setLanguage(currentLang);
 
+      // Restore contenteditable fields from selectionState after setLanguage
+      // (setLanguage resets elements with data-key to their placeholder translations)
+      document.getElementById("client-name").textContent = selectionState.clientName;
+      if (selectionState.offerNr) {
+        document.getElementById("offer-nr").textContent = selectionState.offerNr;
+      }
+      document.getElementById("offer-date").textContent = selectionState.offerDate;
+      document.querySelector(".mentiuni-editable").textContent = selectionState.mentions;
+
       const settings = qualitySettings[quality];
 
       try {
