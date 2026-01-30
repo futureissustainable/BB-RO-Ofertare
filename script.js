@@ -2032,7 +2032,9 @@ if (selectionState.solar) {
         const hash = window.location.hash.replace('#', '');
         const langMatch = hash.match(/^(ro|en|de|fr)$/i);
         const lang = langMatch ? langMatch[1] : 'ro';
-        window.location.hash = lang + '-auxiliary';
+        // Must reload page for auxiliary mode to initialize
+        window.location.href = window.location.pathname + window.location.search + '#' + lang + '-auxiliary';
+        window.location.reload();
       };
     }
 
@@ -2079,7 +2081,8 @@ if (selectionState.solar) {
         document.body.appendChild(renderContainer);
 
         // Helper function to convert background-image to img element
-        function addBgAsImg(originalEl, cloneEl, objectFit = 'cover') {
+        // html2canvas doesn't support object-fit, so we manually calculate dimensions
+        async function addBgAsImg(originalEl, cloneEl, objectFit = 'cover') {
           const bgImage = window.getComputedStyle(originalEl).backgroundImage;
           if (bgImage && bgImage !== 'none') {
             const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
@@ -2093,15 +2096,62 @@ if (selectionState.solar) {
               img.src = urlMatch[1];
               img.crossOrigin = 'anonymous';
 
-              // Use width/height 100% with object-fit for proper scaling
+              // Wait for image to load to get natural dimensions
+              await new Promise((resolve) => {
+                if (img.complete) {
+                  resolve();
+                } else {
+                  img.onload = resolve;
+                  img.onerror = resolve;
+                }
+              });
+
+              // Get container and image dimensions
+              const containerWidth = cloneEl.offsetWidth;
+              const containerHeight = cloneEl.offsetHeight;
+              const imgWidth = img.naturalWidth || containerWidth;
+              const imgHeight = img.naturalHeight || containerHeight;
+
+              // Calculate dimensions based on objectFit mode
+              const containerRatio = containerWidth / containerHeight;
+              const imgRatio = imgWidth / imgHeight;
+
+              let finalWidth, finalHeight, left, top;
+
+              if (objectFit === 'cover') {
+                // Cover: fill container, crop if needed
+                if (imgRatio > containerRatio) {
+                  // Image is wider - fit height, crop width
+                  finalHeight = containerHeight;
+                  finalWidth = containerHeight * imgRatio;
+                } else {
+                  // Image is taller - fit width, crop height
+                  finalWidth = containerWidth;
+                  finalHeight = containerWidth / imgRatio;
+                }
+              } else {
+                // Contain: fit within container, letterbox if needed
+                if (imgRatio > containerRatio) {
+                  // Image is wider - fit width
+                  finalWidth = containerWidth;
+                  finalHeight = containerWidth / imgRatio;
+                } else {
+                  // Image is taller - fit height
+                  finalHeight = containerHeight;
+                  finalWidth = containerHeight * imgRatio;
+                }
+              }
+
+              // Center the image
+              left = (containerWidth - finalWidth) / 2;
+              top = (containerHeight - finalHeight) / 2;
+
               img.style.cssText = `
                 position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: ${objectFit};
-                object-position: center;
+                left: ${left}px;
+                top: ${top}px;
+                width: ${finalWidth}px;
+                height: ${finalHeight}px;
               `;
               cloneEl.insertBefore(img, cloneEl.firstChild);
             }
@@ -2127,7 +2177,43 @@ if (selectionState.solar) {
           clone.style.boxSizing = 'border-box';
           clone.style.aspectRatio = 'auto'; // Override mobile aspect-ratio: unset
           clone.style.display = 'flex';
-          clone.style.flexDirection = 'column';
+
+          // Floorplan section uses row layout, others use column
+          if (pageId === 'section-floorplan') {
+            clone.style.flexDirection = 'row';
+            // Ensure flex children have correct sizing
+            const floorplanDetails = clone.querySelector('#floorplan-details');
+            const floorplanImageContainer = clone.querySelector('#floorplan-image-container');
+            if (floorplanDetails) {
+              floorplanDetails.style.flexBasis = '35%';
+              floorplanDetails.style.flexShrink = '0';
+              floorplanDetails.style.height = '100%';
+              floorplanDetails.style.overflow = 'hidden';
+              floorplanDetails.style.padding = '40px';
+              floorplanDetails.style.boxSizing = 'border-box';
+            }
+            if (floorplanImageContainer) {
+              floorplanImageContainer.style.flexBasis = '65%';
+              floorplanImageContainer.style.flexShrink = '0';
+              floorplanImageContainer.style.height = '100%';
+              floorplanImageContainer.style.display = 'flex';
+              floorplanImageContainer.style.justifyContent = 'center';
+              floorplanImageContainer.style.alignItems = 'center';
+              floorplanImageContainer.style.padding = '20px';
+              floorplanImageContainer.style.boxSizing = 'border-box';
+              // Fix the floorplan image sizing
+              const floorplanImg = floorplanImageContainer.querySelector('#floorplan-image');
+              if (floorplanImg) {
+                floorplanImg.style.maxWidth = '100%';
+                floorplanImg.style.maxHeight = '100%';
+                floorplanImg.style.width = 'auto';
+                floorplanImg.style.height = 'auto';
+                floorplanImg.style.objectFit = 'contain';
+              }
+            }
+          } else {
+            clone.style.flexDirection = 'column';
+          }
 
           // Reset content-area to proper flex sizing (mobile sets min-height: 50vw)
           const cloneContentArea = clone.querySelector('.content-area');
@@ -2155,7 +2241,7 @@ if (selectionState.solar) {
             const contentArea = page.querySelector('.content-area');
             const cloneContentArea = clone.querySelector('.content-area');
             if (contentArea && cloneContentArea) {
-              addBgAsImg(contentArea, cloneContentArea, 'cover');
+              await addBgAsImg(contentArea, cloneContentArea, 'cover');
             }
           }
 
@@ -2164,13 +2250,13 @@ if (selectionState.solar) {
             const passiveImg = page.querySelector('#passive-info-image');
             const clonePassiveImg = clone.querySelector('#passive-info-image');
             if (passiveImg && clonePassiveImg) {
-              addBgAsImg(passiveImg, clonePassiveImg, 'contain');
+              await addBgAsImg(passiveImg, clonePassiveImg, 'contain');
             }
           }
 
           // Full-page background images
           if (pageId === 'section-2-image' || pageId === 'section-3-image') {
-            addBgAsImg(page, clone, 'cover');
+            await addBgAsImg(page, clone, 'cover');
           }
 
           // Replace select elements with spans showing selected text
@@ -2472,7 +2558,9 @@ if (selectionState.solar) {
         e.preventDefault();
         // Remove 'auxiliary' from hash, keep language
         const hash = window.location.hash.replace('#', '').replace('-auxiliary', '').replace('auxiliary', '');
-        window.location.hash = hash || 'ro';
+        // Must reload page for offer mode to initialize
+        window.location.href = window.location.pathname + window.location.search + '#' + (hash || 'ro');
+        window.location.reload();
       };
     }
   }
