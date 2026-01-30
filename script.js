@@ -2244,21 +2244,25 @@ if (selectionState.solar) {
             }
           } else if (pageId === 'section-passive-info') {
             clone.style.flexDirection = 'row';
-            // Passive info: 50% image, 50% text
+            clone.style.alignItems = 'center';
+            clone.style.padding = '40px';
+            // Passive info: 45% image, 55% text
             const passiveImage = clone.querySelector('#passive-info-image');
             const passiveText = clone.querySelector('#passive-info-text');
             if (passiveImage) {
-              passiveImage.style.flexBasis = '50%';
+              passiveImage.style.flexBasis = '45%';
               passiveImage.style.flexShrink = '0';
-              passiveImage.style.height = '100%';
+              passiveImage.style.height = '70%';
               passiveImage.style.boxSizing = 'border-box';
+              passiveImage.style.borderRadius = '8px';
+              passiveImage.style.overflow = 'hidden';
             }
             if (passiveText) {
-              passiveText.style.flexBasis = '50%';
+              passiveText.style.flexBasis = '55%';
               passiveText.style.flexShrink = '0';
-              passiveText.style.height = '100%';
+              passiveText.style.height = 'auto';
               passiveText.style.overflow = 'hidden';
-              passiveText.style.padding = '40px';
+              passiveText.style.paddingLeft = '40px';
               passiveText.style.boxSizing = 'border-box';
             }
           } else {
