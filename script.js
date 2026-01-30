@@ -2294,7 +2294,7 @@ if (selectionState.solar) {
             const contentArea = page.querySelector('.content-area');
             const cloneContentArea = clone.querySelector('.content-area');
             if (contentArea && cloneContentArea) {
-              await addBgAsImg(contentArea, cloneContentArea, 'cover', '35%');
+              await addBgAsImg(contentArea, cloneContentArea, 'cover', '40%');
             }
           }
 
