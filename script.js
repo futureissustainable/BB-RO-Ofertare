@@ -1912,6 +1912,9 @@ if (selectionState.solar) {
         font-size: 16px;
         font-weight: 500;
         transition: all 0.2s;
+        font-family: 'Poppins', sans-serif;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
       `;
     });
     document.body.appendChild(langModal);
@@ -1990,6 +1993,8 @@ if (selectionState.solar) {
         font-family: 'Poppins', sans-serif;
         transition: all 0.2s;
         text-align: left;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
       `;
       btn.querySelector('.quality-title').style.cssText = `
         display: block;
@@ -2504,6 +2509,7 @@ if (selectionState.solar) {
         font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 500;
         padding: 15px 25px; border-radius: 50px;
         cursor: pointer; transition: all 0.3s ease;
+        touch-action: manipulation; -webkit-tap-highlight-color: transparent;
       }
       #aux-download-btn {
         background: #000; color: #fff; border: none;
@@ -2536,6 +2542,7 @@ if (selectionState.solar) {
       #aux-lang-modal .lang-btn {
         padding: 15px 20px; border: 1px solid #ddd; border-radius: 8px; background: white;
         cursor: pointer; font-size: 16px; font-weight: 500; transition: all 0.2s; font-family: 'Poppins', sans-serif;
+        touch-action: manipulation; -webkit-tap-highlight-color: transparent;
       }
       #aux-lang-modal .lang-btn:hover { border-color: #000; background: #f5f5f5; }
       @media print {
