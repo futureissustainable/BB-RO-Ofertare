@@ -2574,6 +2574,122 @@ if (selectionState.solar) {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const needsPdfGeneration = isIOS || isMobile;
 
+    // Quality settings for auxiliary PDF
+    const auxQualitySettings = {
+      low: { scale: 1.75, jpegQuality: 0.8 },
+      high: { scale: 2, jpegQuality: 0.92 }
+    };
+
+    // PDF filename translations for auxiliary
+    const auxPdfPrefixes = {
+      ro: 'Costuri-Auxiliare-Biobuilds',
+      en: 'Auxiliary-Costs-Biobuilds',
+      de: 'Nebenkosten-Biobuilds',
+      fr: 'Couts-Auxiliaires-Biobuilds'
+    };
+
+    // Auxiliary PDF generation function
+    async function generateAuxPDF(quality) {
+      const btn = document.getElementById('aux-download-btn');
+      const originalHTML = btn.innerHTML;
+      btn.innerHTML = '<span>LOADING...</span>';
+      btn.disabled = true;
+
+      const settings = auxQualitySettings[quality];
+
+      try {
+        const PDF_WIDTH_MM = 297;
+        const PDF_HEIGHT_MM = 210;
+        const RENDER_WIDTH = 1122;
+        const RENDER_HEIGHT = 793;
+
+        // Get visible pages (filter by model checkboxes)
+        const pages = Array.from(document.querySelectorAll('.page')).filter(page => {
+          const model = page.getAttribute('data-model');
+          if (!model) return true; // Non-model pages (intro, info) always included
+          const checkbox = document.querySelector(`.model-checkbox input[value="${model}"]`);
+          return checkbox ? checkbox.checked : true;
+        });
+
+        if (pages.length === 0) {
+          throw new Error('No pages to export');
+        }
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({
+          orientation: 'landscape',
+          unit: 'mm',
+          format: 'a4',
+          compress: true
+        });
+
+        const renderContainer = document.createElement('div');
+        renderContainer.style.cssText = `
+          position: fixed;
+          left: -10000px;
+          top: 0;
+          width: ${RENDER_WIDTH}px;
+          height: ${RENDER_HEIGHT}px;
+          overflow: hidden;
+          background: white;
+          z-index: -9999;
+        `;
+        document.body.appendChild(renderContainer);
+
+        for (let i = 0; i < pages.length; i++) {
+          const page = pages[i];
+          const clone = page.cloneNode(true);
+
+          // Set fixed dimensions for rendering
+          clone.style.width = RENDER_WIDTH + 'px';
+          clone.style.height = RENDER_HEIGHT + 'px';
+          clone.style.minHeight = RENDER_HEIGHT + 'px';
+          clone.style.maxHeight = RENDER_HEIGHT + 'px';
+          clone.style.margin = '0';
+          clone.style.boxShadow = 'none';
+          clone.style.overflow = 'hidden';
+
+          renderContainer.innerHTML = '';
+          renderContainer.appendChild(clone);
+
+          // Wait for layout
+          await new Promise(resolve => setTimeout(resolve, 50));
+
+          if (i > 0) {
+            pdf.addPage('a4', 'landscape');
+          }
+
+          const canvas = await html2canvas(clone, {
+            scale: settings.scale,
+            useCORS: true,
+            allowTaint: true,
+            logging: false,
+            backgroundColor: '#ffffff',
+            width: RENDER_WIDTH,
+            height: RENDER_HEIGHT,
+            windowWidth: RENDER_WIDTH,
+            windowHeight: RENDER_HEIGHT
+          });
+
+          const imgData = canvas.toDataURL('image/jpeg', settings.jpegQuality);
+          pdf.addImage(imgData, 'JPEG', 0, 0, PDF_WIDTH_MM, PDF_HEIGHT_MM);
+        }
+
+        document.body.removeChild(renderContainer);
+
+        const pdfPrefix = auxPdfPrefixes[auxCurrentLang] || auxPdfPrefixes['en'];
+        const filename = `${pdfPrefix}.pdf`;
+        pdf.save(filename);
+
+      } catch (error) {
+        console.error('Auxiliary PDF generation failed:', error);
+        window.print();
+      }
+
+      btn.innerHTML = originalHTML;
+      btn.disabled = false;
+    }
+
     function showAuxQualityModal(e) {
       e.preventDefault();
       e.stopPropagation();
@@ -2582,7 +2698,7 @@ if (selectionState.solar) {
     auxDownloadBtn.addEventListener('click', showAuxQualityModal);
 
     // Quality modal button handlers
-    auxQualityModal.querySelector('.quality-options').addEventListener('click', (e) => {
+    auxQualityModal.querySelector('.quality-options').addEventListener('click', async (e) => {
       const btn = e.target.closest('.quality-btn');
       if (btn) {
         const quality = btn.dataset.quality;
@@ -2591,9 +2707,7 @@ if (selectionState.solar) {
         if (!needsPdfGeneration && quality === 'high') {
           window.print();
         } else {
-          // For mobile or low quality, use window.print() for now
-          // (auxiliary page doesn't have PDF generation yet)
-          window.print();
+          await generateAuxPDF(quality);
         }
       }
     });
