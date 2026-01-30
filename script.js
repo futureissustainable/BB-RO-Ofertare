@@ -2029,10 +2029,10 @@ if (selectionState.solar) {
     });
     document.body.appendChild(qualityModal);
 
-    // Quality settings
+    // Quality settings - high uses PNG for lossless quality
     const qualitySettings = {
-      low: { scale: 1.75, jpegQuality: 0.8 },
-      high: { scale: 2, jpegQuality: 0.92 }
+      low: { scale: 2, jpegQuality: 0.85, format: 'jpeg' },
+      high: { scale: 3, jpegQuality: 1, format: 'png' }
     };
     let selectedQuality = 'high';
 
@@ -2423,8 +2423,9 @@ if (selectionState.solar) {
             windowHeight: RENDER_HEIGHT
           });
 
-          const imgData = canvas.toDataURL('image/jpeg', settings.jpegQuality);
-          pdf.addImage(imgData, 'JPEG', 0, 0, PDF_WIDTH_MM, PDF_HEIGHT_MM);
+          const imgFormat = settings.format || 'jpeg';
+          const imgData = canvas.toDataURL(`image/${imgFormat}`, settings.jpegQuality);
+          pdf.addImage(imgData, imgFormat.toUpperCase(), 0, 0, PDF_WIDTH_MM, PDF_HEIGHT_MM);
         }
 
         document.body.removeChild(renderContainer);
@@ -2602,10 +2603,10 @@ if (selectionState.solar) {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const needsPdfGeneration = isIOS || isMobile;
 
-    // Quality settings for auxiliary PDF
+    // Quality settings for auxiliary PDF - high uses PNG for lossless quality
     const auxQualitySettings = {
-      low: { scale: 1.75, jpegQuality: 0.8 },
-      high: { scale: 2, jpegQuality: 0.92 }
+      low: { scale: 2, jpegQuality: 0.85, format: 'jpeg' },
+      high: { scale: 3, jpegQuality: 1, format: 'png' }
     };
 
     // PDF filename translations for auxiliary
@@ -2699,8 +2700,9 @@ if (selectionState.solar) {
             windowHeight: RENDER_HEIGHT
           });
 
-          const imgData = canvas.toDataURL('image/jpeg', settings.jpegQuality);
-          pdf.addImage(imgData, 'JPEG', 0, 0, PDF_WIDTH_MM, PDF_HEIGHT_MM);
+          const imgFormat = settings.format || 'jpeg';
+          const imgData = canvas.toDataURL(`image/${imgFormat}`, settings.jpegQuality);
+          pdf.addImage(imgData, imgFormat.toUpperCase(), 0, 0, PDF_WIDTH_MM, PDF_HEIGHT_MM);
         }
 
         document.body.removeChild(renderContainer);
