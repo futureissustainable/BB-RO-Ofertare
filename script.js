@@ -2435,19 +2435,43 @@ if (selectionState.solar) {
       window.switchAuxLanguage(currentLang);
     }
 
-    // Download button handler
-    document.getElementById('aux-download-btn').addEventListener('click', function() {
-      window.print();
-    });
+    // Download button handler - use both click and touchend for mobile compatibility
+    const auxDownloadBtn = document.getElementById('aux-download-btn');
+    const backToOfferBtn = document.getElementById('back-to-offer-btn');
 
-    // Back to offer button handler
-    document.getElementById('back-to-offer-btn').addEventListener('click', function() {
+    function handleAuxDownload(e) {
+      e.preventDefault();
+      window.print();
+    }
+
+    function handleBackToOffer(e) {
+      e.preventDefault();
       const currentUrl = new URL(window.location.href);
       // Remove 'auxiliary' from hash, keep language
       const hash = currentUrl.hash.replace('#', '').replace('-auxiliary', '').replace('auxiliary', '');
       currentUrl.hash = hash || 'ro';
       window.location.href = currentUrl.toString();
-    });
+    }
+
+    if (auxDownloadBtn) {
+      auxDownloadBtn.addEventListener('click', handleAuxDownload);
+      auxDownloadBtn.addEventListener('touchend', handleAuxDownload);
+    }
+
+    if (backToOfferBtn) {
+      backToOfferBtn.addEventListener('click', handleBackToOffer);
+      backToOfferBtn.addEventListener('touchend', handleBackToOffer);
+    }
+
+    // DEBUG: Flash buttons green if event listeners attached
+    if (auxDownloadBtn && backToOfferBtn) {
+      auxDownloadBtn.style.boxShadow = '0 0 0 3px lime';
+      backToOfferBtn.style.boxShadow = '0 0 0 3px lime';
+      setTimeout(() => {
+        auxDownloadBtn.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
+        backToOfferBtn.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
+      }, 2000);
+    }
   }
 
   function getAuxiliaryStyles() {
@@ -2564,7 +2588,7 @@ if (selectionState.solar) {
       #aux-lang-modal h3 { margin: 0 0 20px 0; font-size: 18px; color: #333; }
       #aux-lang-modal .lang-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
       #aux-lang-modal .lang-btn {
-        padding: 15px 20px; border: 1px solid #ddd; border-radius: 8px; background: white;
+        padding: 15px 20px; border: 1px solid #ddd; border-radius: 8px; background: white; color: #333;
         cursor: pointer; font-size: 16px; font-weight: 500; transition: all 0.2s; font-family: 'Poppins', sans-serif;
       }
       #aux-lang-modal .lang-btn:hover { border-color: #000; background: #f5f5f5; }
@@ -2600,7 +2624,7 @@ if (selectionState.solar) {
       </div>
 
       <div id="aux-sticky-buttons">
-        <button id="back-to-offer-btn">
+        <button id="back-to-offer-btn" onclick="(function(){ var u=new URL(window.location.href); u.hash=u.hash.replace('#','').replace('-auxiliary','').replace('auxiliary','')||'ro'; window.location.href=u.toString(); })()">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
@@ -2609,7 +2633,7 @@ if (selectionState.solar) {
           <span data-lang="en">Back to Offer</span>
           <span data-lang="de">Zurück zum Angebot</span>
         </button>
-        <button id="aux-download-btn">
+        <button id="aux-download-btn" onclick="window.print()">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
