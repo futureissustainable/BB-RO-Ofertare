@@ -2022,8 +2022,12 @@ if (selectionState.solar) {
 
     // Auxiliary costs button - navigate to auxiliary view
     const auxCostsBtn = document.getElementById('aux-costs-btn');
+    let auxNavigating = false;
     function navigateToAuxiliary(e) {
       e.preventDefault();
+      e.stopPropagation();
+      if (auxNavigating) return; // Prevent double-firing
+      auxNavigating = true;
       const currentUrl = new URL(window.location.href);
       const hash = currentUrl.hash.replace('#', '');
       const langMatch = hash.match(/^(ro|en|de|fr)$/i);
@@ -2032,7 +2036,6 @@ if (selectionState.solar) {
       window.location.href = currentUrl.toString();
     }
     auxCostsBtn.addEventListener('click', navigateToAuxiliary);
-    auxCostsBtn.addEventListener('touchend', navigateToAuxiliary);
 
     // PDF generation function with quality settings
     async function generatePDF(quality) {
@@ -2443,10 +2446,10 @@ if (selectionState.solar) {
 
     function showAuxQualityModal(e) {
       e.preventDefault();
+      e.stopPropagation();
       auxQualityModal.style.display = 'flex';
     }
     auxDownloadBtn.addEventListener('click', showAuxQualityModal);
-    auxDownloadBtn.addEventListener('touchend', showAuxQualityModal);
 
     // Quality modal button handlers
     auxQualityModal.querySelector('.quality-options').addEventListener('click', (e) => {
@@ -2474,8 +2477,12 @@ if (selectionState.solar) {
 
     // Back to offer button handler
     const backToOfferBtn = document.getElementById('back-to-offer-btn');
+    let backNavigating = false;
     function navigateBackToOffer(e) {
       e.preventDefault();
+      e.stopPropagation();
+      if (backNavigating) return; // Prevent double-firing
+      backNavigating = true;
       const currentUrl = new URL(window.location.href);
       // Remove 'auxiliary' from hash, keep language
       const hash = currentUrl.hash.replace('#', '').replace('-auxiliary', '').replace('auxiliary', '');
@@ -2483,7 +2490,6 @@ if (selectionState.solar) {
       window.location.href = currentUrl.toString();
     }
     backToOfferBtn.addEventListener('click', navigateBackToOffer);
-    backToOfferBtn.addEventListener('touchend', navigateBackToOffer);
   }
 
   function getAuxiliaryStyles() {
