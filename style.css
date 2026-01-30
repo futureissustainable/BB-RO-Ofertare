@@ -890,7 +890,10 @@ p {
         flex-direction: column;
         left: 15px;
         right: 15px;
-        bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+        /* Base 80px clears Safari's bottom toolbar, plus safe-area for notches */
+        bottom: 80px;
+        bottom: calc(80px + constant(safe-area-inset-bottom)); /* iOS 11.0-11.2 */
+        bottom: calc(80px + env(safe-area-inset-bottom, 0px)); /* iOS 11.2+ */
     }
     #aux-costs-btn,
     #download-offer-btn {
