@@ -1941,6 +1941,8 @@ if (selectionState.solar) {
         if (e.target.classList.contains('lang-btn')) {
           const selectedLang = e.target.dataset.lang;
           setLanguage(selectedLang);
+          // Update URL hash to persist language
+          window.location.hash = selectedLang;
           langModal.style.display = 'none';
         }
       });
@@ -2039,11 +2041,8 @@ if (selectionState.solar) {
     if (auxCostsBtn) {
       auxCostsBtn.onclick = function(e) {
         e.preventDefault();
-        const hash = window.location.hash.replace('#', '');
-        const langMatch = hash.match(/^(ro|en|de|fr)$/i);
-        const lang = langMatch ? langMatch[1] : 'ro';
-        // Must reload page for auxiliary mode to initialize
-        window.location.href = window.location.pathname + window.location.search + '#' + lang + '-auxiliary';
+        // Use currentLang which holds the actual selected language
+        window.location.href = window.location.pathname + window.location.search + '#' + currentLang + '-auxiliary';
         window.location.reload();
       };
     }
@@ -2509,6 +2508,8 @@ if (selectionState.solar) {
       });
       // Update page title for PDF filename
       document.title = auxTitles[lang] || auxTitles['ro'];
+      // Update URL hash to persist language
+      window.location.hash = lang + '-auxiliary';
       // Hide modal after selection
       langModal.style.display = 'none';
     };
@@ -2724,10 +2725,8 @@ if (selectionState.solar) {
     if (backToOfferBtn) {
       backToOfferBtn.onclick = function(e) {
         e.preventDefault();
-        // Remove 'auxiliary' from hash, keep language
-        const hash = window.location.hash.replace('#', '').replace('-auxiliary', '').replace('auxiliary', '');
-        // Must reload page for offer mode to initialize
-        window.location.href = window.location.pathname + window.location.search + '#' + (hash || 'ro');
+        // Use auxCurrentLang which holds the actual selected language
+        window.location.href = window.location.pathname + window.location.search + '#' + auxCurrentLang;
         window.location.reload();
       };
     }
