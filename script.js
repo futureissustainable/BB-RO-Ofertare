@@ -2019,7 +2019,7 @@ if (selectionState.solar) {
 
     // Quality settings
     const qualitySettings = {
-      low: { scale: 1.5, jpegQuality: 0.6 },
+      low: { scale: 1.75, jpegQuality: 0.8 },
       high: { scale: 2, jpegQuality: 0.92 }
     };
     let selectedQuality = 'high';
@@ -2079,16 +2079,11 @@ if (selectionState.solar) {
         document.body.appendChild(renderContainer);
 
         // Helper function to convert background-image to img element
-        // html2canvas doesn't support object-fit well, so we manually calculate dimensions
         function addBgAsImg(originalEl, cloneEl, objectFit = 'cover') {
           const bgImage = window.getComputedStyle(originalEl).backgroundImage;
           if (bgImage && bgImage !== 'none') {
             const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
             if (urlMatch) {
-              // Get container dimensions
-              const containerWidth = cloneEl.offsetWidth;
-              const containerHeight = cloneEl.offsetHeight;
-
               // Clear background and set up container
               cloneEl.style.backgroundImage = 'none';
               cloneEl.style.position = 'relative';
@@ -2098,32 +2093,16 @@ if (selectionState.solar) {
               img.src = urlMatch[1];
               img.crossOrigin = 'anonymous';
 
-              // For 'cover': fill container completely (crop if needed)
-              // For 'contain': fit within container (may have empty space)
-              if (objectFit === 'cover') {
-                img.style.cssText = `
-                  position: absolute;
-                  top: 50%;
-                  left: 50%;
-                  transform: translate(-50%, -50%);
-                  min-width: 100%;
-                  min-height: 100%;
-                  width: auto;
-                  height: auto;
-                `;
-              } else {
-                // contain - fit within container, centered
-                img.style.cssText = `
-                  position: absolute;
-                  top: 50%;
-                  left: 50%;
-                  transform: translate(-50%, -50%);
-                  max-width: 100%;
-                  max-height: 100%;
-                  width: auto;
-                  height: auto;
-                `;
-              }
+              // Use width/height 100% with object-fit for proper scaling
+              img.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: ${objectFit};
+                object-position: center;
+              `;
               cloneEl.insertBefore(img, cloneEl.firstChild);
             }
           }
