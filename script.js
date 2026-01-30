@@ -2084,6 +2084,7 @@ if (selectionState.solar) {
         });
 
         const renderContainer = document.createElement('div');
+        renderContainer.id = 'pdf-render-container';
         renderContainer.style.cssText = `
           position: fixed;
           left: -10000px;
@@ -2095,6 +2096,55 @@ if (selectionState.solar) {
           z-index: -9999;
         `;
         document.body.appendChild(renderContainer);
+
+        // Inject desktop-override styles to cancel mobile CSS for PDF rendering
+        const desktopOverride = document.createElement('style');
+        desktopOverride.id = 'pdf-desktop-override';
+        desktopOverride.textContent = `
+          #pdf-render-container .page {
+            aspect-ratio: 297/210 !important;
+            width: ${RENDER_WIDTH}px !important;
+            height: ${RENDER_HEIGHT}px !important;
+            min-height: ${RENDER_HEIGHT}px !important;
+            max-height: ${RENDER_HEIGHT}px !important;
+            overflow: hidden !important;
+            padding: 40px !important;
+          }
+          #pdf-render-container .house-image { display: block !important; }
+          #pdf-render-container #section-1 .content-area { min-height: 0 !important; flex-grow: 1 !important; }
+          #pdf-render-container #section-floorplan { flex-direction: row !important; }
+          #pdf-render-container #floorplan-details { flex-basis: 35% !important; padding: 40px !important; font-size: 14px !important; }
+          #pdf-render-container #floorplan-image-container { flex-basis: 65% !important; padding: 20px !important; min-height: 0 !important; }
+          #pdf-render-container #floorplan-details h2,
+          #pdf-render-container #floorplan-details .interactive-select { font-size: 24px !important; }
+          #pdf-render-container #floorplan-details h3 { font-size: 14px !important; }
+          #pdf-render-container .detail-item { font-size: 12px !important; padding: 8px 0 !important; }
+          #pdf-render-container #section-upgrades { padding: 40px !important; }
+          #pdf-render-container #section-upgrades h2 { font-size: 28px !important; }
+          #pdf-render-container #section-upgrades h3 { font-size: 14px !important; }
+          #pdf-render-container #section-upgrades p { font-size: 11px !important; }
+          #pdf-render-container .flex-wrapper { flex-direction: row !important; gap: 30px !important; }
+          #pdf-render-container .upgrade-item h4 { font-size: 12px !important; }
+          #pdf-render-container .option-button { font-size: 11px !important; padding: 8px 16px !important; }
+          #pdf-render-container .column { font-size: 11px !important; }
+          #pdf-render-container #section-passive-info { flex-direction: row !important; }
+          #pdf-render-container #passive-info-image { flex-basis: 50% !important; min-height: 0 !important; }
+          #pdf-render-container #passive-info-text { flex-basis: 50% !important; padding: 40px !important; font-size: 12px !important; }
+          #pdf-render-container #passive-info-text h2 { font-size: 28px !important; }
+          #pdf-render-container #passive-info-text blockquote { font-size: 11px !important; }
+          #pdf-render-container .summary-section { padding: 20px !important; }
+          #pdf-render-container #inclusion-list { font-size: 11px !important; }
+          #pdf-render-container .summary-total { font-size: 16px !important; }
+          #pdf-render-container #section-3-text h2 { font-size: 28px !important; }
+          #pdf-render-container #section-3-text h3 { font-size: 14px !important; }
+          #pdf-render-container #section-3-text h4 { font-size: 12px !important; }
+          #pdf-render-container #section-3-text p { font-size: 10px !important; }
+          #pdf-render-container #section-2-text h2 { font-size: 20px !important; }
+          #pdf-render-container #section-2-text h3 { font-size: 12px !important; }
+          #pdf-render-container #section-2-text h4 { font-size: 11px !important; }
+          #pdf-render-container #section-2-text p { font-size: 10px !important; }
+        `;
+        document.head.appendChild(desktopOverride);
 
         // Helper function to convert background-image to img element
         // html2canvas doesn't support object-fit, so we manually calculate dimensions
@@ -2429,6 +2479,7 @@ if (selectionState.solar) {
         }
 
         document.body.removeChild(renderContainer);
+        document.head.removeChild(desktopOverride);
 
         const clientName = document.getElementById('client-name')?.textContent || 'Client';
         const safeName = clientName.replace(/[^a-zA-Z0-9\s-]/g, '').trim() || 'Client';
