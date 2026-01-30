@@ -111,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const translations = {
     ro: {
       pageTitle: "Oferta Generata - Biobuilds",
+      pdfOfferPrefix: "Oferta-Biobuilds",
       validity: "VALABILITATE: 30 ZILE",
       offerLabel: "OFERTA",
       offerFor: "Ofertă ",
@@ -292,6 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     en: {
       pageTitle: "Generated Offer - Biobuilds",
+      pdfOfferPrefix: "Offer-Biobuilds",
       validity: "VALIDITY: 30 DAYS",
       offerLabel: "OFFER",
       offerFor: "Offer ",
@@ -471,6 +473,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     de: {
       pageTitle: "Angebot Erstellt – Biobuilds",
+      pdfOfferPrefix: "Angebot-Biobuilds",
       validity: "GÜLTIGKEIT: 30 TAGE",
       offerLabel: "ANGEBOT",
       offerFor: "Angebot ",
@@ -650,6 +653,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     fr: {
       pageTitle: "Offre générée - Biobuilds",
+      pdfOfferPrefix: "Offre-Biobuilds",
       validity: "VALIDITÉ : 30 JOURS",
       offerLabel: "OFFRE",
       offerFor: "Offre ",
@@ -2022,20 +2026,15 @@ if (selectionState.solar) {
 
     // Auxiliary costs button - navigate to auxiliary view
     const auxCostsBtn = document.getElementById('aux-costs-btn');
-    let auxNavigating = false;
-    function navigateToAuxiliary(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      if (auxNavigating) return; // Prevent double-firing
-      auxNavigating = true;
-      const currentUrl = new URL(window.location.href);
-      const hash = currentUrl.hash.replace('#', '');
-      const langMatch = hash.match(/^(ro|en|de|fr)$/i);
-      const lang = langMatch ? langMatch[1] : 'ro';
-      currentUrl.hash = lang + '-auxiliary';
-      window.location.href = currentUrl.toString();
+    if (auxCostsBtn) {
+      auxCostsBtn.onclick = function(e) {
+        e.preventDefault();
+        const hash = window.location.hash.replace('#', '');
+        const langMatch = hash.match(/^(ro|en|de|fr)$/i);
+        const lang = langMatch ? langMatch[1] : 'ro';
+        window.location.hash = lang + '-auxiliary';
+      };
     }
-    auxCostsBtn.addEventListener('click', navigateToAuxiliary);
 
     // PDF generation function with quality settings
     async function generatePDF(quality) {
@@ -2287,7 +2286,8 @@ if (selectionState.solar) {
 
         const clientName = document.getElementById('client-name')?.textContent || 'Client';
         const safeName = clientName.replace(/[^a-zA-Z0-9\s-]/g, '').trim() || 'Client';
-        const filename = `Oferta-Biobuilds-${safeName}.pdf`;
+        const pdfPrefix = translations[currentLang]?.pdfOfferPrefix || 'Offer-Biobuilds';
+        const filename = `${pdfPrefix}-${safeName}.pdf`;
         pdf.save(filename);
 
       } catch (error) {
@@ -2355,6 +2355,15 @@ if (selectionState.solar) {
     // Generate auxiliary HTML and replace body content
     document.body.innerHTML = generateAuxiliaryHTML();
 
+    // Set page title based on language (used for PDF filename when printing)
+    const auxTitles = {
+      ro: 'Costuri Auxiliare - Biobuilds',
+      en: 'Auxiliary Costs - Biobuilds',
+      de: 'Zusätzliche Kosten - Biobuilds',
+      fr: 'Coûts Auxiliaires - Biobuilds'
+    };
+    document.title = auxTitles[currentLang] || auxTitles['ro'];
+
     // Add Poppins font via link tag (more reliable than @import)
     const fontLink = document.createElement('link');
     fontLink.rel = 'stylesheet';
@@ -2379,6 +2388,8 @@ if (selectionState.solar) {
           el.classList.add('active-lang');
         }
       });
+      // Update page title for PDF filename
+      document.title = auxTitles[lang] || auxTitles['ro'];
       // Hide modal after selection
       langModal.style.display = 'none';
     };
@@ -2477,19 +2488,14 @@ if (selectionState.solar) {
 
     // Back to offer button handler
     const backToOfferBtn = document.getElementById('back-to-offer-btn');
-    let backNavigating = false;
-    function navigateBackToOffer(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      if (backNavigating) return; // Prevent double-firing
-      backNavigating = true;
-      const currentUrl = new URL(window.location.href);
-      // Remove 'auxiliary' from hash, keep language
-      const hash = currentUrl.hash.replace('#', '').replace('-auxiliary', '').replace('auxiliary', '');
-      currentUrl.hash = hash || 'ro';
-      window.location.href = currentUrl.toString();
+    if (backToOfferBtn) {
+      backToOfferBtn.onclick = function(e) {
+        e.preventDefault();
+        // Remove 'auxiliary' from hash, keep language
+        const hash = window.location.hash.replace('#', '').replace('-auxiliary', '').replace('auxiliary', '');
+        window.location.hash = hash || 'ro';
+      };
     }
-    backToOfferBtn.addEventListener('click', navigateBackToOffer);
   }
 
   function getAuxiliaryStyles() {
