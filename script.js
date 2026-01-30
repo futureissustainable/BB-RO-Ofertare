@@ -2289,12 +2289,12 @@ if (selectionState.solar) {
           await new Promise(resolve => setTimeout(resolve, 50));
 
           // Convert background images to actual img elements for html2canvas
-          // Section 1: content-area background (use 25% to show upper portion of house)
+          // Section 1: content-area background (35% vertical position)
           if (pageId === 'section-1') {
             const contentArea = page.querySelector('.content-area');
             const cloneContentArea = clone.querySelector('.content-area');
             if (contentArea && cloneContentArea) {
-              await addBgAsImg(contentArea, cloneContentArea, 'cover', '25%');
+              await addBgAsImg(contentArea, cloneContentArea, 'cover', '35%');
             }
           }
 
