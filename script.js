@@ -2055,6 +2055,13 @@ if (selectionState.solar) {
       btn.querySelector('span').textContent = 'LOADING';
       btn.disabled = true;
 
+      // Re-check language from hash and force refresh translations before generating PDF
+      const hashLangPdf = window.location.hash.match(/#(ro|en|de|fr)(?:\b|$)/i);
+      if (hashLangPdf) {
+        currentLang = hashLangPdf[1].toLowerCase();
+      }
+      setLanguage(currentLang);
+
       const settings = qualitySettings[quality];
 
       try {
