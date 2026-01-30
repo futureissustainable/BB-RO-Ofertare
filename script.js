@@ -54,6 +54,11 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+  // DEBUG: Visual indicator that JS is running
+  try {
+    document.body.style.setProperty('--js-loaded', '1');
+  } catch(e) {}
+
   // --- Edit Mode Detection ---
   // Check if #edit is in the URL hash
   /** @type {boolean} */
@@ -2017,14 +2022,36 @@ if (selectionState.solar) {
     let selectedQuality = 'high';
 
     // Auxiliary costs button - navigate to auxiliary view
-    document.getElementById('aux-costs-btn').addEventListener('click', function() {
-      const currentUrl = new URL(window.location.href);
-      const hash = currentUrl.hash.replace('#', '');
-      const langMatch = hash.match(/^(ro|en|de|fr)$/i);
-      const lang = langMatch ? langMatch[1] : 'ro';
-      currentUrl.hash = lang + '-auxiliary';
-      window.location.href = currentUrl.toString();
-    });
+    const auxBtn = document.getElementById('aux-costs-btn');
+    const dlBtn = document.getElementById('download-offer-btn');
+
+    if (auxBtn) {
+      auxBtn.addEventListener('click', function() {
+        const currentUrl = new URL(window.location.href);
+        const hash = currentUrl.hash.replace('#', '');
+        const langMatch = hash.match(/^(ro|en|de|fr)$/i);
+        const lang = langMatch ? langMatch[1] : 'ro';
+        currentUrl.hash = lang + '-auxiliary';
+        window.location.href = currentUrl.toString();
+      });
+      // Mark button as JS-enabled
+      auxBtn.dataset.jsEnabled = 'true';
+    }
+
+    if (dlBtn) {
+      dlBtn.dataset.jsEnabled = 'true';
+    }
+
+    // DEBUG: Show red border if JS successfully attached listeners
+    // Remove this after debugging
+    if (auxBtn && dlBtn) {
+      auxBtn.style.boxShadow = '0 0 0 3px lime';
+      dlBtn.style.boxShadow = '0 0 0 3px lime';
+      setTimeout(() => {
+        auxBtn.style.boxShadow = '';
+        dlBtn.style.boxShadow = '';
+      }, 2000);
+    }
 
     // PDF generation function with quality settings
     async function generatePDF(quality) {
