@@ -2084,6 +2084,7 @@ if (selectionState.solar) {
         });
 
         const renderContainer = document.createElement('div');
+        renderContainer.className = 'pdf-render-container';
         renderContainer.style.cssText = `
           position: fixed;
           left: -10000px;
@@ -2095,6 +2096,108 @@ if (selectionState.solar) {
           z-index: -9999;
         `;
         document.body.appendChild(renderContainer);
+
+        // Inject desktop override styles to counteract mobile media queries
+        // This ensures PDF renders with desktop layout regardless of viewport size
+        const desktopOverrideStyle = document.createElement('style');
+        desktopOverrideStyle.id = 'pdf-desktop-override';
+        desktopOverrideStyle.textContent = `
+          .pdf-render-container .page {
+            aspect-ratio: ${297/210} !important;
+            min-height: auto !important;
+            height: auto !important;
+            overflow: hidden !important;
+          }
+          .pdf-render-container .house-image {
+            display: block !important;
+          }
+          .pdf-render-container #section-1 .content-area {
+            min-height: 0 !important;
+          }
+          .pdf-render-container #section-floorplan {
+            flex-direction: row !important;
+          }
+          .pdf-render-container #floorplan-details {
+            flex-basis: 35% !important;
+            padding: 45px !important;
+          }
+          .pdf-render-container #floorplan-image-container {
+            flex-basis: 65% !important;
+            padding: 45px !important;
+            min-height: 0 !important;
+          }
+          .pdf-render-container #floorplan-details h2,
+          .pdf-render-container #floorplan-details .interactive-select {
+            font-size: 2.2vw !important;
+          }
+          .pdf-render-container #floorplan-details h3 {
+            font-size: 1.5vw !important;
+          }
+          .pdf-render-container .detail-item {
+            font-size: 1.1vw !important;
+            padding: 0.6vw 0 !important;
+          }
+          .pdf-render-container #section-upgrades {
+            padding: 45px !important;
+          }
+          .pdf-render-container #section-upgrades h2 {
+            font-size: 2vw !important;
+          }
+          .pdf-render-container #section-upgrades h3 {
+            font-size: 1.2vw !important;
+          }
+          .pdf-render-container #section-upgrades p {
+            font-size: 1vw !important;
+          }
+          .pdf-render-container .flex-wrapper {
+            flex-direction: row !important;
+            gap: 34px !important;
+          }
+          .pdf-render-container .upgrade-item h4 {
+            font-size: 1vw !important;
+          }
+          .pdf-render-container .option-button {
+            font-size: 0.9vw !important;
+            padding: 8px 12px !important;
+          }
+          .pdf-render-container .timeline-container {
+            transform: scale(1) !important;
+            margin: 1.5vw 0 !important;
+          }
+          .pdf-render-container .label {
+            font-size: 0.7vw !important;
+          }
+          .pdf-render-container #section-2-text h2,
+          .pdf-render-container #section-3-text h2 {
+            font-size: 2vw !important;
+          }
+          .pdf-render-container #section-2-text h3,
+          .pdf-render-container #section-3-text h3 {
+            font-size: 1.2vw !important;
+          }
+          .pdf-render-container #section-2-text p,
+          .pdf-render-container #section-3-text p {
+            font-size: 1vw !important;
+          }
+          .pdf-render-container #section-2-text h4,
+          .pdf-render-container #section-3-text h4 {
+            font-size: 1vw !important;
+          }
+          .pdf-render-container .turnkey-disclaimer {
+            font-size: 0.8vw !important;
+          }
+          .pdf-render-container #section-passive-info {
+            flex-direction: row !important;
+          }
+          .pdf-render-container #passive-info-image {
+            flex-basis: 50% !important;
+          }
+          .pdf-render-container #passive-info-text {
+            flex-basis: 50% !important;
+            padding-left: 40px !important;
+          }
+        `;
+        document.head.appendChild(desktopOverrideStyle);
 
         // Helper function to convert background-image to img element
         // html2canvas doesn't support object-fit, so we manually calculate dimensions
@@ -2428,6 +2531,7 @@ if (selectionState.solar) {
         }
 
         document.body.removeChild(renderContainer);
+        document.head.removeChild(desktopOverrideStyle);
 
         const clientName = document.getElementById('client-name')?.textContent || 'Client';
         const safeName = clientName.replace(/[^a-zA-Z0-9\s-]/g, '').trim() || 'Client';
@@ -2437,6 +2541,9 @@ if (selectionState.solar) {
 
       } catch (error) {
         console.error('PDF generation failed:', error);
+        // Clean up injected styles on error
+        const styleEl = document.getElementById('pdf-desktop-override');
+        if (styleEl) document.head.removeChild(styleEl);
         window.print();
       }
 
@@ -2652,6 +2759,7 @@ if (selectionState.solar) {
         });
 
         const renderContainer = document.createElement('div');
+        renderContainer.className = 'pdf-render-container';
         renderContainer.style.cssText = `
           position: fixed;
           left: -10000px;
@@ -2663,6 +2771,19 @@ if (selectionState.solar) {
           z-index: -9999;
         `;
         document.body.appendChild(renderContainer);
+
+        // Inject desktop override styles for auxiliary pages
+        const auxDesktopOverrideStyle = document.createElement('style');
+        auxDesktopOverrideStyle.id = 'aux-pdf-desktop-override';
+        auxDesktopOverrideStyle.textContent = `
+          .pdf-render-container .page {
+            aspect-ratio: ${297/210} !important;
+            min-height: auto !important;
+            height: auto !important;
+            overflow: hidden !important;
+          }
+        `;
+        document.head.appendChild(auxDesktopOverrideStyle);
 
         for (let i = 0; i < pages.length; i++) {
           const page = pages[i];
@@ -2704,6 +2825,7 @@ if (selectionState.solar) {
         }
 
         document.body.removeChild(renderContainer);
+        document.head.removeChild(auxDesktopOverrideStyle);
 
         const pdfPrefix = auxPdfPrefixes[auxCurrentLang] || auxPdfPrefixes['en'];
         const filename = `${pdfPrefix}.pdf`;
@@ -2711,6 +2833,9 @@ if (selectionState.solar) {
 
       } catch (error) {
         console.error('Auxiliary PDF generation failed:', error);
+        // Clean up injected styles on error
+        const styleEl = document.getElementById('aux-pdf-desktop-override');
+        if (styleEl) document.head.removeChild(styleEl);
         window.print();
       }
 
