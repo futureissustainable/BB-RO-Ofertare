@@ -2022,20 +2022,15 @@ if (selectionState.solar) {
 
     // Auxiliary costs button - navigate to auxiliary view
     const auxCostsBtn = document.getElementById('aux-costs-btn');
-    let auxNavigating = false;
-    function navigateToAuxiliary(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      if (auxNavigating) return; // Prevent double-firing
-      auxNavigating = true;
-      const currentUrl = new URL(window.location.href);
-      const hash = currentUrl.hash.replace('#', '');
-      const langMatch = hash.match(/^(ro|en|de|fr)$/i);
-      const lang = langMatch ? langMatch[1] : 'ro';
-      currentUrl.hash = lang + '-auxiliary';
-      window.location.href = currentUrl.toString();
+    if (auxCostsBtn) {
+      auxCostsBtn.onclick = function(e) {
+        e.preventDefault();
+        const hash = window.location.hash.replace('#', '');
+        const langMatch = hash.match(/^(ro|en|de|fr)$/i);
+        const lang = langMatch ? langMatch[1] : 'ro';
+        window.location.hash = lang + '-auxiliary';
+      };
     }
-    auxCostsBtn.addEventListener('click', navigateToAuxiliary);
 
     // PDF generation function with quality settings
     async function generatePDF(quality) {
@@ -2477,19 +2472,14 @@ if (selectionState.solar) {
 
     // Back to offer button handler
     const backToOfferBtn = document.getElementById('back-to-offer-btn');
-    let backNavigating = false;
-    function navigateBackToOffer(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      if (backNavigating) return; // Prevent double-firing
-      backNavigating = true;
-      const currentUrl = new URL(window.location.href);
-      // Remove 'auxiliary' from hash, keep language
-      const hash = currentUrl.hash.replace('#', '').replace('-auxiliary', '').replace('auxiliary', '');
-      currentUrl.hash = hash || 'ro';
-      window.location.href = currentUrl.toString();
+    if (backToOfferBtn) {
+      backToOfferBtn.onclick = function(e) {
+        e.preventDefault();
+        // Remove 'auxiliary' from hash, keep language
+        const hash = window.location.hash.replace('#', '').replace('-auxiliary', '').replace('auxiliary', '');
+        window.location.hash = hash || 'ro';
+      };
     }
-    backToOfferBtn.addEventListener('click', navigateBackToOffer);
   }
 
   function getAuxiliaryStyles() {
