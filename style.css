@@ -45,6 +45,15 @@ body::-webkit-scrollbar {
     color: #fff;
 }
 
+/* Global button reset - prevent mobile browser blue text */
+button {
+    color: inherit;
+    font-family: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
 #config-panel {
     display: none;
 }

@@ -1908,6 +1908,7 @@ if (selectionState.solar) {
         border: 1px solid #ddd;
         border-radius: 8px;
         background: white;
+        color: #333;
         cursor: pointer;
         font-size: 16px;
         font-weight: 500;
@@ -1989,6 +1990,7 @@ if (selectionState.solar) {
         border: 1px solid #ddd;
         border-radius: 8px;
         background: white;
+        color: #333;
         cursor: pointer;
         font-family: 'Poppins', sans-serif;
         transition: all 0.2s;
@@ -2541,7 +2543,7 @@ if (selectionState.solar) {
       #aux-lang-modal .lang-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
       #aux-lang-modal .lang-btn {
         padding: 15px 20px; border: 1px solid #ddd; border-radius: 8px; background: white;
-        cursor: pointer; font-size: 16px; font-weight: 500; transition: all 0.2s; font-family: 'Poppins', sans-serif;
+        color: #333; cursor: pointer; font-size: 16px; font-weight: 500; transition: all 0.2s; font-family: 'Poppins', sans-serif;
         touch-action: manipulation; -webkit-tap-highlight-color: transparent;
       }
       #aux-lang-modal .lang-btn:hover { border-color: #000; background: #f5f5f5; }
