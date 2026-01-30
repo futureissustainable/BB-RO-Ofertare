@@ -643,12 +643,7 @@ p {
 .line-5 { left: 100%; }
 
 .arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: none;
 }
 
 .arrow-1 {
