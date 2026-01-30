@@ -2178,7 +2178,7 @@ if (selectionState.solar) {
           clone.style.aspectRatio = 'auto'; // Override mobile aspect-ratio: unset
           clone.style.display = 'flex';
 
-          // Floorplan section uses row layout, others use column
+          // Sections with row layout need special handling
           if (pageId === 'section-floorplan') {
             clone.style.flexDirection = 'row';
             // Ensure flex children have correct sizing
@@ -2210,6 +2210,25 @@ if (selectionState.solar) {
                 floorplanImg.style.height = 'auto';
                 floorplanImg.style.objectFit = 'contain';
               }
+            }
+          } else if (pageId === 'section-passive-info') {
+            clone.style.flexDirection = 'row';
+            // Passive info: 50% image, 50% text
+            const passiveImage = clone.querySelector('#passive-info-image');
+            const passiveText = clone.querySelector('#passive-info-text');
+            if (passiveImage) {
+              passiveImage.style.flexBasis = '50%';
+              passiveImage.style.flexShrink = '0';
+              passiveImage.style.height = '100%';
+              passiveImage.style.boxSizing = 'border-box';
+            }
+            if (passiveText) {
+              passiveText.style.flexBasis = '50%';
+              passiveText.style.flexShrink = '0';
+              passiveText.style.height = '100%';
+              passiveText.style.overflow = 'hidden';
+              passiveText.style.padding = '40px';
+              passiveText.style.boxSizing = 'border-box';
             }
           } else {
             clone.style.flexDirection = 'column';
@@ -2250,7 +2269,7 @@ if (selectionState.solar) {
             const passiveImg = page.querySelector('#passive-info-image');
             const clonePassiveImg = clone.querySelector('#passive-info-image');
             if (passiveImg && clonePassiveImg) {
-              await addBgAsImg(passiveImg, clonePassiveImg, 'contain');
+              await addBgAsImg(passiveImg, clonePassiveImg, 'cover');
             }
           }
 
@@ -2667,7 +2686,7 @@ if (selectionState.solar) {
       #back-to-offer-btn svg, #back-to-offer-btn span { flex-shrink: 0; pointer-events: none; }
       #back-to-offer-btn [data-lang]:not(.active-lang) { display: none; }
       @media (max-width: 768px) {
-        #aux-sticky-buttons { flex-direction: column; left: 15px; right: 15px; bottom: 120px; }
+        #aux-sticky-buttons { flex-direction: column; left: 15px; right: 15px; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
         #aux-download-btn, #back-to-offer-btn { width: 100%; justify-content: center; }
       }
       #aux-lang-modal {
