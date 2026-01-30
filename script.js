@@ -844,6 +844,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    // Explicitly update sticky button texts (ensure they're translated on mobile)
+    const downloadBtn = document.querySelector('#download-offer-btn span[data-key]');
+    const auxBtn = document.querySelector('#aux-costs-btn span[data-key]');
+    if (downloadBtn && translations[lang].downloadOffer) {
+      downloadBtn.innerHTML = translations[lang].downloadOffer;
+    }
+    if (auxBtn && translations[lang].auxCosts) {
+      auxBtn.innerHTML = translations[lang].auxCosts;
+    }
+
     document.querySelectorAll("#language-selector a").forEach((a) => {
       a.classList.toggle("active", a.getAttribute("data-lang") === lang);
     });
@@ -2082,7 +2092,8 @@ if (selectionState.solar) {
 
         // Helper function to convert background-image to img element
         // html2canvas doesn't support object-fit, so we manually calculate dimensions
-        async function addBgAsImg(originalEl, cloneEl, objectFit = 'cover') {
+        // verticalAlign: 'center' (default), 'top', or percentage like '30%' for custom position
+        async function addBgAsImg(originalEl, cloneEl, objectFit = 'cover', verticalAlign = 'center') {
           const bgImage = window.getComputedStyle(originalEl).backgroundImage;
           if (bgImage && bgImage !== 'none') {
             const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
@@ -2142,9 +2153,22 @@ if (selectionState.solar) {
                 }
               }
 
-              // Center the image
+              // Position the image horizontally centered, vertically based on verticalAlign
               left = (containerWidth - finalWidth) / 2;
-              top = (containerHeight - finalHeight) / 2;
+
+              // Calculate vertical position
+              if (verticalAlign === 'top') {
+                top = 0;
+              } else if (verticalAlign === 'center') {
+                top = (containerHeight - finalHeight) / 2;
+              } else if (verticalAlign.endsWith('%')) {
+                // Percentage-based: 0% = top, 50% = center, 100% = bottom
+                const percent = parseFloat(verticalAlign) / 100;
+                const maxOffset = containerHeight - finalHeight;
+                top = maxOffset * percent;
+              } else {
+                top = (containerHeight - finalHeight) / 2;
+              }
 
               img.style.cssText = `
                 position: absolute;
@@ -2255,12 +2279,12 @@ if (selectionState.solar) {
           await new Promise(resolve => setTimeout(resolve, 50));
 
           // Convert background images to actual img elements for html2canvas
-          // Section 1: content-area background
+          // Section 1: content-area background (use 25% to show upper portion of house)
           if (pageId === 'section-1') {
             const contentArea = page.querySelector('.content-area');
             const cloneContentArea = clone.querySelector('.content-area');
             if (contentArea && cloneContentArea) {
-              await addBgAsImg(contentArea, cloneContentArea, 'cover');
+              await addBgAsImg(contentArea, cloneContentArea, 'cover', '25%');
             }
           }
 
@@ -2686,7 +2710,14 @@ if (selectionState.solar) {
       #back-to-offer-btn svg, #back-to-offer-btn span { flex-shrink: 0; pointer-events: none; }
       #back-to-offer-btn [data-lang]:not(.active-lang) { display: none; }
       @media (max-width: 768px) {
-        #aux-sticky-buttons { flex-direction: column; left: 15px; right: 15px; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
+        #aux-sticky-buttons {
+          flex-direction: column;
+          left: 15px;
+          right: 15px;
+          bottom: 80px;
+          bottom: calc(80px + constant(safe-area-inset-bottom));
+          bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+        }
         #aux-download-btn, #back-to-offer-btn { width: 100%; justify-content: center; }
       }
       #aux-lang-modal {
