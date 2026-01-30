@@ -2281,6 +2281,33 @@ if (selectionState.solar) {
             el.style.display = ''; // Restore if hidden on mobile
           });
 
+          // Hide non-selected addons in upgrades section for PDF
+          if (pageId === 'section-upgrades') {
+            // Hide non-selected facade options
+            clone.querySelectorAll('[data-upgrade-type="facade"] .option-button').forEach(btn => {
+              if (btn.dataset.value !== selectionState.facade) {
+                btn.style.display = 'none';
+              }
+            });
+            // Hide non-selected parquet options
+            clone.querySelectorAll('[data-upgrade-type="parquet"] .option-button').forEach(btn => {
+              if (btn.dataset.value !== selectionState.parquet) {
+                btn.style.display = 'none';
+              }
+            });
+            // Hide upgrade items that are not selected
+            clone.querySelectorAll('.upgrade-item.clickable').forEach(item => {
+              const type = item.dataset.upgradeType;
+              if (type === 'blinds' && !selectionState.blinds) {
+                item.style.display = 'none';
+              } else if (type === 'ventilation' && !selectionState.ventilation) {
+                item.style.display = 'none';
+              } else if (type === 'solar' && !selectionState.solar) {
+                item.style.display = 'none';
+              }
+            });
+          }
+
           // Add to DOM for rendering
           renderContainer.innerHTML = '';
           renderContainer.appendChild(clone);
