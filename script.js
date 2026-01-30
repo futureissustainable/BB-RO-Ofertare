@@ -2021,14 +2021,18 @@ if (selectionState.solar) {
     let selectedQuality = 'high';
 
     // Auxiliary costs button - navigate to auxiliary view
-    document.getElementById('aux-costs-btn').addEventListener('click', function() {
+    const auxCostsBtn = document.getElementById('aux-costs-btn');
+    function navigateToAuxiliary(e) {
+      e.preventDefault();
       const currentUrl = new URL(window.location.href);
       const hash = currentUrl.hash.replace('#', '');
       const langMatch = hash.match(/^(ro|en|de|fr)$/i);
       const lang = langMatch ? langMatch[1] : 'ro';
       currentUrl.hash = lang + '-auxiliary';
       window.location.href = currentUrl.toString();
-    });
+    }
+    auxCostsBtn.addEventListener('click', navigateToAuxiliary);
+    auxCostsBtn.addEventListener('touchend', navigateToAuxiliary);
 
     // PDF generation function with quality settings
     async function generatePDF(quality) {
@@ -2413,18 +2417,26 @@ if (selectionState.solar) {
     }
 
     // Download button handler
-    document.getElementById('aux-download-btn').addEventListener('click', function() {
+    const auxDownloadBtn = document.getElementById('aux-download-btn');
+    function handleAuxDownload(e) {
+      e.preventDefault();
       window.print();
-    });
+    }
+    auxDownloadBtn.addEventListener('click', handleAuxDownload);
+    auxDownloadBtn.addEventListener('touchend', handleAuxDownload);
 
     // Back to offer button handler
-    document.getElementById('back-to-offer-btn').addEventListener('click', function() {
+    const backToOfferBtn = document.getElementById('back-to-offer-btn');
+    function navigateBackToOffer(e) {
+      e.preventDefault();
       const currentUrl = new URL(window.location.href);
       // Remove 'auxiliary' from hash, keep language
       const hash = currentUrl.hash.replace('#', '').replace('-auxiliary', '').replace('auxiliary', '');
       currentUrl.hash = hash || 'ro';
       window.location.href = currentUrl.toString();
-    });
+    }
+    backToOfferBtn.addEventListener('click', navigateBackToOffer);
+    backToOfferBtn.addEventListener('touchend', navigateBackToOffer);
   }
 
   function getAuxiliaryStyles() {
@@ -2519,14 +2531,14 @@ if (selectionState.solar) {
       }
       #aux-download-btn:hover { background: #333; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
       #aux-download-btn:active { transform: translateY(0); }
-      #aux-download-btn svg { flex-shrink: 0; }
+      #aux-download-btn svg, #aux-download-btn span { flex-shrink: 0; pointer-events: none; }
       #back-to-offer-btn {
         background: #000; color: #fff; border: none;
         box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       }
       #back-to-offer-btn:hover { background: #333; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
       #back-to-offer-btn:active { transform: translateY(0); }
-      #back-to-offer-btn svg { flex-shrink: 0; }
+      #back-to-offer-btn svg, #back-to-offer-btn span { flex-shrink: 0; pointer-events: none; }
       #back-to-offer-btn [data-lang]:not(.active-lang) { display: none; }
       @media (max-width: 768px) {
         #aux-sticky-buttons { flex-direction: column; left: 15px; right: 15px; bottom: 120px; }

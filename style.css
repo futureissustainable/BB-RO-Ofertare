@@ -883,8 +883,11 @@ p {
 }
 
 #aux-costs-btn svg,
-#download-offer-btn svg {
+#aux-costs-btn span,
+#download-offer-btn svg,
+#download-offer-btn span {
     flex-shrink: 0;
+    pointer-events: none;
 }
 
 @media (max-width: 768px) {
