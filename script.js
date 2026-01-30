@@ -2298,12 +2298,12 @@ if (selectionState.solar) {
             }
           }
 
-          // Section passive-info: side image background
+          // Section passive-info: side image background (contain = fit without cropping)
           if (pageId === 'section-passive-info') {
             const passiveImg = page.querySelector('#passive-info-image');
             const clonePassiveImg = clone.querySelector('#passive-info-image');
             if (passiveImg && clonePassiveImg) {
-              await addBgAsImg(passiveImg, clonePassiveImg, 'cover');
+              await addBgAsImg(passiveImg, clonePassiveImg, 'contain');
             }
           }
 
