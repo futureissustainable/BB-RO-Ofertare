@@ -2718,12 +2718,12 @@ if (selectionState.solar) {
       #back-to-offer-btn [data-lang]:not(.active-lang) { display: none; }
       @media (max-width: 768px) {
         #aux-sticky-buttons {
-          flex-direction: column;
+          flex-direction: column-reverse;
           left: 15px;
           right: 15px;
-          bottom: 80px;
-          bottom: calc(80px + constant(safe-area-inset-bottom));
-          bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+          bottom: 110px;
+          bottom: calc(110px + constant(safe-area-inset-bottom));
+          bottom: calc(110px + env(safe-area-inset-bottom, 0px));
         }
         #aux-download-btn, #back-to-offer-btn { width: 100%; justify-content: center; }
       }
