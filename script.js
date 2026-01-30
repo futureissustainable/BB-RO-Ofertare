@@ -1928,6 +1928,91 @@ if (selectionState.solar) {
       });
     }
 
+    // Create quality selection modal for PDF download (mobile only)
+    const qualityModal = document.createElement('div');
+    qualityModal.id = 'quality-select-modal';
+    qualityModal.innerHTML = `
+      <div class="quality-modal-content">
+        <h3>PDF Quality</h3>
+        <div class="quality-options">
+          <button data-quality="low" class="quality-btn">
+            <span class="quality-title">Low Size</span>
+            <span class="quality-desc">Smaller file, faster</span>
+          </button>
+          <button data-quality="high" class="quality-btn">
+            <span class="quality-title">Full Quality</span>
+            <span class="quality-desc">Best for printing</span>
+          </button>
+        </div>
+      </div>
+    `;
+    qualityModal.style.cssText = `
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 99999;
+      justify-content: center;
+      align-items: center;
+    `;
+    const qualityModalContent = qualityModal.querySelector('.quality-modal-content');
+    qualityModalContent.style.cssText = `
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 350px;
+      width: 90%;
+    `;
+    const qualityModalTitle = qualityModal.querySelector('h3');
+    qualityModalTitle.style.cssText = `
+      margin: 0 0 20px 0;
+      font-size: 18px;
+      color: #333;
+      font-family: 'Poppins', sans-serif;
+    `;
+    const qualityOptionsDiv = qualityModal.querySelector('.quality-options');
+    qualityOptionsDiv.style.cssText = `
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    `;
+    qualityModal.querySelectorAll('.quality-btn').forEach(btn => {
+      btn.style.cssText = `
+        padding: 16px 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: white;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        transition: all 0.2s;
+        text-align: left;
+      `;
+      btn.querySelector('.quality-title').style.cssText = `
+        display: block;
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+      `;
+      btn.querySelector('.quality-desc').style.cssText = `
+        display: block;
+        font-size: 12px;
+        color: #666;
+        margin-top: 4px;
+      `;
+    });
+    document.body.appendChild(qualityModal);
+
+    // Quality settings
+    const qualitySettings = {
+      low: { scale: 1.5, jpegQuality: 0.6 },
+      high: { scale: 2, jpegQuality: 0.92 }
+    };
+    let selectedQuality = 'high';
+
     // Auxiliary costs button - navigate to auxiliary view
     document.getElementById('aux-costs-btn').addEventListener('click', function() {
       const currentUrl = new URL(window.location.href);
@@ -1938,20 +2023,14 @@ if (selectionState.solar) {
       window.location.href = currentUrl.toString();
     });
 
-    // Simple download button - window.print() for desktop, PDF for iOS
-    document.getElementById('download-offer-btn').addEventListener('click', async function() {
-      const btn = this;
+    // PDF generation function with quality settings
+    async function generatePDF(quality) {
+      const btn = document.getElementById('download-offer-btn');
       const originalText = btn.querySelector('span').textContent;
-
-      // For desktop browsers, just use window.print()
-      if (!needsPdfGeneration) {
-        window.print();
-        return;
-      }
-
-      // For iOS/mobile, generate a PDF file
       btn.querySelector('span').textContent = 'LOADING';
       btn.disabled = true;
+
+      const settings = qualitySettings[quality];
 
       try {
         const PDF_WIDTH_MM = 297;
@@ -2158,7 +2237,7 @@ if (selectionState.solar) {
           }
 
           const canvas = await html2canvas(clone, {
-            scale: 2,
+            scale: settings.scale,
             useCORS: true,
             allowTaint: true,
             logging: false,
@@ -2169,7 +2248,7 @@ if (selectionState.solar) {
             windowHeight: RENDER_HEIGHT
           });
 
-          const imgData = canvas.toDataURL('image/jpeg', 0.92);
+          const imgData = canvas.toDataURL('image/jpeg', settings.jpegQuality);
           pdf.addImage(imgData, 'JPEG', 0, 0, PDF_WIDTH_MM, PDF_HEIGHT_MM);
         }
 
@@ -2187,6 +2266,35 @@ if (selectionState.solar) {
 
       btn.querySelector('span').textContent = originalText;
       btn.disabled = false;
+    }
+
+    // Download button - window.print() for desktop, show quality modal for mobile
+    document.getElementById('download-offer-btn').addEventListener('click', function() {
+      // For desktop browsers, just use window.print()
+      if (!needsPdfGeneration) {
+        window.print();
+        return;
+      }
+
+      // For mobile, show quality selection modal
+      qualityModal.style.display = 'flex';
+    });
+
+    // Quality modal button handlers
+    qualityOptionsDiv.addEventListener('click', async (e) => {
+      const btn = e.target.closest('.quality-btn');
+      if (btn) {
+        selectedQuality = btn.dataset.quality;
+        qualityModal.style.display = 'none';
+        await generatePDF(selectedQuality);
+      }
+    });
+
+    // Close modal on background click
+    qualityModal.addEventListener('click', (e) => {
+      if (e.target === qualityModal) {
+        qualityModal.style.display = 'none';
+      }
     });
   }
 
