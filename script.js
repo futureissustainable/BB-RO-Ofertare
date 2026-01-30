@@ -1908,10 +1908,13 @@ if (selectionState.solar) {
         border: 1px solid #ddd;
         border-radius: 8px;
         background: white;
+        color: #333;
         cursor: pointer;
         font-size: 16px;
         font-weight: 500;
+        font-family: 'Poppins', sans-serif;
         transition: all 0.2s;
+        -webkit-tap-highlight-color: transparent;
       `;
     });
     document.body.appendChild(langModal);
