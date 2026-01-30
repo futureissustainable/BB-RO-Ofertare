@@ -2246,11 +2246,11 @@ if (selectionState.solar) {
             clone.style.flexDirection = 'row';
             clone.style.alignItems = 'center';
             clone.style.padding = '40px';
-            // Passive info: 45% image, 55% text
+            // Passive info: 50% image, 50% text
             const passiveImage = clone.querySelector('#passive-info-image');
             const passiveText = clone.querySelector('#passive-info-text');
             if (passiveImage) {
-              passiveImage.style.flexBasis = '45%';
+              passiveImage.style.flexBasis = '50%';
               passiveImage.style.flexShrink = '0';
               passiveImage.style.height = '70%';
               passiveImage.style.boxSizing = 'border-box';
@@ -2258,7 +2258,7 @@ if (selectionState.solar) {
               passiveImage.style.overflow = 'hidden';
             }
             if (passiveText) {
-              passiveText.style.flexBasis = '55%';
+              passiveText.style.flexBasis = '50%';
               passiveText.style.flexShrink = '0';
               passiveText.style.height = 'auto';
               passiveText.style.overflow = 'hidden';
