@@ -25,6 +25,7 @@ body {
     flex-direction: column !important;
     align-items: center !important;
     gap: 5vh;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-weight: 300;
     box-sizing: border-box;
     -ms-overflow-style: none;
@@ -32,6 +33,25 @@ body {
 }
 body::-webkit-scrollbar {
     display: none;
+}
+
+/* Monochrome text selection */
+::selection {
+    background: #000;
+    color: #fff;
+}
+::-moz-selection {
+    background: #000;
+    color: #fff;
+}
+
+/* Global button reset - prevent mobile browser blue text */
+button {
+    color: inherit;
+    font-family: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 #config-panel {
@@ -822,10 +842,13 @@ p {
     display: flex;
     align-items: center;
     gap: 10px;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-size: 16px;
     font-weight: 500;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #download-offer-btn:hover {
@@ -844,10 +867,13 @@ p {
     display: flex;
     align-items: center;
     gap: 10px;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-size: 16px;
     font-weight: 500;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #aux-costs-btn:hover {
@@ -857,8 +883,11 @@ p {
 }
 
 #aux-costs-btn svg,
-#download-offer-btn svg {
+#aux-costs-btn span,
+#download-offer-btn svg,
+#download-offer-btn span {
     flex-shrink: 0;
+    pointer-events: none;
 }
 
 @media (max-width: 768px) {

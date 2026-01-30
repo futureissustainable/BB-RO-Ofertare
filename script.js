@@ -1908,10 +1908,14 @@ if (selectionState.solar) {
         border: 1px solid #ddd;
         border-radius: 8px;
         background: white;
+        color: #333;
         cursor: pointer;
         font-size: 16px;
         font-weight: 500;
         transition: all 0.2s;
+        font-family: 'Poppins', sans-serif;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
       `;
     });
     document.body.appendChild(langModal);
@@ -1986,10 +1990,13 @@ if (selectionState.solar) {
         border: 1px solid #ddd;
         border-radius: 8px;
         background: white;
+        color: #333;
         cursor: pointer;
         font-family: 'Poppins', sans-serif;
         transition: all 0.2s;
         text-align: left;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
       `;
       btn.querySelector('.quality-title').style.cssText = `
         display: block;
@@ -2014,14 +2021,21 @@ if (selectionState.solar) {
     let selectedQuality = 'high';
 
     // Auxiliary costs button - navigate to auxiliary view
-    document.getElementById('aux-costs-btn').addEventListener('click', function() {
+    const auxCostsBtn = document.getElementById('aux-costs-btn');
+    let auxNavigating = false;
+    function navigateToAuxiliary(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (auxNavigating) return; // Prevent double-firing
+      auxNavigating = true;
       const currentUrl = new URL(window.location.href);
       const hash = currentUrl.hash.replace('#', '');
       const langMatch = hash.match(/^(ro|en|de|fr)$/i);
       const lang = langMatch ? langMatch[1] : 'ro';
       currentUrl.hash = lang + '-auxiliary';
       window.location.href = currentUrl.toString();
-    });
+    }
+    auxCostsBtn.addEventListener('click', navigateToAuxiliary);
 
     // PDF generation function with quality settings
     async function generatePDF(quality) {
@@ -2123,6 +2137,7 @@ if (selectionState.solar) {
           const clone = page.cloneNode(true);
 
           // Set page dimensions while preserving the flex layout
+          // Reset mobile-specific styles to ensure desktop-like rendering
           clone.style.width = RENDER_WIDTH + 'px';
           clone.style.height = RENDER_HEIGHT + 'px';
           clone.style.minHeight = RENDER_HEIGHT + 'px';
@@ -2132,6 +2147,22 @@ if (selectionState.solar) {
           clone.style.boxShadow = 'none';
           clone.style.overflow = 'hidden';
           clone.style.boxSizing = 'border-box';
+          clone.style.aspectRatio = 'auto'; // Override mobile aspect-ratio: unset
+          clone.style.display = 'flex';
+          clone.style.flexDirection = 'column';
+
+          // Reset content-area to proper flex sizing (mobile sets min-height: 50vw)
+          const cloneContentArea = clone.querySelector('.content-area');
+          if (cloneContentArea) {
+            cloneContentArea.style.flexGrow = '1';
+            cloneContentArea.style.minHeight = '0';
+            cloneContentArea.style.height = 'auto';
+          }
+
+          // Reset any mobile-specific element styles
+          clone.querySelectorAll('.house-image').forEach(el => {
+            el.style.display = ''; // Restore if hidden on mobile
+          });
 
           // Add to DOM for rendering
           renderContainer.innerHTML = '';
@@ -2268,15 +2299,8 @@ if (selectionState.solar) {
       btn.disabled = false;
     }
 
-    // Download button - window.print() for desktop, show quality modal for mobile
+    // Download button - always show quality modal first
     document.getElementById('download-offer-btn').addEventListener('click', function() {
-      // For desktop browsers, just use window.print()
-      if (!needsPdfGeneration) {
-        window.print();
-        return;
-      }
-
-      // For mobile, show quality selection modal
       qualityModal.style.display = 'flex';
     });
 
@@ -2286,7 +2310,12 @@ if (selectionState.solar) {
       if (btn) {
         selectedQuality = btn.dataset.quality;
         qualityModal.style.display = 'none';
-        await generatePDF(selectedQuality);
+        // On desktop with high quality, use native print for best results
+        if (!needsPdfGeneration && selectedQuality === 'high') {
+          window.print();
+        } else {
+          await generatePDF(selectedQuality);
+        }
       }
     });
 
@@ -2405,19 +2434,62 @@ if (selectionState.solar) {
       window.switchAuxLanguage(currentLang);
     }
 
-    // Download button handler
-    document.getElementById('aux-download-btn').addEventListener('click', function() {
-      window.print();
+    // Download button handler - show quality modal
+    const auxDownloadBtn = document.getElementById('aux-download-btn');
+    const auxQualityModal = document.getElementById('aux-quality-modal');
+
+    // Detect mobile for PDF generation
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const needsPdfGeneration = isIOS || isMobile;
+
+    function showAuxQualityModal(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      auxQualityModal.style.display = 'flex';
+    }
+    auxDownloadBtn.addEventListener('click', showAuxQualityModal);
+
+    // Quality modal button handlers
+    auxQualityModal.querySelector('.quality-options').addEventListener('click', (e) => {
+      const btn = e.target.closest('.quality-btn');
+      if (btn) {
+        const quality = btn.dataset.quality;
+        auxQualityModal.style.display = 'none';
+        // On desktop with high quality, use native print for best results
+        if (!needsPdfGeneration && quality === 'high') {
+          window.print();
+        } else {
+          // For mobile or low quality, use window.print() for now
+          // (auxiliary page doesn't have PDF generation yet)
+          window.print();
+        }
+      }
+    });
+
+    // Close modal on background click
+    auxQualityModal.addEventListener('click', (e) => {
+      if (e.target === auxQualityModal) {
+        auxQualityModal.style.display = 'none';
+      }
     });
 
     // Back to offer button handler
-    document.getElementById('back-to-offer-btn').addEventListener('click', function() {
+    const backToOfferBtn = document.getElementById('back-to-offer-btn');
+    let backNavigating = false;
+    function navigateBackToOffer(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (backNavigating) return; // Prevent double-firing
+      backNavigating = true;
       const currentUrl = new URL(window.location.href);
       // Remove 'auxiliary' from hash, keep language
       const hash = currentUrl.hash.replace('#', '').replace('-auxiliary', '').replace('auxiliary', '');
       currentUrl.hash = hash || 'ro';
       window.location.href = currentUrl.toString();
-    });
+    }
+    backToOfferBtn.addEventListener('click', navigateBackToOffer);
   }
 
   function getAuxiliaryStyles() {
@@ -2504,6 +2576,7 @@ if (selectionState.solar) {
         font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 500;
         padding: 15px 25px; border-radius: 50px;
         cursor: pointer; transition: all 0.3s ease;
+        touch-action: manipulation; -webkit-tap-highlight-color: transparent;
       }
       #aux-download-btn {
         background: #000; color: #fff; border: none;
@@ -2511,14 +2584,14 @@ if (selectionState.solar) {
       }
       #aux-download-btn:hover { background: #333; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
       #aux-download-btn:active { transform: translateY(0); }
-      #aux-download-btn svg { flex-shrink: 0; }
+      #aux-download-btn svg, #aux-download-btn span { flex-shrink: 0; pointer-events: none; }
       #back-to-offer-btn {
         background: #000; color: #fff; border: none;
         box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       }
       #back-to-offer-btn:hover { background: #333; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
       #back-to-offer-btn:active { transform: translateY(0); }
-      #back-to-offer-btn svg { flex-shrink: 0; }
+      #back-to-offer-btn svg, #back-to-offer-btn span { flex-shrink: 0; pointer-events: none; }
       #back-to-offer-btn [data-lang]:not(.active-lang) { display: none; }
       @media (max-width: 768px) {
         #aux-sticky-buttons { flex-direction: column; left: 15px; right: 15px; bottom: 120px; }
@@ -2535,16 +2608,35 @@ if (selectionState.solar) {
       #aux-lang-modal .lang-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
       #aux-lang-modal .lang-btn {
         padding: 15px 20px; border: 1px solid #ddd; border-radius: 8px; background: white;
-        cursor: pointer; font-size: 16px; font-weight: 500; transition: all 0.2s; font-family: 'Poppins', sans-serif;
+        color: #333; cursor: pointer; font-size: 16px; font-weight: 500; transition: all 0.2s; font-family: 'Poppins', sans-serif;
+        touch-action: manipulation; -webkit-tap-highlight-color: transparent;
       }
       #aux-lang-modal .lang-btn:hover { border-color: #000; background: #f5f5f5; }
+      #aux-quality-modal {
+        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.7); z-index: 99999; justify-content: center; align-items: center;
+      }
+      #aux-quality-modal .quality-modal-content {
+        background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 350px; width: 90%;
+      }
+      #aux-quality-modal h3 { margin: 0 0 20px 0; font-size: 18px; color: #333; font-family: 'Poppins', sans-serif; }
+      #aux-quality-modal .quality-options { display: flex; flex-direction: column; gap: 12px; }
+      #aux-quality-modal .quality-btn {
+        padding: 16px 20px; border: 1px solid #ddd; border-radius: 8px; background: white;
+        color: #333; cursor: pointer; text-align: left; transition: all 0.2s; font-family: 'Poppins', sans-serif;
+        touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+      }
+      #aux-quality-modal .quality-btn:hover { border-color: #000; background: #f5f5f5; }
+      #aux-quality-modal .quality-title { display: block; font-size: 16px; font-weight: 500; color: #333; }
+      #aux-quality-modal .quality-desc { display: block; font-size: 12px; color: #666; margin-top: 4px; }
+      #aux-quality-modal .quality-btn span { pointer-events: none; }
       @media print {
         @page { size: A4 landscape; margin: 0; }
         body { margin: 0; padding: 0; background: white; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         .page { margin: 0 !important; box-shadow: none !important; page-break-after: always; padding: 40px 48px !important; width: 297mm !important; height: 210mm !important; }
         .intro-page { padding: 40px 48px 60px 60px !important; }
         .info-page { padding: 48px 60px !important; }
-        .model-selector, #aux-sticky-buttons, #aux-lang-modal { display: none !important; }
+        .model-selector, #aux-sticky-buttons, #aux-lang-modal, #aux-quality-modal { display: none !important; }
       }
     `;
   }
@@ -2558,6 +2650,22 @@ if (selectionState.solar) {
             <button data-select-lang="en" class="lang-btn">English</button>
             <button data-select-lang="ro" class="lang-btn">Română</button>
             <button data-select-lang="de" class="lang-btn">Deutsch</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="aux-quality-modal">
+        <div class="quality-modal-content">
+          <h3>PDF Quality</h3>
+          <div class="quality-options">
+            <button data-quality="low" class="quality-btn">
+              <span class="quality-title">Low Size</span>
+              <span class="quality-desc">Smaller file, faster</span>
+            </button>
+            <button data-quality="high" class="quality-btn">
+              <span class="quality-title">Full Quality</span>
+              <span class="quality-desc">Best for printing</span>
+            </button>
           </div>
         </div>
       </div>
