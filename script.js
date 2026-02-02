@@ -199,6 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
       customPlan: "Plan personalizat",
       osbStandard: "OSB (Standard)",
       included: "Inclus",
+      total: "Total",
       dimensions: "Dimensiuni",
       exteriorTotal: "Suprafață Totală Exterioară",
       interiorTotal: "Suprafață Totală Interioară",
@@ -382,6 +383,7 @@ document.addEventListener("DOMContentLoaded", () => {
       customPlan: "Custom plan",
       osbStandard: "OSB (Standard)",
       included: "Included",
+      total: "Total",
       dimensions: "Dimensions",
       exteriorTotal: "Total Exterior Area",
       interiorTotal: "Total Interior Area",
@@ -1366,15 +1368,14 @@ if (selectionState.solar) {
       const floorplanData = modelData.images.floorplan[floorplan];
       if (floorplanData) {
         floorplanImage.src = floorplanData.url;
-        let detailsHtml = `<h3>${translations[currentLang].dimensions}</h3>`;
-        detailsHtml += createDetailItem(
-          translations[currentLang].exteriorTotal,
-          floorplanData.details.exteriorTotal,
-        );
-        detailsHtml += createDetailItem(
-          translations[currentLang].interiorTotal,
-          floorplanData.details.interiorTotal,
-        );
+        let detailsHtml = `<h3>${translations[currentLang].rooms}</h3>`;
+        for (const roomName in floorplanData.details.rooms) {
+          detailsHtml += createDetailItem(
+            translations[currentLang][roomName] || roomName,
+            floorplanData.details.rooms[roomName],
+          );
+        }
+        detailsHtml += `<h3>${translations[currentLang].dimensions}</h3>`;
         detailsHtml += createDetailItem(
           translations[currentLang].interiorDimensions,
           floorplanData.details.interior,
@@ -1383,13 +1384,15 @@ if (selectionState.solar) {
           translations[currentLang].exteriorDimensions,
           floorplanData.details.exterior,
         );
-        detailsHtml += `<h3>${translations[currentLang].rooms}</h3>`;
-        for (const roomName in floorplanData.details.rooms) {
-          detailsHtml += createDetailItem(
-            translations[currentLang][roomName] || roomName,
-            floorplanData.details.rooms[roomName],
-          );
-        }
+        detailsHtml += `<h3>${translations[currentLang].total}</h3>`;
+        detailsHtml += createDetailItem(
+          translations[currentLang].interiorTotal,
+          floorplanData.details.interiorTotal,
+        );
+        detailsHtml += createDetailItem(
+          translations[currentLang].exteriorTotal,
+          floorplanData.details.exteriorTotal,
+        );
         detailsWrapper.innerHTML = detailsHtml;
       } else {
         detailsWrapper.innerHTML = "";
