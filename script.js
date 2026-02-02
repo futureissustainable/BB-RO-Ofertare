@@ -11,7 +11,8 @@
  * @typedef {'a' | 'b' | 'c'} FloorplanId
  *
  * @typedef {Object} FloorplanDetails
- * @property {string} totalArea
+ * @property {string} exteriorTotal
+ * @property {string} interiorTotal
  * @property {string} interior
  * @property {string} exterior
  * @property {Record<string, string>} rooms
@@ -199,7 +200,8 @@ document.addEventListener("DOMContentLoaded", () => {
       osbStandard: "OSB (Standard)",
       included: "Inclus",
       dimensions: "Dimensiuni",
-      totalArea: "Suprafață Totală",
+      exteriorTotal: "Suprafață Totală Exterioară",
+      interiorTotal: "Suprafață Totală Interioară",
       interiorDimensions: "Dimensiuni Interioare",
       exteriorDimensions: "Dimensiuni Exterioare",
       rooms: "Camere",
@@ -381,7 +383,8 @@ document.addEventListener("DOMContentLoaded", () => {
       osbStandard: "OSB (Standard)",
       included: "Included",
       dimensions: "Dimensions",
-      totalArea: "Total Area",
+      exteriorTotal: "Total Exterior Area",
+      interiorTotal: "Total Interior Area",
       interiorDimensions: "Internal Dimensions",
       exteriorDimensions: "External Dimensions",
       rooms: "Rooms",
@@ -903,7 +906,8 @@ document.addEventListener("DOMContentLoaded", () => {
               name: "Plan A",
               url: "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/68c43d2244f5d6be3af87aab_24m2%20Floorplan%20A.avif",
               details: {
-                totalArea: "15.97m²",
+                exteriorTotal: "24.38m²",
+                interiorTotal: "15.97m²",
                 interior: "5.59m x 3.08m x 2.50m",
                 exterior: "6.35m x 3.84m x 3.30m",
                 rooms: {
@@ -916,7 +920,8 @@ document.addEventListener("DOMContentLoaded", () => {
               name: "Plan B",
               url: "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/68c43d22e33276e515d43a8f_24m2%20Floorplan%20B.avif",
               details: {
-                totalArea: "15.97m²",
+                exteriorTotal: "24.38m²",
+                interiorTotal: "15.97m²",
                 interior: "5.59m x 3.08m x 2.50m",
                 exterior: "6.35m x 3.84m x 3.30m",
                 rooms: {
@@ -958,7 +963,8 @@ document.addEventListener("DOMContentLoaded", () => {
               name: "Plan A",
               url: "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/689c525733fc3797a1ea68b6_48m2%20Floorplan%20A.png",
               details: {
-                totalArea: "35.2m²",
+                exteriorTotal: "48.35m²",
+                interiorTotal: "35.2m²",
                 interior: "11.83m x 3.08m x 2.50m",
                 exterior: "12.59m x 3.84m x 3.30m",
                 rooms: {
@@ -972,7 +978,8 @@ document.addEventListener("DOMContentLoaded", () => {
               name: "Plan B",
               url: "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/689c514f671a54486d036b53_48m2%20Floorplan%20B.png",
               details: {
-                totalArea: "34.7m²",
+                exteriorTotal: "48.35m²",
+                interiorTotal: "34.7m²",
                 interior: "11.83m x 3.08m x 2.50m",
                 exterior: "12.59m x 3.84m x 3.30m",
                 rooms: {
@@ -1017,7 +1024,8 @@ document.addEventListener("DOMContentLoaded", () => {
               name: "Plan A",
               url: "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/689c514e29f50d2da31e84dc_95m2%20Floorplan%20A.png",
               details: {
-                totalArea: "76.98m²",
+                exteriorTotal: "95.56m²",
+                interiorTotal: "76.98m²",
                 interior: "11.83m x 6.83m x 2.50m",
                 exterior: "12.59m x 7.59m x 3.30m",
                 rooms: {
@@ -1034,7 +1042,8 @@ document.addEventListener("DOMContentLoaded", () => {
               name: "Plan B",
               url: "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/689c514fdf7becede16b71e9_95m2%20Floorplan%20B.png",
               details: {
-                totalArea: "77.65m²",
+                exteriorTotal: "95.56m²",
+                interiorTotal: "77.65m²",
                 interior: "11.83m x 6.83m x 2.50m",
                 exterior: "12.59m x 7.59m x 3.30m",
                 rooms: {
@@ -1050,7 +1059,8 @@ document.addEventListener("DOMContentLoaded", () => {
               name: "Plan C",
               url: "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/689c514ff885d32e87f5d5ef_95m2%20Floorplan%20C.png",
               details: {
-                totalArea: "78.13m²",
+                exteriorTotal: "95.56m²",
+                interiorTotal: "78.13m²",
                 interior: "11.83m x 6.83m x 2.50m",
                 exterior: "12.59m x 7.59m x 3.30m",
                 rooms: {
@@ -1094,7 +1104,8 @@ document.addEventListener("DOMContentLoaded", () => {
               name: "Plan A",
               url: "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/689c514ff7e14cb1b083351b_142m2%20Floorplan%20A.png",
               details: {
-                totalArea: "120.33m²",
+                exteriorTotal: "142.77m²",
+                interiorTotal: "120.33m²",
                 interior: "11.83m x 10.58m x 2.50m",
                 exterior: "12.59m x 11.34m x 3.30m",
                 rooms: {
@@ -1112,7 +1123,8 @@ document.addEventListener("DOMContentLoaded", () => {
               name: "Plan B",
               url: "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/689c514f6966128dbeb27986_142m2%20Floorplan%20B.png",
               details: {
-                totalArea: "120.79m²",
+                exteriorTotal: "142.77m²",
+                interiorTotal: "120.79m²",
                 interior: "11.83m x 10.58m x 2.50m",
                 exterior: "12.59m x 11.34m x 3.30m",
                 rooms: {
@@ -1129,7 +1141,8 @@ document.addEventListener("DOMContentLoaded", () => {
               name: "Plan C",
               url: "https://cdn.prod.website-files.com/6801f60a2febd7da21a30b43/689c514fd4d57aa8ff3d75e9_142m2%20Floorplan%20C.png",
               details: {
-                totalArea: "121.46m²",
+                exteriorTotal: "142.77m²",
+                interiorTotal: "121.46m²",
                 interior: "11.83m x 10.58m x 2.50m",
                 exterior: "12.59m x 11.34m x 3.30m",
                 rooms: {
@@ -1355,8 +1368,12 @@ if (selectionState.solar) {
         floorplanImage.src = floorplanData.url;
         let detailsHtml = `<h3>${translations[currentLang].dimensions}</h3>`;
         detailsHtml += createDetailItem(
-          translations[currentLang].totalArea,
-          floorplanData.details.totalArea,
+          translations[currentLang].exteriorTotal,
+          floorplanData.details.exteriorTotal,
+        );
+        detailsHtml += createDetailItem(
+          translations[currentLang].interiorTotal,
+          floorplanData.details.interiorTotal,
         );
         detailsHtml += createDetailItem(
           translations[currentLang].interiorDimensions,
