@@ -80,7 +80,8 @@ export interface TranslationStrings {
   osbStandard: string;
   included: string;
   dimensions: string;
-  totalArea: string;
+  exteriorTotal: string;
+  interiorTotal: string;
   interiorDimensions: string;
   exteriorDimensions: string;
   rooms: string;
@@ -163,7 +164,8 @@ export type Translations = Record<Language, TranslationStrings>;
 
 // Floorplan details
 export interface FloorplanDetails {
-  totalArea: string;
+  exteriorTotal: string;
+  interiorTotal: string;
   interior: string;
   exterior: string;
   rooms: Record<string, string>;
