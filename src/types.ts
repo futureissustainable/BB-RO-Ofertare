@@ -79,6 +79,7 @@ export interface TranslationStrings {
   customPlan: string;
   osbStandard: string;
   included: string;
+  total: string;
   dimensions: string;
   exteriorTotal: string;
   interiorTotal: string;
